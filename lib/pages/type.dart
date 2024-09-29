@@ -54,7 +54,7 @@ class Type extends StatelessWidget {
                         child: const Text('Anxiety'),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
                         print("Motivation button pressed");
@@ -73,7 +73,7 @@ class Type extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     InkWell(
@@ -92,7 +92,7 @@ class Type extends StatelessWidget {
                         child: const Text('Confidence'),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
                         print("Sleep button pressed");
@@ -111,7 +111,7 @@ class Type extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     InkWell(
@@ -130,7 +130,7 @@ class Type extends StatelessWidget {
                         child: const Text('Depression'),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
                         print("Work Stress button pressed");
@@ -149,7 +149,7 @@ class Type extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Row(
                   children: [
                     InkWell(
@@ -168,7 +168,7 @@ class Type extends StatelessWidget {
                         child: const Text('Relationships'),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     InkWell(
                       onTap: () {
                         print("Exam Stress button pressed");
