@@ -41,18 +41,26 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeColor = Colors.teal;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Community Page'),
+        title: const Text('Community Page'),
+        centerTitle: true,
+        backgroundColor: themeColor,
+        elevation: 4,
       ),
       body: Column(
         children: <Widget>[
           Expanded(
             child: _posts.isEmpty
-                ? Center(
+                ? const Center(
                     child: Text(
                       'No posts yet. Be the first to contribute!',
-                      style: TextStyle(fontSize: 16.0),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.grey,
+                      ),
                     ),
                   )
                 : ListView.builder(
@@ -60,23 +68,49 @@ class _CommunityPageState extends State<CommunityPage> {
                     itemBuilder: (context, index) {
                       final post = _posts[index];
                       return Card(
+                        elevation: 4,
                         margin: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 16.0),
-                        color: const Color(0xFFC5C5C5),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        color: Colors.teal.shade50,
                         child: ListTile(
-                          title: Text(post['content']),
+                          title: Text(
+                            post['content'],
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
                           subtitle: Text(
-                              'Posted on ${_formatTimestamp(post['timestamp'])}'),
+                            'Posted on ${_formatTimestamp(post['timestamp'])}',
+                            style: const TextStyle(
+                              color: Colors.black54,
+                            ),
+                          ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                icon: Icon(Icons.thumb_up_off_alt_rounded),
+                                icon: Icon(
+                                  Icons.thumb_up_off_alt_rounded,
+                                  color: themeColor,
+                                ),
                                 onPressed: () => _likePost(index),
                               ),
-                              Text('${post['likes']}'),
+                              Text(
+                                '${post['likes']}',
+                                style: TextStyle(
+                                  color: themeColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red.shade400,
+                                ),
                                 onPressed: () => _deletePost(index),
                               ),
                             ],
@@ -87,7 +121,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(12.0),
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -95,15 +129,36 @@ class _CommunityPageState extends State<CommunityPage> {
                     controller: _controller,
                     decoration: InputDecoration(
                       labelText: 'Enter your post',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.edit),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: themeColor, width: 2),
+                      ),
+                      prefixIcon: Icon(Icons.edit, color: themeColor),
+                      filled: true,
+                      fillColor: Colors.teal.shade50,
+                      labelStyle: TextStyle(color: themeColor),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: themeColor, width: 2),
+                      ),
                     ),
                   ),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _addPost,
-                  child: Text('Post'),
+                  child: const Text(
+                    'Post',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: themeColor,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 25.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                 ),
               ],
             ),
