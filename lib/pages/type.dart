@@ -105,7 +105,7 @@ class _TypeState extends State<Type> {
                             top: 8,
                             right: 8,
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.white,
                                 shape: BoxShape.circle,
                               ),
