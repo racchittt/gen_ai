@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/breathe.dart';
+import 'package:gen_ai/pages/chat_screen.dart';
 import 'package:gen_ai/pages/community.dart';
 import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/journal.dart';
@@ -36,7 +37,8 @@ class _NavigateState extends State<Navigate> {
               BasicButton('Type', onType),
               BasicButton('Journal', onJournal),
               BasicButton('Community', onCommunity),
-              BasicButton('Meditation', onMeditation)
+              BasicButton('Meditation', onMeditation),
+              BasicButton('Chat', onChat),
             ],
           ),
         ));
@@ -46,32 +48,30 @@ class _NavigateState extends State<Navigate> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => MoodScreen()));
   }
-
   void onBreathe() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => BreathingScreen()));
   }
-
   void onDash() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => DashboardPage()));
   }
-
   void onType() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Type()));
   }
-
   void onJournal() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Journal()));
   }
-
   void onCommunity() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => CommunityPage()));
   }
-
   void onMeditation() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => MeditationScreen()));
+  }
+  void onChat() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ChatScreen()));
   }
 }
