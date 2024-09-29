@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/sos.dart';
 import '../util/exercise_tile.dart';
 import '../components/emoticon_faces.dart'; // Import the new component
 
@@ -48,15 +49,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             )
                           ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.orange[600],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          padding: EdgeInsets.all(12.0),
-                          child: Icon(
-                            Icons.sos,
-                            color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SosScreen()));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.orange[600],
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            padding: EdgeInsets.all(12.0),
+                            child: Icon(
+                              Icons.sos,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -78,20 +87,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-                            Icon(
-                              Icons.sunny,
-                              color: Colors.teal,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'My Day',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 20),
-                            )
-                          ]),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.sunny,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'My Day',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                         ),
                         Spacer(),
                         Container(
@@ -106,20 +118,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,children: [
-                            Icon(
-                              Icons.music_note,
-                              color: Colors.teal,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'Chill',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 20),
-                            )
-                          ]),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.music_note,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'Chill',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                         ),
                       ],
                     ),
@@ -135,21 +150,24 @@ class _DashboardPageState extends State<DashboardPage> {
                           child: Image.asset("assets/images/otter.gif",
                               height: 90, width: 80, fit: BoxFit.cover),
                         ),
-                        SizedBox(width: 10), // Added space between image and text
-                        Expanded( // Make sure the text takes remaining space
+                        SizedBox(
+                            width: 10), // Added space between image and text
+                        Expanded(
+                          // Make sure the text takes remaining space
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(padding: const EdgeInsets.fromLTRB(18.0,0,0,0),
-                              child: 
-                              Text(
-                                'Pepo loves to talk!',
-                                style: TextStyle(
-                                  color: Colors.teal[600],
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+                                child: Text(
+                                  'Pepo loves to talk!',
+                                  style: TextStyle(
+                                    color: Colors.teal[600],
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
                               ),
                               SizedBox(
                                 height: 10,
@@ -214,7 +232,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       height: 20,
                     ),
                     ListView(
-                      physics: NeverScrollableScrollPhysics(), // Prevents nested scrolling
+                      physics:
+                          NeverScrollableScrollPhysics(), // Prevents nested scrolling
                       shrinkWrap: true, // Allow ListView to take minimum height
                       children: [
                         ExerciseTile(

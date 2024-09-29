@@ -6,7 +6,10 @@ class SosScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SOS'),
+        title: const Text(
+          'SOS',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         backgroundColor: Colors.teal,
         elevation: 0,
