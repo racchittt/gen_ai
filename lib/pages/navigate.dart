@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/breathe.dart';
+import 'package:gen_ai/pages/community.dart';
 import 'package:gen_ai/pages/dashboard.dart';
+import 'package:gen_ai/pages/journal.dart';
+import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
 import 'package:gen_ai/pages/type.dart';
 import 'package:gen_ai/widgets/basic_button.dart';
@@ -31,6 +34,9 @@ class _NavigateState extends State<Navigate> {
               BasicButton('Dashboard', onDash),
               BasicButton('Breathe', onBreathe),
               BasicButton('Type', onType),
+              BasicButton('Journal', onJournal),
+              BasicButton('Community', onCommunity),
+              BasicButton('Meditation', onMeditation)
             ],
           ),
         ));
@@ -53,5 +59,19 @@ class _NavigateState extends State<Navigate> {
 
   void onType() {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Type()));
+  }
+
+  void onJournal() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Journal()));
+  }
+
+  void onCommunity() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => CommunityPage()));
+  }
+
+  void onMeditation() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MeditationScreen()));
   }
 }
