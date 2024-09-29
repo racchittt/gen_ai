@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gen_ai/components/lottie_widget.dart';
 import 'package:gen_ai/components/motivation_widget.dart';
 import 'package:gen_ai/pages/navigate.dart';
+import 'package:gen_ai/themes/colors.dart';
 
 class HeroPage extends StatefulWidget {
   const HeroPage({super.key});
@@ -52,6 +53,13 @@ class _HeroPageState extends State<HeroPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Text(
+            'Vayu',
+            style: TextStyle(color: Mint),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.white),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

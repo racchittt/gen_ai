@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/bento_grid.dart';
 import 'package:gen_ai/pages/breathe.dart';
 import 'package:gen_ai/pages/chat_screen.dart';
 import 'package:gen_ai/pages/community.dart';
 import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/hero_page.dart';
 import 'package:gen_ai/pages/journal.dart';
 import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
 import 'package:gen_ai/pages/type.dart';
-import 'package:gen_ai/pages/goals.dart';
 import 'package:gen_ai/widgets/basic_button.dart';
 
 class Navigate extends StatefulWidget {
@@ -41,8 +40,6 @@ class _NavigateState extends State<Navigate> {
               BasicButton('Type', onType),
               BasicButton('Journal', onJournal),
               BasicButton('Community', onCommunity),
-              BasicButton('Meditation', onMeditation),
-              BasicButton('Goals', onGoal),
             ],
           ),
           Row(
@@ -50,15 +47,7 @@ class _NavigateState extends State<Navigate> {
             children: [
               BasicButton('Meditation', onMeditation),
               BasicButton('Chat', onChat),
-              BasicButton('Hero', onHero),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              BasicButton('Meditation', onMeditation),
-              BasicButton('Chat', onChat),
-              BasicButton('Hero', onHero),
+              BasicButton('Bento', onBento),
             ],
           )
         ],
@@ -98,18 +87,14 @@ class _NavigateState extends State<Navigate> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => MeditationScreen()));
   }
-  void onGoal() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => GoalScreen()));
-  }
 
   void onChat() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => ChatScreen()));
   }
 
-  void onHero() {
+  void onBento() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HeroPage()));
+        context, MaterialPageRoute(builder: (context) => BentoGridPage()));
   }
 }
