@@ -2,6 +2,70 @@ import 'package:flutter/material.dart';
 import '../util/exercise_tile.dart';
 import '../components/emoticon_faces.dart'; // Import the new component
 
+class HorizontalCards extends StatelessWidget {
+  final List<CardItem> items;
+
+  HorizontalCards({required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150, // Set height for horizontal list view
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 120, // Width of each card
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    items[index].icon,
+                    size: 40,
+                    color: Colors.teal,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    items[index].label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.teal[600],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CardItem {
+  final IconData icon;
+  final String label;
+
+  CardItem({required this.icon, required this.label});
+}
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -10,6 +74,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  List<CardItem> cardItems = [
+    CardItem(icon: Icons.directions_run, label: 'Running'),
+    CardItem(icon: Icons.fitness_center, label: 'Workout'),
+    CardItem(icon: Icons.fastfood, label: 'Healthy Food'),
+    CardItem(icon: Icons.spa, label: 'Meditation'),
+    CardItem(icon: Icons.music_note, label: 'Music'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,20 +149,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-                            Icon(
-                              Icons.sunny,
-                              color: Colors.teal,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'My Day',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 20),
-                            )
-                          ]),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.sunny,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'My Day',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                         ),
                         Spacer(),
                         Container(
@@ -106,20 +180,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,children: [
-                            Icon(
-                              Icons.music_note,
-                              color: Colors.teal,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'Chill',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 20),
-                            )
-                          ]),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.music_note,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'Chill',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                         ),
                       ],
                     ),
@@ -135,21 +212,24 @@ class _DashboardPageState extends State<DashboardPage> {
                           child: Image.asset("assets/images/otter.gif",
                               height: 90, width: 80, fit: BoxFit.cover),
                         ),
-                        SizedBox(width: 10), // Added space between image and text
-                        Expanded( // Make sure the text takes remaining space
+                        SizedBox(
+                            width: 10), // Added space between image and text
+                        Expanded(
+                          // Make sure the text takes remaining space
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(padding: const EdgeInsets.fromLTRB(18.0,0,0,0),
-                              child: 
-                              Text(
-                                'Pepo loves to talk!',
-                                style: TextStyle(
-                                  color: Colors.teal[600],
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+                                child: Text(
+                                  'Pepo loves to talk!',
+                                  style: TextStyle(
+                                    color: Colors.teal[600],
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
                               ),
                               SizedBox(
                                 height: 10,
@@ -201,7 +281,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Exercises',
+                          'Quick Refresh',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -213,8 +293,27 @@ class _DashboardPageState extends State<DashboardPage> {
                     SizedBox(
                       height: 20,
                     ),
+                    HorizontalCards(items: cardItems),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      alignment:
+                          Alignment.centerLeft, // Aligns the text to the start
+                      child: Text(
+                        'Exercises',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     ListView(
-                      physics: NeverScrollableScrollPhysics(), // Prevents nested scrolling
+                      physics:
+                          NeverScrollableScrollPhysics(), // Prevents nested scrolling
                       shrinkWrap: true, // Allow ListView to take minimum height
                       children: [
                         ExerciseTile(
