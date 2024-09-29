@@ -24,73 +24,81 @@ class _JournalState extends State<Journal> {
 
   @override
   Widget build(BuildContext context) {
+    final themeColor = Colors.teal;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gratitude"),
+        title: const Text("Gratitude Journal"),
         centerTitle: true,
+        backgroundColor: themeColor,
+        elevation: 5,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Write three points on gratitude!',
+                  'Write three points of gratitude!',
                   style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.black,
-                    fontStyle: FontStyle.italic,
+                    fontSize: 24.0,
+                    color: Colors.black87,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
-                TextField(
-                  controller: field1,
-                  decoration: const InputDecoration(
-                    labelText: "I am grateful for",
-                    icon: Icon(Icons.monitor_heart_sharp),
-                  ),
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.easeInOut,
+                  child:
+                      _buildTextField(field1, "I am grateful for", themeColor),
                 ),
                 const SizedBox(height: 20),
-                TextField(
-                  controller: field2,
-                  decoration: const InputDecoration(
-                    labelText: "I am grateful for",
-                    icon: Icon(Icons.monitor_heart_sharp),
-                  ),
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.easeInOut,
+                  child:
+                      _buildTextField(field1, "I am grateful for", themeColor),
                 ),
                 const SizedBox(height: 20),
-                TextField(
-                  controller: field3,
-                  decoration: const InputDecoration(
-                    labelText: "I am grateful for",
-                    icon: Icon(Icons.monitor_heart_rounded),
-                  ),
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.done,
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.easeInOut,
+                  child:
+                      _buildTextField(field1, "I am grateful for", themeColor),
                 ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        // Share functionality here
-                      },
-                      icon: const Icon(
-                        Icons.share,
-                        size: 24.0,
+                const SizedBox(height: 30),
+                Center(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      // Share functionality
+                    },
+                    icon: const Icon(Icons.share,
+                        size: 24.0, color: Colors.white),
+                    label: const Text('Share',
+                        style: TextStyle(color: Colors.white)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: themeColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      label: const Text('Share'),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 25),
                     ),
-                  ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                const Center(
+                  child: Text(
+                    'Keep writing and expressing gratitude!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black54,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 const LottieWidget(path: 'assets/animations/writing.json'),
@@ -99,6 +107,30 @@ class _JournalState extends State<Journal> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField(
+      TextEditingController controller, String labelText, Color themeColor) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(color: themeColor),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: themeColor, width: 2),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: themeColor.withOpacity(0.6), width: 1),
+        ),
+        prefixIcon: Icon(Icons.favorite, color: themeColor),
+        filled: true,
+        fillColor: Colors.teal.shade50,
+      ),
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.done,
     );
   }
 }
