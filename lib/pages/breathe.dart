@@ -15,6 +15,8 @@ class _BreathingScreenState extends State<BreathingScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: 30.0,

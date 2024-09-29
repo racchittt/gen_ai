@@ -24,6 +24,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
     if (isPlaying) {
       await _audioPlayer.pause();
     } else {
+      print(widget.songPath);
       await _audioPlayer.play(AssetSource(widget.songPath));
     }
     setState(() {
