@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/mood.dart';
-import 'package:gen_ai/pages/navigate.dart';
+import 'package:gen_ai/pages/hero_page.dart';
 
 void main() {
-  runApp(MaterialApp(home: Navigate()));
+  runApp(MaterialApp(
+    title: 'GenAI',
+    debugShowCheckedModeBanner: false,
+    home: HeroPage(),
+  ));
 }
