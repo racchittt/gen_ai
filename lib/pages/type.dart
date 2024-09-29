@@ -137,7 +137,7 @@ class Type extends StatelessWidget {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.green[300],
+                          color: Colors.lightGreenAccent[400],
                           borderRadius: BorderRadius.circular(8),
                         ),
                         width: 180,
