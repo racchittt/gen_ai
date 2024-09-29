@@ -6,6 +6,7 @@ import 'package:gen_ai/pages/journal.dart';
 import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
 import 'package:gen_ai/pages/type.dart';
+import 'package:gen_ai/pages/goals.dart';
 import 'package:gen_ai/widgets/basic_button.dart';
 
 class Navigate extends StatefulWidget {
@@ -36,7 +37,8 @@ class _NavigateState extends State<Navigate> {
               BasicButton('Type', onType),
               BasicButton('Journal', onJournal),
               BasicButton('Community', onCommunity),
-              BasicButton('Meditation', onMeditation)
+              BasicButton('Meditation', onMeditation),
+              BasicButton('Goals', onGoal),
             ],
           ),
         ));
@@ -73,5 +75,9 @@ class _NavigateState extends State<Navigate> {
   void onMeditation() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => MeditationScreen()));
+  }
+  void onGoal() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => GoalScreen()));
   }
 }
