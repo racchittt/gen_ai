@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/sos.dart';
 import '../util/exercise_tile.dart';
 import '../components/emoticon_faces.dart'; // Import the new component
 
@@ -119,15 +120,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             )
                           ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.orange[600],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          padding: EdgeInsets.all(12.0),
-                          child: Icon(
-                            Icons.sos,
-                            color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SosScreen()));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.orange[600],
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            padding: EdgeInsets.all(12.0),
+                            child: Icon(
+                              Icons.sos,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
