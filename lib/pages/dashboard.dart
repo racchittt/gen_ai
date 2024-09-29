@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../util/exercise_tile.dart';
-import '../components/emoticon_faces.dart'; // Import the new component
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -78,20 +77,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: [
-                            Icon(
-                              Icons.sunny,
-                              color: Colors.teal,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'My Day',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 20),
-                            )
-                          ]),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.sunny,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'My Day',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                         ),
                         Spacer(),
                         Container(
@@ -106,28 +108,29 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center,children: [
-                            Icon(
-                              Icons.music_note,
-                              color: Colors.teal,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                              'Chill',
-                              style:
-                                  TextStyle(color: Colors.teal, fontSize: 20),
-                            )
-                          ]),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.music_note,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'Chill',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                         ),
                       ],
                     ),
                     SizedBox(
                       height: 25,
                     ),
-
-                    // Use the new EmoticonFacesComponent here
                     Row(
                       children: [
                         Container(
@@ -135,21 +138,22 @@ class _DashboardPageState extends State<DashboardPage> {
                           child: Image.asset("assets/images/otter.gif",
                               height: 90, width: 80, fit: BoxFit.cover),
                         ),
-                        SizedBox(width: 10), // Added space between image and text
-                        Expanded( // Make sure the text takes remaining space
+                        SizedBox(width: 10),
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(padding: const EdgeInsets.fromLTRB(18.0,0,0,0),
-                              child: 
-                              Text(
-                                'Pepo loves to talk!',
-                                style: TextStyle(
-                                  color: Colors.teal[600],
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+                                child: Text(
+                                  'Pepo loves to talk!',
+                                  style: TextStyle(
+                                    color: Colors.teal[600],
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
                               ),
                               SizedBox(
                                 height: 10,
@@ -214,7 +218,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       height: 20,
                     ),
                     ListView(
-                      physics: NeverScrollableScrollPhysics(), // Prevents nested scrolling
+                      physics:
+                          NeverScrollableScrollPhysics(), // Prevents nested scrolling
                       shrinkWrap: true, // Allow ListView to take minimum height
                       children: [
                         ExerciseTile(
