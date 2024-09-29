@@ -37,6 +37,7 @@ class _NavigateState extends State<Navigate> {
               BasicButton('Journal', onJournal),
               BasicButton('Community', onCommunity),
               BasicButton('Meditation', onMeditation)
+              // StackedCardsPage(),
             ],
           ),
         ));
