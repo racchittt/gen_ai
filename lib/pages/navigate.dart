@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/bento_grid.dart';
 import 'package:gen_ai/pages/breathe.dart';
 import 'package:gen_ai/pages/chat_screen.dart';
 import 'package:gen_ai/pages/community.dart';
 import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/hero_page.dart';
 import 'package:gen_ai/pages/journal.dart';
 import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
@@ -47,7 +47,7 @@ class _NavigateState extends State<Navigate> {
             children: [
               BasicButton('Meditation', onMeditation),
               BasicButton('Chat', onChat),
-              BasicButton('Hero', onHero),
+              BasicButton('Bento', onBento),
             ],
           )
         ],
@@ -93,8 +93,8 @@ class _NavigateState extends State<Navigate> {
         context, MaterialPageRoute(builder: (context) => ChatScreen()));
   }
 
-  void onHero() {
+  void onBento() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HeroPage()));
+        context, MaterialPageRoute(builder: (context) => BentoGridPage()));
   }
 }

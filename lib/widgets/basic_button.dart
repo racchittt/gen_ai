@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/themes/colors.dart';
 
 class BasicButton extends StatelessWidget {
   const BasicButton(this.text, this.onPressed, {super.key});
@@ -20,16 +21,14 @@ class BasicButton extends StatelessWidget {
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white, // Text color
-              backgroundColor:
-                  Colors.green[300], // Mint green for button background
+              backgroundColor: Mint, // Mint green for button background
               padding:
                   EdgeInsets.symmetric(vertical: 16), // Increase button height
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12), // Rounded corners
               ),
               elevation: 5, // Add shadow for depth
-              shadowColor:
-                  Colors.green[500], // Slightly darker mint shadow color
+              shadowColor: Mint, // Slightly darker mint shadow color
               textStyle: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold, // Bold text
