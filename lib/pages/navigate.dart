@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/bento_grid.dart';
 import 'package:gen_ai/pages/breathe.dart';
 import 'package:gen_ai/pages/chat_screen.dart';
 import 'package:gen_ai/pages/community.dart';
@@ -7,6 +6,7 @@ import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/journal.dart';
 import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
+import 'package:gen_ai/pages/music_player.dart';
 import 'package:gen_ai/pages/type.dart';
 import 'package:gen_ai/widgets/basic_button.dart';
 
@@ -47,7 +47,7 @@ class _NavigateState extends State<Navigate> {
             children: [
               BasicButton('Meditation', onMeditation),
               BasicButton('Chat', onChat),
-              BasicButton('Bento', onBento),
+              BasicButton('Music', onMusic),
             ],
           )
         ],
@@ -93,8 +93,8 @@ class _NavigateState extends State<Navigate> {
         context, MaterialPageRoute(builder: (context) => ChatScreen()));
   }
 
-  void onBento() {
+  void onMusic() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => BentoGridPage()));
+        context, MaterialPageRoute(builder: (context) => MusicPlayerPage()));
   }
 }
