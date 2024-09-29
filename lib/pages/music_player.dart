@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/songs.dart';
 
-class MusicPlayerPage extends StatelessWidget {
+class MusicPlayerPage extends StatefulWidget {
+  @override
+  _MusicPlayerPageState createState() => _MusicPlayerPageState();
+}
+
+class _MusicPlayerPageState extends State<MusicPlayerPage> {
   final List<Map<String, dynamic>> categories = [
     {
       'title': 'Nature',
@@ -25,12 +30,31 @@ class MusicPlayerPage extends StatelessWidget {
     },
   ];
 
+  List<double> _opacityList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize opacity list with 0
+    _opacityList = List<double>.filled(categories.length, 0.0);
+    _animateGridItems();
+  }
+
+  void _animateGridItems() async {
+    for (int i = 0; i < categories.length; i++) {
+      await Future.delayed(Duration(milliseconds: 300)); // Delay for effect
+      setState(() {
+        _opacityList[i] = 1.0; // Fade in effect
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.teal,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.teal,
+      // ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -47,15 +71,15 @@ class MusicPlayerPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 20.0), // Add some vertical space
+              Container(
+                padding: const EdgeInsets.all(20),
+                margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                 child: Text(
-                  'Listen to therapy music',
+                  'Listen to \ntherapy music ..',
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: ,
-                    fontSize: 24,
+                    fontFamily: 'Poppins',
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -70,58 +94,63 @@ class MusicPlayerPage extends StatelessWidget {
                     childAspectRatio: 1 / 1.6,
                   ),
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SongListPage(
-                              title: categories[index]['title'],
-                              songs: categories[index]['songs'],
+                    return AnimatedOpacity(
+                      opacity: _opacityList[index],
+                      duration: Duration(
+                          milliseconds: 500), // Duration of the fade-in effect
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SongListPage(
+                                title: categories[index]['title'],
+                                songs: categories[index]['songs'],
+                              ),
                             ),
+                          );
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        );
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        elevation: 5,
-                        child: Stack(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.asset(
-                                categories[index]['image'],
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                                height: double.infinity,
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
+                          elevation: 5,
+                          child: Stack(
+                            children: [
+                              ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.black.withOpacity(0.6),
-                                    Colors.transparent
-                                  ],
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
+                                child: Image.asset(
+                                  categories[index]['image'],
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
                                 ),
                               ),
-                              alignment: Alignment.bottomCenter,
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                categories[index]['title'],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.black.withOpacity(0.6),
+                                      Colors.transparent,
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                  ),
+                                ),
+                                alignment: Alignment.bottomCenter,
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  categories[index]['title'],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );
