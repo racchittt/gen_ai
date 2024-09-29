@@ -7,7 +7,6 @@ import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/journal.dart';
 import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
-import 'package:gen_ai/pages/sos.dart';
 import 'package:gen_ai/pages/type.dart';
 import 'package:gen_ai/widgets/basic_button.dart';
 
@@ -96,6 +95,6 @@ class _NavigateState extends State<Navigate> {
 
   void onBento() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => SosScreen()));
+        context, MaterialPageRoute(builder: (context) => BentoGridPage()));
   }
 }
