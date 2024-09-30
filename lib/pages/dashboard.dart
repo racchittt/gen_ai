@@ -76,23 +76,70 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   List<CardItem> cardItems = [
-    CardItem(icon: Icons.directions_run, label: 'Running'),
+    CardItem(icon: Icons.self_improvement_sharp, label: 'Meditate'),
     CardItem(icon: Icons.fitness_center, label: 'Workout'),
     CardItem(icon: Icons.fastfood, label: 'Healthy Food'),
-    CardItem(icon: Icons.spa, label: 'Meditation'),
     CardItem(icon: Icons.music_note, label: 'Music'),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[50],
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
+  backgroundColor: Colors.teal[50],
+  bottomNavigationBar: Container( // Margin to lift the bottom navigation
+  decoration: BoxDecoration(
+    color: Colors.transparent, // Background color of the BottomNavigationBar
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(10.0),  // Rounded top-left corner
+      topRight: Radius.circular(10.0), // Rounded top-right corner // Rounded bottom-right corner
+    ),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black26, // Shadow color for floating effect
+        blurRadius: 10, // Softness of shadow
+        spreadRadius: 2, // Spread of the shadow
+        offset: Offset(0, 5), // Move shadow slightly down to mimic floating
       ),
+    ],
+  ),
+  child: ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(10.0),  // Rounded top-left corner
+      topRight: Radius.circular(10.0), // Rounded top-right corner
+    ),
+    child: BottomNavigationBar(
+      backgroundColor: Colors.white, // Background color of the BottomNavigationBar
+      selectedItemColor: Colors.teal[700], // Color of the selected item
+      unselectedItemColor: Colors.teal[600], // Color of unselected items
+      showSelectedLabels: true, // Show label for selected item
+      showUnselectedLabels: false, // Hide label for unselected items
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.bold, // Bold the selected label
+      ),
+      type: BottomNavigationBarType.fixed, // Prevents shifting effect
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.message),
+          label: 'Messages',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
+      selectedIconTheme: IconThemeData(
+        size: 30, // Increase size of selected icon
+      ),
+      unselectedIconTheme: IconThemeData(
+        size: 25, // Set size of unselected icons
+      ),
+    ),
+  ),
+),
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
