@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/breathe.dart';
+import 'package:gen_ai/pages/cbt/disclaimer.dart';
 import 'package:gen_ai/pages/chat_screen.dart';
 import 'package:gen_ai/pages/community.dart';
 import 'package:gen_ai/pages/dashboard.dart';
@@ -57,6 +58,7 @@ class _NavigateState extends State<Navigate> {
             children: [
               BasicButton('Login', onLogin),
               BasicButton('Card', onCard),
+              BasicButton('CBT', onCBT),
             ],
           ),
         ],
@@ -115,5 +117,10 @@ class _NavigateState extends State<Navigate> {
   void onCard() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => FlashCard()));
+  }
+
+  void onCBT() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Disclaimer()));
   }
 }
