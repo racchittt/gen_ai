@@ -57,34 +57,36 @@ class _HeroPageState extends State<HeroPage>
           ),
           centerTitle: true,
           backgroundColor: Colors.white),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FadeTransition(
-              opacity: _opacityAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: const LottieWidget(
-                  path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FadeTransition(
+                opacity: _opacityAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: const LottieWidget(
+                    path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+                  ),
                 ),
               ),
-            ),
-            FadeTransition(
-              opacity: _opacityAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: const MotivationWidget(),
+              FadeTransition(
+                opacity: _opacityAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: const MotivationWidget(),
+                ),
               ),
-            ),
-            FadeTransition(
-              opacity: _opacityAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: const Navigate(),
+              FadeTransition(
+                opacity: _opacityAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: const Navigate(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
