@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:gen_ai/components/lottie_widget.dart';
+import 'package:flutter/animation.dart';
 
 class MeditationScreen extends StatefulWidget {
   const MeditationScreen({super.key});
@@ -8,133 +10,244 @@ class MeditationScreen extends StatefulWidget {
   State<MeditationScreen> createState() => _MeditationScreenState();
 }
 
-class _MeditationScreenState extends State<MeditationScreen> {
-  final int _duration = 30;
+class _MeditationScreenState extends State<MeditationScreen>
+    with SingleTickerProviderStateMixin {
+  int _duration = 30;
   final CountDownController _controller = CountDownController();
+
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+
+  bool _isCompleted = false;
 
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+
+    _fadeAnimation =
+        Tween<double>(begin: 0, end: 1).animate(_animationController);
+
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _incrementDuration() {
+    setState(() {
+      _duration += 30;
+    });
+  }
+
+  void _decrementDuration() {
+    if (_duration > 30) {
+      setState(() {
+        _duration -= 30;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Meditate'),
+        title: const Text(
+          'Meditate',
+          style: TextStyle(color: Colors.teal),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Center(
-              child: CircularCountDownTimer(
-            // Countdown duration in Seconds.
-            duration: _duration,
-
-            // Countdown initial elapsed Duration in Seconds.
-            initialDuration: 0,
-
-            // Controls (i.e Start, Pause, Resume, Restart) the Countdown Timer.
-            controller: _controller,
-
-            // Width of the Countdown Widget.
-            width: MediaQuery.of(context).size.width / 2,
-
-            // Height of the Countdown Widget.
-            height: MediaQuery.of(context).size.height / 2,
-
-            // Ring Color for Countdown Widget.
-            ringColor: Colors.grey[300]!,
-
-            // Ring Gradient for Countdown Widget.
-            ringGradient: null,
-
-            // Filling Color for Countdown Widget.
-            fillColor: Colors.purpleAccent[100]!,
-
-            // Filling Gradient for Countdown Widget.
-            fillGradient: null,
-
-            // Background Color for Countdown Widget.
-            backgroundColor: Colors.yellow[500],
-
-            // Background Gradient for Countdown Widget.
-            backgroundGradient: null,
-
-            // Border Thickness of the Countdown Ring.
-            strokeWidth: 20.0,
-
-            // Begin and end contours with a flat edge and no extension.
-            strokeCap: StrokeCap.round,
-
-            // Text Style for Countdown Text.
-            textStyle: const TextStyle(
-              fontSize: 33.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.white!,
+              Colors.teal[50]!,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FadeTransition(
+              opacity: _fadeAnimation,
+              child: const SizedBox(
+                height: 150,
+                child: LottieWidget(
+                  path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+                ),
+              ),
             ),
+            const SizedBox(height: 20),
+            Text(
+              'Be Calm and Breathe Slowly',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal[700],
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Duration: ${_duration ~/ 60} min ${_duration % 60} sec',
+              style: TextStyle(fontSize: 18, color: Colors.teal[600]),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: _incrementDuration,
+                  color: Colors.teal,
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  icon: const Icon(Icons.remove),
+                  onPressed: _decrementDuration,
+                  color: Colors.teal,
+                ),
+              ],
+            ),
+            // const SizedBox(height: 20),
+            Container(
+              child: CircularCountDownTimer(
+                duration: _duration, // Use the user-selected duration
+                initialDuration: 0,
+                controller: _controller,
+                width: MediaQuery.of(context).size.width / 2.5,
+                height: MediaQuery.of(context).size.height / 2.5,
+                ringColor: Colors.grey[300]!,
+                fillColor: Colors.teal[200]!,
+                backgroundColor: Colors.teal[100],
+                strokeWidth: 6.0,
+                strokeCap: StrokeCap.round,
+                textStyle: const TextStyle(
+                  fontSize: 33.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                textFormat: CountdownTextFormat.S,
+                isReverse: false,
+                isReverseAnimation: false,
+                isTimerTextShown: true,
+                autoStart: false,
+                onStart: () {
+                  debugPrint('Countdown Started');
+                  _isCompleted = false; // Reset completion flag when starting
+                  _animationController
+                      .forward(); // Start fade animation when countdown starts
+                },
+                onComplete: () {
+                  if (_isCompleted) {
+                    // Check if already completed
+                    _isCompleted = false; // Set completion flag
 
-            // Format for the Countdown Text.
-            textFormat: CountdownTextFormat.S,
-
-            // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
-            isReverse: false,
-
-            // Handles Animation Direction (true for Reverse Animation, false for Forward Animation).
-            isReverseAnimation: false,
-
-            // Handles visibility of the Countdown Text.
-            isTimerTextShown: true,
-
-            // Handles the timer start.
-            autoStart: false,
-
-            // This Callback will execute when the Countdown Starts.
-            onStart: () {
-              // Here, do whatever you want
-              debugPrint('Countdown Started');
-            },
-
-            // This Callback will execute when the Countdown Ends.
-          )),
-        ],
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Meditation Complete!'),
+                        content: const Text('Well done on your meditation!'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+            const SizedBox(height: 30),
+          ],
+        ),
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(
-            width: 30,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Start and Pause button column
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _button(
+                    title: "Start",
+                    onPressed: () {
+                      _controller.restart(
+                          duration:
+                              _duration); // Start with the selected duration
+                      _animationController
+                          .forward(); // Start fade animation when countdown starts
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  _button(
+                    title: "Pause",
+                    onPressed: () => _controller.pause(),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 15), // Space between the two columns
+
+              // Resume and Restart button column
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _button(
+                    title: "Resume",
+                    onPressed: () => _controller.resume(),
+                  ),
+                  const SizedBox(height: 10),
+                  _button(
+                    title: "Restart",
+                    onPressed: () => _controller.restart(
+                        duration:
+                            _duration), // Restart with the selected duration
+                  ),
+                ],
+              ),
+            ],
           ),
-          _button(title: "Start", onPressed: () => _controller.start()),
-          const SizedBox(
-            width: 10,
-          ),
-          _button(title: "Pause", onPressed: () => _controller.pause()),
-          const SizedBox(
-            width: 10,
-          ),
-          _button(title: "Resume", onPressed: () => _controller.resume()),
-          const SizedBox(
-            width: 10,
-          ),
-          _button(
-              title: "Restart",
-              onPressed: () => _controller.restart(duration: _duration))
-        ],
+        ),
       ),
     );
   }
 
   Widget _button({required String title, VoidCallback? onPressed}) {
-    return Expanded(
-        child: ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.green),
+    return SizedBox(
+      width: 150, // Fixed width for buttons for uniformity
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(Colors.teal),
+          padding: WidgetStateProperty.all(const EdgeInsets.all(15)),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          )),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          title,
+          style: const TextStyle(color: Colors.white, fontSize: 16),
+        ),
       ),
-      onPressed: onPressed,
-      child: Text(
-        title,
-        style: const TextStyle(color: Colors.white),
-      ),
-    ));
+    );
   }
 }
