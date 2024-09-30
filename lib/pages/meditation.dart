@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:gen_ai/components/lottie_widget.dart'; // Replace with your Lottie animation widget
+import 'package:gen_ai/components/lottie_widget.dart';
 import 'package:flutter/animation.dart';
 
 class MeditationScreen extends StatefulWidget {
@@ -12,19 +12,17 @@ class MeditationScreen extends StatefulWidget {
 
 class _MeditationScreenState extends State<MeditationScreen>
     with SingleTickerProviderStateMixin {
-  int _duration = 30; // Default duration in seconds
+  int _duration = 30;
   final CountDownController _controller = CountDownController();
 
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
-  bool _isCompleted = false; // Flag to check if meditation is complete
+  bool _isCompleted = false;
 
   @override
   void initState() {
     super.initState();
-
-    // Initialize the AnimationController and fade animation
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
@@ -33,27 +31,25 @@ class _MeditationScreenState extends State<MeditationScreen>
     _fadeAnimation =
         Tween<double>(begin: 0, end: 1).animate(_animationController);
 
-    // Start the animation immediately
     _animationController.forward();
   }
 
   @override
   void dispose() {
-    _animationController
-        .dispose(); // Dispose of animation controller to prevent memory leaks
+    _animationController.dispose();
     super.dispose();
   }
 
   void _incrementDuration() {
     setState(() {
-      _duration += 30; // Increment by 30 seconds
+      _duration += 30;
     });
   }
 
   void _decrementDuration() {
     if (_duration > 30) {
       setState(() {
-        _duration -= 30; // Decrement by 30 seconds
+        _duration -= 30;
       });
     }
   }
@@ -155,8 +151,8 @@ class _MeditationScreenState extends State<MeditationScreen>
                       .forward(); // Start fade animation when countdown starts
                 },
                 onComplete: () {
-                  if (_isCompleted) {
-                    _isCompleted = false;
+                  if (_isCompleted) { // Check if already completed
+                    _isCompleted = false; // Set completion flag
 
                     showDialog(
                       context: context,
@@ -174,60 +170,60 @@ class _MeditationScreenState extends State<MeditationScreen>
                   }
                 },
               ),
-              const SizedBox(height: 0),
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Start and Pause button column
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _button(
-                          title: "Start",
-                          onPressed: () {
-                            _controller.restart(
-                                duration:
-                                    _duration); // Start with the selected duration
-                            _animationController
-                                .forward(); // Start fade animation when countdown starts
-                          },
-                        ),
-                        const SizedBox(width: 10),
-                        _button(
-                          title: "Resume",
-                          onPressed: () => _controller.resume(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15), // Space between the two rows
-
-                    // Pause and Restart button row
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _button(
-                          title: "Pause",
-                          onPressed: () => _controller.pause(),
-                        ),
-                        const SizedBox(width: 10),
-                        _button(
-                          title: "Restart",
-                          onPressed: () => _controller.restart(
-                              duration:
-                                  _duration), // Restart with the selected duration
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            const SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Start and Pause button column
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _button(
+                    title: "Start",
+                    onPressed: () {
+                      _controller.restart(
+                          duration:
+                              _duration); // Start with the selected duration
+                      _animationController
+                          .forward(); // Start fade animation when countdown starts
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  _button(
+                    title: "Pause",
+                    onPressed: () => _controller.pause(),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 15), // Space between the two columns
+
+            // Resume and Restart button column
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _button(
+                  title: "Resume",
+                  onPressed: () => _controller.resume(),
+                ),
+                const SizedBox(height: 10),
+                _button(
+                  title: "Restart",
+                  onPressed: () => _controller.restart(duration: _duration), // Restart with the selected duration
+                ),
+              ],
+            ),
+          ],
+        ),
+      )));
   }
 
   Widget _button({required String title, VoidCallback? onPressed}) {

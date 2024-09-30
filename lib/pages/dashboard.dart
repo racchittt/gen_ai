@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/sos.dart';
 import '../util/exercise_tile.dart';
-import '../components/emoticon_faces.dart'; // Import the new component
 
 class HorizontalCards extends StatelessWidget {
   final List<CardItem> items;
@@ -259,8 +258,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     SizedBox(
                       height: 25,
                     ),
-
-                    // Use the new EmoticonFacesComponent here
                     Row(
                       children: [
                         Container(
@@ -268,10 +265,8 @@ class _DashboardPageState extends State<DashboardPage> {
                           child: Image.asset("assets/images/otter.gif",
                               height: 90, width: 80, fit: BoxFit.cover),
                         ),
-                        SizedBox(
-                            width: 10), // Added space between image and text
+                        SizedBox(width: 10),
                         Expanded(
-                          // Make sure the text takes remaining space
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
