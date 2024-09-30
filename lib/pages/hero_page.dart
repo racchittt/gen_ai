@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/components/lottie_widget.dart';
 import 'package:gen_ai/components/motivation_widget.dart';
-import 'package:gen_ai/pages/navigate.dart';
+import 'package:gen_ai/pages/login.dart';
 import 'package:gen_ai/themes/colors.dart';
 
 class HeroPage extends StatefulWidget {
@@ -82,7 +82,23 @@ class _HeroPageState extends State<HeroPage>
                 opacity: _opacityAnimation,
                 child: ScaleTransition(
                   scale: _scaleAnimation,
-                  child: const Navigate(),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white),
+                      child: Text(
+                        'Proceed',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      )),
                 ),
               ),
             ],

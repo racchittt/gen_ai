@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gen_ai/components/my_button.dart';
 import 'package:gen_ai/components/my_textfield.dart';
 import 'package:gen_ai/components/square_tile.dart';
+import 'package:gen_ai/pages/type.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, this.onTap});
@@ -74,10 +75,10 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50),
 
                 // logo
-                 Container(
-                          alignment: Alignment.center,
-                          child: Image.asset("assets/images/otter-swim.gif",
-                              height: 140, width: 250, fit: BoxFit.cover),
+                Container(
+                  alignment: Alignment.center,
+                  child: Image.asset("assets/images/otter-swim.gif",
+                      height: 140, width: 250, fit: BoxFit.cover),
                 ),
 
                 const SizedBox(height: 50),
@@ -120,7 +121,13 @@ class _LoginPageState extends State<LoginPage> {
 
                 // sign in button
                 MyButton(
-                  onTap: signUserIn,
+                  onTap: () {
+                    // login logic after backend
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Type()),
+                    );
+                  },
                   text: 'Continue',
                 ),
 
@@ -157,31 +164,19 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50),
 
                 // google + apple sign in buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    // google button
-                    Flexible(
-                      child: SquareTile(
-                        imagePath: 'assets/images/google.png',
-                        text: "Continue with Google",
-                      ),
-                    ),
-                    SizedBox(width: 25),
-                  ],
-                ),
-
-                const SizedBox(height: 50),
-
-                // not a member? register now
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Google button
+                    SquareTile(
+                      imagePath: 'assets/images/google.png',
+                      text: "Continue with Google",
+                    ),
+                    const SizedBox(height: 16),
                     Text(
                       'Sign In or Login with Google',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
-                    const SizedBox(width: 4),
                   ],
                 )
               ],
