@@ -70,50 +70,67 @@ class _CommunityPageState extends State<CommunityPage> {
                       return Card(
                         elevation: 4,
                         margin: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
+                            vertical: 10.0, horizontal: 10.0),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         color: Colors.teal.shade50,
-                        child: ListTile(
-                          title: Text(
-                            post['content'],
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          subtitle: Text(
-                            'Posted on ${_formatTimestamp(post['timestamp'])}',
-                            style: const TextStyle(
-                              color: Colors.black54,
-                            ),
-                          ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.thumb_up_off_alt_rounded,
-                                  color: themeColor,
-                                ),
-                                onPressed: () => _likePost(index),
-                              ),
-                              Text(
-                                '${post['likes']}',
-                                style: TextStyle(
-                                  color: themeColor,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.all(16.0), // Add padding here
+                          child: ListTile(
+                            title: Text(
+                              "Anonymous User",
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                  fontSize: 15.0),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${_formatTimestamp(post['timestamp'])}',
+                                  style: const TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 12.0,
+                                  ),
                                 ),
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.delete,
-                                  color: Colors.red.shade400,
+                                const SizedBox(height: 4),
+                                Text(
+                                  post['content'],
+                                  style: const TextStyle(
+                                    color: Colors.black87,
+                                  ),
                                 ),
-                                onPressed: () => _deletePost(index),
-                              ),
-                            ],
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.thumb_up_off_alt_rounded,
+                                    color: themeColor,
+                                  ),
+                                  onPressed: () => _likePost(index),
+                                ),
+                                Text(
+                                  '${post['likes']}',
+                                  style: TextStyle(
+                                    color: themeColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Colors.red.shade400,
+                                  ),
+                                  onPressed: () => _deletePost(index),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );

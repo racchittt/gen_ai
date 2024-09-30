@@ -40,6 +40,7 @@ dependencies:
   http: ^1.2.2
   audioplayers: ^6.1.0
   intl: ^0.19.0
+  flutter_svg: ^1.0.0
   flutter_card_swiper: ^7.0.1
 
 dev_dependencies:
@@ -69,6 +70,7 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/songs/
+    - assets/svgs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

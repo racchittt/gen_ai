@@ -1,80 +1,132 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/lottie_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-class MoodScreen extends StatelessWidget {
-  const MoodScreen({super.key});
+class MoodScreen extends StatefulWidget {
+  @override
+  _MoodScreenState createState() => _MoodScreenState();
+}
+
+class _MoodScreenState extends State<MoodScreen> {
+  double _currentValue = 3.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(248, 244, 243, 1),
       appBar: AppBar(
-        title: const Text('Mood'),
+        title: Text('Assessment'),
+        elevation: 0,
+        backgroundColor: Colors.grey[200],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      body: const MoodSelector(),
-    );
-  }
-}
-
-class MoodSelector extends StatefulWidget {
-  const MoodSelector({super.key});
-
-  @override
-  _MoodSelectorState createState() => _MoodSelectorState();
-}
-
-class _MoodSelectorState extends State<MoodSelector> {
-  String _selectedMood = "";
-
-  void _selectMood(String mood) {
-    setState(() {
-      _selectedMood = mood;
-      print(_selectedMood);
-    });
-  }
-
-  Widget _buildMoodButton(String mood, String label, IconData icon) {
-    return ElevatedButton.icon(
-      onPressed: () => _selectMood(mood),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: _selectedMood == mood ? Colors.blue : null,
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      ),
-      icon: Icon(icon),
-      label: Text(
-        label,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "How are you feeling today?",
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    SizedBox(height: 20),
+                    _buildLabelWithIcon(
+                        "Excellent", "assets/svgs/excellent.svg", 5),
+                    SizedBox(height: 20),
+                    _buildLabelWithIcon("Good", "assets/svgs/good.svg", 4),
+                    SizedBox(height: 20),
+                    _buildLabelWithIcon("Fair", "assets/svgs/fair.svg", 3),
+                    SizedBox(height: 20),
+                    _buildLabelWithIcon("Poor", "assets/svgs/poor.svg", 2),
+                    SizedBox(height: 20),
+                    _buildLabelWithIcon("Worst", "assets/svgs/worst.svg", 1),
+                  ],
+                ),
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: Container(
+                    width: 550, // Set the desired width for the slider
+                    child: SliderTheme(
+                      data: SliderThemeData(
+                          activeTrackColor: Colors.orange,
+                          inactiveTrackColor: Colors.grey[300],
+                          trackHeight: 30.0,
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 25.0),
+                          thumbColor: const Color.fromRGBO(254, 129, 75, 1.0),
+                          overlayColor: const Color.fromRGBO(253, 99, 27, 1),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 30.0),
+                          valueIndicatorColor: Colors.orangeAccent,
+                          trackShape: RoundedRectSliderTrackShape(),
+                          activeTickMarkColor: Colors.orangeAccent,
+                          inactiveTickMarkColor: Colors.grey[300],
+                          tickMarkShape: RoundSliderTickMarkShape()),
+                      child: Slider(
+                        value: _currentValue,
+                        min: 1,
+                        max: 5,
+                        divisions: 4,
+                        onChanged: (double value) {
+                          setState(() {
+                            _currentValue = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: ListView(
+  Widget _buildLabelWithIcon(String label, String svgPath, int position) {
+    Color filterColor =
+        _currentValue == position ? Colors.black : Colors.grey[300]!;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _currentValue = position.toDouble();
+        });
+      },
+      child: Column(
         children: [
-          LottieWidget(path: 'assets/animations/mood.json'),
-          const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildMoodButton("Happy", "Happy 😊", Icons.sentiment_satisfied),
-              _buildMoodButton("Sad", "Sad 😢", Icons.sentiment_dissatisfied),
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  filterColor.withOpacity(_currentValue == position
+                      ? 0.0
+                      : 0.5), // Set the opacity for the filter
+                  BlendMode.srcATop, // Blend mode to apply
+                ),
+                child: SvgPicture.asset(
+                  svgPath,
+                  width: 75,
+                  height: 75,
+                ),
+              ),
+              SizedBox(width: 10),
             ],
           ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildMoodButton(
-                  "Angry", "Angry 😠", Icons.sentiment_very_dissatisfied),
-              _buildMoodButton(
-                  "Excited", "Excited 🤩", Icons.sentiment_very_satisfied),
-            ],
-          ),
+          SizedBox(height: 15),
         ],
       ),
     );
