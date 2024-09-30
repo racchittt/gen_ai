@@ -36,7 +36,8 @@ class _MeditationScreenState extends State<MeditationScreen>
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController
+        .dispose(); // Dispose of animation controller to prevent memory leaks
     super.dispose();
   }
 
@@ -151,8 +152,8 @@ class _MeditationScreenState extends State<MeditationScreen>
                       .forward(); // Start fade animation when countdown starts
                 },
                 onComplete: () {
-                  if (_isCompleted) { // Check if already completed
-                    _isCompleted = false; // Set completion flag
+                  if (_isCompleted) {
+                    _isCompleted = false;
 
                     showDialog(
                       context: context,
