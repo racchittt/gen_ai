@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/type.dart';
+import 'package:gen_ai/pages/hero_page.dart';
 
 void main() {
-  runApp(const MaterialApp(
-      home: Scaffold(
-    body: Type(),
-  )));
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('data');
-  }
+  runApp(MaterialApp(
+    title: 'GenAI',
+    theme:
+        ThemeData(scaffoldBackgroundColor: Colors.white, fontFamily: 'Poppins'),
+    debugShowCheckedModeBanner: false,
+    home: HeroPage(),
+  ));
 }
