@@ -36,7 +36,8 @@ class _MeditationScreenState extends State<MeditationScreen>
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _animationController
+        .dispose(); // Dispose of animation controller to prevent memory leaks
     super.dispose();
   }
 
@@ -69,66 +70,66 @@ class _MeditationScreenState extends State<MeditationScreen>
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white!,
+              Colors.white,
               Colors.teal[50]!,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FadeTransition(
-              opacity: _fadeAnimation,
-              child: const SizedBox(
-                height: 150,
-                child: LottieWidget(
-                  path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+        child: Center(
+          // Center the entire page content
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: const SizedBox(
+                  height: 150,
+                  child: LottieWidget(
+                    path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Be Calm and Breathe Slowly',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal[700],
+              const SizedBox(height: 5),
+              Text(
+                'Be Calm and Breathe Slowly',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal[700],
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Duration: ${_duration ~/ 60} min ${_duration % 60} sec',
-              style: TextStyle(fontSize: 18, color: Colors.teal[600]),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  onPressed: _incrementDuration,
-                  color: Colors.teal,
-                ),
-                const SizedBox(width: 20),
-                IconButton(
-                  icon: const Icon(Icons.remove),
-                  onPressed: _decrementDuration,
-                  color: Colors.teal,
-                ),
-              ],
-            ),
-            // const SizedBox(height: 20),
-            Container(
-              child: CircularCountDownTimer(
+              const SizedBox(height: 0),
+              Text(
+                'Duration: ${_duration ~/ 60} min ${_duration % 60} sec',
+                style: TextStyle(fontSize: 18, color: Colors.teal[600]),
+              ),
+              const SizedBox(height: 0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: _incrementDuration,
+                    color: Colors.teal,
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: _decrementDuration,
+                    color: Colors.teal,
+                  ),
+                ],
+              ), // Reduced space
+              CircularCountDownTimer(
                 duration: _duration, // Use the user-selected duration
                 initialDuration: 0,
                 controller: _controller,
                 width: MediaQuery.of(context).size.width / 2.5,
-                height: MediaQuery.of(context).size.height / 2.5,
+                height: MediaQuery.of(context).size.height / 3.0,
                 ringColor: Colors.grey[300]!,
                 fillColor: Colors.teal[200]!,
                 backgroundColor: Colors.teal[100],
@@ -152,8 +153,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                 },
                 onComplete: () {
                   if (_isCompleted) {
-                    // Check if already completed
-                    _isCompleted = false; // Set completion flag
+                    _isCompleted = false;
 
                     showDialog(
                       context: context,
@@ -171,58 +171,54 @@ class _MeditationScreenState extends State<MeditationScreen>
                   }
                 },
               ),
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Container(
-          alignment: Alignment.bottomCenter,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Start and Pause button column
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _button(
-                    title: "Start",
-                    onPressed: () {
-                      _controller.restart(
-                          duration:
-                              _duration); // Start with the selected duration
-                      _animationController
-                          .forward(); // Start fade animation when countdown starts
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  _button(
-                    title: "Pause",
-                    onPressed: () => _controller.pause(),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 15), // Space between the two columns
+              const SizedBox(height: 0),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Start and Pause button column
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _button(
+                          title: "Start",
+                          onPressed: () {
+                            _controller.restart(
+                                duration:
+                                    _duration); // Start with the selected duration
+                            _animationController
+                                .forward(); // Start fade animation when countdown starts
+                          },
+                        ),
+                        const SizedBox(width: 10),
+                        _button(
+                          title: "Resume",
+                          onPressed: () => _controller.resume(),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15), // Space between the two rows
 
-              // Resume and Restart button column
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _button(
-                    title: "Resume",
-                    onPressed: () => _controller.resume(),
-                  ),
-                  const SizedBox(height: 10),
-                  _button(
-                    title: "Restart",
-                    onPressed: () => _controller.restart(
-                        duration:
-                            _duration), // Restart with the selected duration
-                  ),
-                ],
+                    // Pause and Restart button row
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _button(
+                          title: "Pause",
+                          onPressed: () => _controller.pause(),
+                        ),
+                        const SizedBox(width: 10),
+                        _button(
+                          title: "Restart",
+                          onPressed: () => _controller.restart(
+                              duration:
+                                  _duration), // Restart with the selected duration
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

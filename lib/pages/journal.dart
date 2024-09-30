@@ -30,7 +30,7 @@ class _JournalState extends State<Journal> {
       appBar: AppBar(
         title: const Text("Gratitude Journal"),
         centerTitle: true,
-        backgroundColor: themeColor,
+        backgroundColor: Colors.teal.shade50,
         elevation: 5,
       ),
       body: SafeArea(

@@ -45,9 +45,9 @@ class _CommunityPageState extends State<CommunityPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community Page'),
+        title: const Text('Community'),
         centerTitle: true,
-        backgroundColor: themeColor,
+        backgroundColor: Colors.teal.shade50,
         elevation: 4,
       ),
       body: Column(
