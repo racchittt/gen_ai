@@ -103,23 +103,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                       color: Colors.teal, fontSize: 20),
                                 )
                               ]),
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.sunny,
-                                  color: Colors.teal,
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  'My Day',
-                                  style: TextStyle(
-                                      color: Colors.teal, fontSize: 20),
-                                )
-                              ]),
                         ),
                         Spacer(),
                         Container(

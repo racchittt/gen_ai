@@ -9,6 +9,7 @@ import 'package:gen_ai/pages/mood.dart';
 import 'package:gen_ai/pages/music_player.dart';
 import 'package:gen_ai/pages/type.dart';
 import 'package:gen_ai/widgets/basic_button.dart';
+import 'package:gen_ai/pages/cards.dart';
 
 class Navigate extends StatefulWidget {
   const Navigate({super.key});
@@ -49,7 +50,13 @@ class _NavigateState extends State<Navigate> {
               BasicButton('Chat', onChat),
               BasicButton('Music', onMusic),
             ],
-          )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              BasicButton('Card', onCard),
+            ],
+          ),
         ],
       ),
     );
@@ -96,5 +103,10 @@ class _NavigateState extends State<Navigate> {
   void onMusic() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => MusicPlayerPage()));
+  }
+
+  void onCard() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => FlashCard()));
   }
 }
