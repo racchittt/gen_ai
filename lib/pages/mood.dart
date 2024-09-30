@@ -8,7 +8,7 @@ class MoodScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mood'),
+        title: const Text('Mood'),
       ),
       body: const MoodSelector(),
     );
@@ -19,7 +19,6 @@ class MoodSelector extends StatefulWidget {
   const MoodSelector({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _MoodSelectorState createState() => _MoodSelectorState();
 }
 
@@ -29,76 +28,55 @@ class _MoodSelectorState extends State<MoodSelector> {
   void _selectMood(String mood) {
     setState(() {
       _selectedMood = mood;
-
       print(_selectedMood);
-
-      Navigator.pop(context);
     });
+  }
+
+  Widget _buildMoodButton(String mood, String label, IconData icon) {
+    return ElevatedButton.icon(
+      onPressed: () => _selectMood(mood),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _selectedMood == mood ? Colors.blue : null,
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      ),
+      icon: Icon(icon),
+      label: Text(
+        label,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        LottieWidget(path: 'assets/animations/mood.json'),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () => _selectMood("Happy"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedMood == "Happy" ? Colors.blue : null,
-              ),
-              child: const Text(
-                "Happy 😊",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () => _selectMood("Sad"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedMood == "Sad" ? Colors.blue : null,
-              ),
-              child: const Text(
-                "Sad 😢 ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            ElevatedButton(
-              onPressed: () => _selectMood("Angry"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _selectedMood == "Angry" ? Colors.blue : null,
-              ),
-              child: const Text(
-                "Angry 😠",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () => _selectMood("Excited"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    _selectedMood == "Excited" ? Colors.blue : null,
-              ),
-              child: const Text(
-                " Crazy 🤩",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-          ],
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView(
+        children: [
+          LottieWidget(path: 'assets/animations/mood.json'),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildMoodButton("Happy", "Happy 😊", Icons.sentiment_satisfied),
+              _buildMoodButton("Sad", "Sad 😢", Icons.sentiment_dissatisfied),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildMoodButton(
+                  "Angry", "Angry 😠", Icons.sentiment_very_dissatisfied),
+              _buildMoodButton(
+                  "Excited", "Excited 🤩", Icons.sentiment_very_satisfied),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
