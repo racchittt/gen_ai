@@ -10,7 +10,7 @@ class HorizontalCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150, // Set height for horizontal list view
+      height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: items.length,
@@ -18,7 +18,7 @@ class HorizontalCards extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: 120, // Width of each card
+              width: 120,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
@@ -27,7 +27,7 @@ class HorizontalCards extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 2,
                     blurRadius: 5,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: Offset(0, 3),
                   ),
                 ],
               ),
@@ -83,62 +83,61 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  backgroundColor: Colors.teal[50],
-  bottomNavigationBar: Container( // Margin to lift the bottom navigation
-  decoration: BoxDecoration(
-    color: Colors.transparent, // Background color of the BottomNavigationBar
-    borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(10.0),  // Rounded top-left corner
-      topRight: Radius.circular(10.0), // Rounded top-right corner // Rounded bottom-right corner
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black26, // Shadow color for floating effect
-        blurRadius: 10, // Softness of shadow
-        spreadRadius: 2, // Spread of the shadow
-        offset: Offset(0, 5), // Move shadow slightly down to mimic floating
-      ),
-    ],
-  ),
-  child: ClipRRect(
-    borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(10.0),  // Rounded top-left corner
-      topRight: Radius.circular(10.0), // Rounded top-right corner
-    ),
-    child: BottomNavigationBar(
-      backgroundColor: Colors.white, // Background color of the BottomNavigationBar
-      selectedItemColor: Colors.teal[700], // Color of the selected item
-      unselectedItemColor: Colors.teal[600], // Color of unselected items
-      showSelectedLabels: true, // Show label for selected item
-      showUnselectedLabels: false, // Hide label for unselected items
-      selectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.bold, // Bold the selected label
-      ),
-      type: BottomNavigationBarType.fixed, // Prevents shifting effect
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
+      backgroundColor: Colors.teal[50],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 10,
+              spreadRadius: 2,
+              offset: Offset(0, 5),
+            ),
+          ],
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.message),
-          label: 'Messages',
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.teal[700],
+            unselectedItemColor: Colors.teal[600],
+            showSelectedLabels: true,
+            showUnselectedLabels: false,
+            selectedLabelStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            type: BottomNavigationBarType.fixed,
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.message),
+                label: 'Messages',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ],
+            selectedIconTheme: IconThemeData(
+              size: 30,
+            ),
+            unselectedIconTheme: IconThemeData(
+              size: 25,
+            ),
+          ),
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-      ],
-      selectedIconTheme: IconThemeData(
-        size: 30, // Increase size of selected icon
       ),
-      unselectedIconTheme: IconThemeData(
-        size: 25, // Set size of unselected icons
-      ),
-    ),
-  ),
-),
-
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -349,8 +348,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       height: 20,
                     ),
                     Container(
-                      alignment:
-                          Alignment.centerLeft, // Aligns the text to the start
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         'Exercises',
                         style: TextStyle(
@@ -363,9 +361,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       height: 20,
                     ),
                     ListView(
-                      physics:
-                          NeverScrollableScrollPhysics(), // Prevents nested scrolling
-                      shrinkWrap: true, // Allow ListView to take minimum height
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
                       children: [
                         ExerciseTile(
                           icon: Icons.favorite,
