@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/sos.dart';
 import '../util/exercise_tile.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -47,15 +48,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             )
                           ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.orange[600],
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          padding: EdgeInsets.all(12.0),
-                          child: Icon(
-                            Icons.sos,
-                            color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SosScreen()));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.orange[600],
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            padding: EdgeInsets.all(12.0),
+                            child: Icon(
+                              Icons.sos,
+                              color: Colors.white,
+                            ),
                           ),
                         )
                       ],
@@ -77,6 +86,23 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                           padding: EdgeInsets.all(12),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.sunny,
+                                  color: Colors.teal,
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  'My Day',
+                                  style: TextStyle(
+                                      color: Colors.teal, fontSize: 20),
+                                )
+                              ]),
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
