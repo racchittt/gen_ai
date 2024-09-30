@@ -3,6 +3,70 @@ import 'package:gen_ai/pages/sos.dart';
 import '../util/exercise_tile.dart';
 import '../components/emoticon_faces.dart'; // Import the new component
 
+class HorizontalCards extends StatelessWidget {
+  final List<CardItem> items;
+
+  HorizontalCards({required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150, // Set height for horizontal list view
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 120, // Width of each card
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    items[index].icon,
+                    size: 40,
+                    color: Colors.teal,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    items[index].label,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.teal[600],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CardItem {
+  final IconData icon;
+  final String label;
+
+  CardItem({required this.icon, required this.label});
+}
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -11,17 +75,71 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  List<CardItem> cardItems = [
+    CardItem(icon: Icons.self_improvement_sharp, label: 'Meditate'),
+    CardItem(icon: Icons.fitness_center, label: 'Workout'),
+    CardItem(icon: Icons.fastfood, label: 'Healthy Food'),
+    CardItem(icon: Icons.music_note, label: 'Music'),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[50],
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.message), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
+  backgroundColor: Colors.teal[50],
+  bottomNavigationBar: Container( // Margin to lift the bottom navigation
+  decoration: BoxDecoration(
+    color: Colors.transparent, // Background color of the BottomNavigationBar
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(10.0),  // Rounded top-left corner
+      topRight: Radius.circular(10.0), // Rounded top-right corner // Rounded bottom-right corner
+    ),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black26, // Shadow color for floating effect
+        blurRadius: 10, // Softness of shadow
+        spreadRadius: 2, // Spread of the shadow
+        offset: Offset(0, 5), // Move shadow slightly down to mimic floating
       ),
+    ],
+  ),
+  child: ClipRRect(
+    borderRadius: BorderRadius.only(
+      topLeft: Radius.circular(10.0),  // Rounded top-left corner
+      topRight: Radius.circular(10.0), // Rounded top-right corner
+    ),
+    child: BottomNavigationBar(
+      backgroundColor: Colors.white, // Background color of the BottomNavigationBar
+      selectedItemColor: Colors.teal[700], // Color of the selected item
+      unselectedItemColor: Colors.teal[600], // Color of unselected items
+      showSelectedLabels: true, // Show label for selected item
+      showUnselectedLabels: false, // Hide label for unselected items
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.bold, // Bold the selected label
+      ),
+      type: BottomNavigationBarType.fixed, // Prevents shifting effect
+      items: [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.message),
+          label: 'Messages',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+      ],
+      selectedIconTheme: IconThemeData(
+        size: 30, // Increase size of selected icon
+      ),
+      unselectedIconTheme: IconThemeData(
+        size: 25, // Set size of unselected icons
+      ),
+    ),
+  ),
+),
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -219,7 +337,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Exercises',
+                          'Quick Refresh',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -227,6 +345,24 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         Icon(Icons.more_horiz),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    HorizontalCards(items: cardItems),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      alignment:
+                          Alignment.centerLeft, // Aligns the text to the start
+                      child: Text(
+                        'Exercises',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 20,
