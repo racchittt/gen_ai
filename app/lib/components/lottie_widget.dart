@@ -13,8 +13,8 @@ class _LottieWidgetState extends State<LottieWidget> {
   @override
   Widget build(BuildContext context) {
     return Lottie.asset(
-      widget.path, height: 300, // Set a smaller height
-      width: 300,
+      widget.path, height: 240, // Set a smaller height
+      width: 350,
     );
   }
 }
