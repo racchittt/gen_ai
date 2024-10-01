@@ -13,6 +13,26 @@ class SongPlayerPage extends StatefulWidget {
 class _SongPlayerPageState extends State<SongPlayerPage> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   bool isPlaying = false;
+  Duration currentPosition = Duration.zero;
+  Duration totalDuration = Duration.zero;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen to the audio player state for progress updates
+    _audioPlayer.onDurationChanged.listen((Duration duration) {
+      setState(() {
+        totalDuration = duration;
+      });
+    });
+
+    _audioPlayer.onPositionChanged.listen((Duration position) {
+      setState(() {
+        currentPosition = position;
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -24,12 +44,16 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
     if (isPlaying) {
       await _audioPlayer.pause();
     } else {
-      print(widget.songPath);
       await _audioPlayer.play(AssetSource(widget.songPath));
     }
     setState(() {
       isPlaying = !isPlaying;
     });
+  }
+
+  void _seekTo(double value) {
+    final newPosition = Duration(seconds: value.toInt());
+    _audioPlayer.seek(newPosition);
   }
 
   @override
@@ -51,24 +75,79 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Playing: ${widget.songPath}',
-                style: TextStyle(fontSize: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Song Image or GIF
+            Container(
+              padding: const EdgeInsets.all(20.0),
+              child: Image.asset(
+                'assets/images/nature_bg.webp', // Replace with your GIF or image
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: 20),
-              IconButton(
-                iconSize: 64,
-                icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                onPressed: _togglePlayPause,
+            ),
+
+            // Song Title
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                'Now Playing: ${widget.songPath}',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal[800],
+                ),
+                textAlign: TextAlign.center,
               ),
-            ],
-          ),
+            ),
+
+            // Music Player Controls
+            Slider(
+              activeColor: Colors.teal,
+              inactiveColor: Colors.grey,
+              min: 0.0,
+              max: totalDuration.inSeconds.toDouble(),
+              value: currentPosition.inSeconds.toDouble(),
+              onChanged: _seekTo,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    _formatDuration(currentPosition),
+                    style: TextStyle(color: Colors.teal),
+                  ),
+                  Text(
+                    _formatDuration(totalDuration),
+                    style: TextStyle(color: Colors.teal),
+                  ),
+                ],
+              ),
+            ),
+
+            // Play/Pause Button
+            IconButton(
+              iconSize: 64,
+              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+              color: Colors.teal,
+              onPressed: _togglePlayPause,
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  // Helper function to format duration in MM:SS
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$minutes:$seconds";
   }
 }

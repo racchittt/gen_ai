@@ -12,21 +12,25 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     {
       'title': 'Nature',
       'image': 'assets/images/leaf.jpg',
+      'names': ['Nature Walk', 'Nature Calls'],
       'songs': ['songs/nature1.mp3', 'songs/nature2.mp3']
     },
     {
       'title': 'White Noise',
       'image': 'assets/images/white.webp',
+      'names': ['Nature Walk', 'Nature Calls'],
       'songs': ['songs/whitenoise1.mp3', 'songs/whitenoise2.mp3']
     },
     {
       'title': 'Binaural',
       'image': 'assets/images/bin.png',
+      'names': ['Nature Walk', 'Nature Calls'],
       'songs': ['songs/binaural1.mp3', 'songs/binaural2.mp3']
     },
     {
       'title': 'Artist',
       'image': 'assets/images/art.jpg',
+      'names': ['Nature Walk', 'Nature Calls'],
       'songs': ['songs/artist1.mp3', 'songs/artist2.mp3']
     },
   ];
