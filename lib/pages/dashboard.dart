@@ -87,7 +87,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 label: 'Messages',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.card_membership),
+                icon: Icon(Icons.menu_book_rounded),
                 label: 'Cards',
               ),
             ],
@@ -222,7 +222,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(
-                                        Icons.select_all,
+                                        Icons.mood,
                                         color: Colors.teal,
                                       ),
                                       SizedBox(
