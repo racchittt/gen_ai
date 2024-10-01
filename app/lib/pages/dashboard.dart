@@ -30,6 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
   ];
 
   void _onItemTapped(int index) {
+    if (_selectedIndex == index) return;
     setState(() {
       _selectedIndex = index;
     });
@@ -144,7 +145,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Hello Bablu !',
+                                            'Hello Bablu!',
                                             style: TextStyle(
                                               color: Colors.teal[600],
                                               fontSize: 24,
