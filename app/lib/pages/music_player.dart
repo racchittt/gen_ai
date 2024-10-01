@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/songs.dart';
+import 'package:gen_ai/pages/song_player.dart';
+import 'dart:math';
 
 class MusicPlayerPage extends StatefulWidget {
   @override
@@ -62,117 +62,119 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
-      child: Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.teal,
-        // ),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.teal[100]!,
-                Colors.grey[200]!,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+    return Scaffold(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.teal,
+      // ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.teal[100]!,
+              Colors.grey[200]!,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
-                  margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
-                  child: Text(
-                    'Listen to \ntherapy music ..',
-                    style: TextStyle(
-                      color: Colors.teal,
-                      fontFamily: 'Poppins',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
+                margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
+                child: Text(
+                  'Listen to \ntherapy music ..',
+                  style: TextStyle(
+                    color: Colors.teal,
+                    fontFamily: 'Poppins',
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Expanded(
-                  child: GridView.builder(
-                    itemCount: categories.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20,
-                      childAspectRatio: 1 / 1.6,
-                    ),
-                    itemBuilder: (context, index) {
-                      return AnimatedOpacity(
-                        opacity: _opacityList[index],
-                        duration: Duration(
-                            milliseconds:
-                                500), // Duration of the fade-in effect
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => SongListPage(
-                                  title: categories[index]['title'],
-                                  songs: categories[index]['songs'],
+              ),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: categories.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    childAspectRatio: 1 / 1.6,
+                  ),
+                  itemBuilder: (context, index) {
+                    return AnimatedOpacity(
+                      opacity: _opacityList[index],
+                      duration: Duration(
+                          milliseconds: 500), // Duration of the fade-in effect
+                      child: GestureDetector(
+                        onTap: () {
+                          // Select a random song from the category
+                          String randomSong = (categories[index]['songs']
+                                  as List<String>)[
+                              Random()
+                                  .nextInt(categories[index]['songs'].length)];
+
+                          // Navigate directly to the song player page with the random song
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SongPlayerPage(
+                                songPath: randomSong,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          elevation: 5,
+                          child: Stack(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  categories[index]['image'],
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: double.infinity,
                                 ),
                               ),
-                            );
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            elevation: 5,
-                            child: Stack(
-                              children: [
-                                ClipRRect(
+                              Container(
+                                decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
-                                  child: Image.asset(
-                                    categories[index]['image'],
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: double.infinity,
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.black.withOpacity(0.6),
+                                      Colors.transparent,
+                                    ],
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
                                   ),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Colors.black.withOpacity(0.6),
-                                        Colors.transparent,
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
-                                  ),
-                                  alignment: Alignment.bottomCenter,
-                                  padding: EdgeInsets.all(10),
-                                  child: Text(
-                                    categories[index]['title'],
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                alignment: Alignment.bottomCenter,
+                                padding: EdgeInsets.all(10),
+                                child: Text(
+                                  categories[index]['title'],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

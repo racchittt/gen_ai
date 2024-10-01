@@ -37,23 +37,36 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Now Playing'),
-        backgroundColor: Colors.teal,
+        centerTitle: true,
+        backgroundColor: Colors.teal[100],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Playing: ${widget.songPath}',
-              style: TextStyle(fontSize: 24),
-            ),
-            SizedBox(height: 20),
-            IconButton(
-              iconSize: 64,
-              icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-              onPressed: _togglePlayPause,
-            ),
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.teal[100]!,
+              Colors.grey[200]!,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Playing: ${widget.songPath}',
+                style: TextStyle(fontSize: 24),
+              ),
+              SizedBox(height: 20),
+              IconButton(
+                iconSize: 64,
+                icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                onPressed: _togglePlayPause,
+              ),
+            ],
+          ),
         ),
       ),
     );
