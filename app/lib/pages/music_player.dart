@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/songs.dart';
 
 class MusicPlayerPage extends StatefulWidget {
@@ -49,115 +50,129 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
     }
   }
 
+  Future<bool> _onWillPop(BuildContext context) async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardPage(),
+      ),
+    );
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.teal,
-      // ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.teal[100]!,
-              Colors.grey[200]!,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        // appBar: AppBar(
+        //   backgroundColor: Colors.teal,
+        // ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.teal[100]!,
+                Colors.grey[200]!,
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
-                margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
-                child: Text(
-                  'Listen to \ntherapy music ..',
-                  style: TextStyle(
-                    color: Colors.teal,
-                    fontFamily: 'Poppins',
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
+                  margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
+                  child: Text(
+                    'Listen to \ntherapy music ..',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontFamily: 'Poppins',
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: GridView.builder(
-                  itemCount: categories.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    childAspectRatio: 1 / 1.6,
-                  ),
-                  itemBuilder: (context, index) {
-                    return AnimatedOpacity(
-                      opacity: _opacityList[index],
-                      duration: Duration(
-                          milliseconds: 500), // Duration of the fade-in effect
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SongListPage(
-                                title: categories[index]['title'],
-                                songs: categories[index]['songs'],
+                Expanded(
+                  child: GridView.builder(
+                    itemCount: categories.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 20,
+                      crossAxisSpacing: 20,
+                      childAspectRatio: 1 / 1.6,
+                    ),
+                    itemBuilder: (context, index) {
+                      return AnimatedOpacity(
+                        opacity: _opacityList[index],
+                        duration: Duration(
+                            milliseconds:
+                                500), // Duration of the fade-in effect
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SongListPage(
+                                  title: categories[index]['title'],
+                                  songs: categories[index]['songs'],
+                                ),
                               ),
+                            );
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
                             ),
-                          );
-                        },
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 5,
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image.asset(
-                                  categories[index]['image'],
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
+                            elevation: 5,
+                            child: Stack(
+                              children: [
+                                ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.black.withOpacity(0.6),
-                                      Colors.transparent,
-                                    ],
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
+                                  child: Image.asset(
+                                    categories[index]['image'],
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
                                   ),
                                 ),
-                                alignment: Alignment.bottomCenter,
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  categories[index]['title'],
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.black.withOpacity(0.6),
+                                        Colors.transparent,
+                                      ],
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                    ),
+                                  ),
+                                  alignment: Alignment.bottomCenter,
+                                  padding: EdgeInsets.all(10),
+                                  child: Text(
+                                    categories[index]['title'],
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
