@@ -245,7 +245,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Icon(
-                                                Icons.select_all,
+                                                Icons.mood,
                                                 color: Colors.teal,
                                               ),
                                               SizedBox(

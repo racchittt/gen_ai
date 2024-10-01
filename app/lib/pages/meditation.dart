@@ -171,60 +171,60 @@ class _MeditationScreenState extends State<MeditationScreen>
                   }
                 },
               ),
-              const SizedBox(height: 0),
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Start and Pause button column
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _button(
-                          title: "Start",
-                          onPressed: () {
-                            _controller.restart(
-                                duration:
-                                    _duration); // Start with the selected duration
-                            _animationController
-                                .forward(); // Start fade animation when countdown starts
-                          },
-                        ),
-                        const SizedBox(width: 10),
-                        _button(
-                          title: "Resume",
-                          onPressed: () => _controller.resume(),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 15), // Space between the two rows
-
-                    // Pause and Restart button row
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _button(
-                          title: "Pause",
-                          onPressed: () => _controller.pause(),
-                        ),
-                        const SizedBox(width: 10),
-                        _button(
-                          title: "Restart",
-                          onPressed: () => _controller.restart(
-                              duration:
-                                  _duration), // Restart with the selected duration
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            const SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Start and Pause button column
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _button(
+                    title: "Start",
+                    onPressed: () {
+                      _controller.restart(
+                          duration:
+                              _duration); // Start with the selected duration
+                      _animationController
+                          .forward(); // Start fade animation when countdown starts
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  _button(
+                    title: "Pause",
+                    onPressed: () => _controller.pause(),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 15), // Space between the two columns
+
+            // Resume and Restart button column
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _button(
+                  title: "Resume",
+                  onPressed: () => _controller.resume(),
+                ),
+                const SizedBox(height: 10),
+                _button(
+                  title: "Restart",
+                  onPressed: () => _controller.restart(duration: _duration), // Restart with the selected duration
+                ),
+              ],
+            ),
+          ],
+        ),
+      )));
   }
 
   Widget _button({required String title, VoidCallback? onPressed}) {
