@@ -138,7 +138,8 @@ class _TypeState extends State<Type> {
         ),
       ),
       floatingActionButton: Container(
-        width: 100,
+        padding: EdgeInsets.only(left: 35, top: 2),
+        width: double.infinity,
         height: 56,
         child: FloatingActionButton(
           onPressed: () {
@@ -149,12 +150,31 @@ class _TypeState extends State<Type> {
               ),
             );
           },
-          backgroundColor: Colors.teal[100],
+          backgroundColor: Colors.teal,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
           tooltip: 'Go to Dashboard',
-          child: const Icon(Icons.arrow_forward, size: 30),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Proceed',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              const Icon(
+                Icons.arrow_forward,
+                size: 30,
+                color: Colors.white,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -170,7 +190,7 @@ final List<Map<String, dynamic>> _items = [
   {
     'label': 'Motivation',
     'icon': Icons.bolt,
-    'gradientColors': [Colors.teal[300]!, Colors.teal[400]!],
+    'gradientColors': [Colors.indigo[300]!, Colors.indigo[400]!],
   },
   {
     'label': 'Confidence',

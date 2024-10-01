@@ -1,4 +1,4 @@
-const db = require('./firebase');
+const { db } = require('./firebase');
 const { collection } = require("firebase/firestore");
 
 // Access the 'users' collection using Firestore's modular SDK
