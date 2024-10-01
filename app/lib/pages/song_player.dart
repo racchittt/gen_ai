@@ -3,8 +3,11 @@ import 'package:audioplayers/audioplayers.dart';
 
 class SongPlayerPage extends StatefulWidget {
   final String songPath;
+  final String songName;
+  final String catName;
 
-  SongPlayerPage({required this.songPath});
+  SongPlayerPage(
+      {required this.songPath, required this.songName, required this.catName});
 
   @override
   _SongPlayerPageState createState() => _SongPlayerPageState();
@@ -82,7 +85,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
             Container(
               padding: const EdgeInsets.all(20.0),
               child: Image.asset(
-                'assets/images/nature_bg.webp', // Replace with your GIF or image
+                widget.catName,
                 width: 200,
                 height: 200,
                 fit: BoxFit.cover,
@@ -93,7 +96,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                'Now Playing: ${widget.songPath}',
+                'Now Playing: ${widget.songName}',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

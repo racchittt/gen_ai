@@ -13,25 +13,29 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
       'title': 'Nature',
       'image': 'assets/images/leaf.jpg',
       'names': ['Nature Walk', 'Nature Calls'],
-      'songs': ['songs/nature1.mp3', 'songs/nature2.mp3']
+      'songs': ['songs/nature1.mp3', 'songs/nature2.mp3'],
+      'path': 'assets/images/nature_bg.webp'
     },
     {
-      'title': 'White Noise',
-      'image': 'assets/images/white.webp',
-      'names': ['Nature Walk', 'Nature Calls'],
-      'songs': ['songs/whitenoise1.mp3', 'songs/whitenoise2.mp3']
+      'title': 'Instrumental',
+      'image': 'assets/images/instrument.jpg',
+      'names': ['Violins', 'Mix'],
+      'songs': ['songs/instrument1.mp3', 'songs/instrument2.mp3'],
+      'path': 'assets/images/white_bg.gif'
     },
     {
       'title': 'Binaural',
       'image': 'assets/images/bin.png',
-      'names': ['Nature Walk', 'Nature Calls'],
-      'songs': ['songs/binaural1.mp3', 'songs/binaural2.mp3']
+      'names': ['3 Hz', '1 Hz'],
+      'songs': ['songs/binaural1.mp3', 'songs/binaural2.mp3'],
+      'path': 'assets/images/binaural_bg.gif'
     },
     {
       'title': 'Artist',
       'image': 'assets/images/art.jpg',
       'names': ['Nature Walk', 'Nature Calls'],
-      'songs': ['songs/artist1.mp3', 'songs/artist2.mp3']
+      'songs': ['songs/artist1.mp3', 'songs/artist2.mp3'],
+      'path': 'assets/images/art.jpg'
     },
   ];
 
@@ -106,17 +110,19 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                       child: GestureDetector(
                         onTap: () {
                           // Select a random song from the category
-                          String randomSong = (categories[index]['songs']
-                                  as List<String>)[
-                              Random()
-                                  .nextInt(categories[index]['songs'].length)];
+                          int randomIndex = Random()
+                              .nextInt(categories[index]['songs'].length);
 
                           // Navigate directly to the song player page with the random song
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => SongPlayerPage(
-                                songPath: randomSong,
+                                songPath: categories[index]['songs']
+                                    [randomIndex],
+                                songName: categories[index]['names']
+                                    [randomIndex],
+                                catName: categories[index]['path'],
                               ),
                             ),
                           );
