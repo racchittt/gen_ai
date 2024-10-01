@@ -57,79 +57,27 @@ class _DashboardPageState extends State<DashboardPage> {
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
           body: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.teal[100]!,
-                    Colors.grey[200]!,
-                  ],
-                ),
-              ),
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                bottomNavigationBar: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 10,
-                        spreadRadius: 2,
-                        offset: Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    child: BottomNavigationBar(
-                      currentIndex: _selectedIndex,
-                      onTap: _onItemTapped,
-                      backgroundColor: Colors.white,
-                      selectedItemColor: Colors.teal[700],
-                      unselectedItemColor: Colors.teal[600],
-                      showSelectedLabels: true,
-                      showUnselectedLabels: false,
-                      selectedLabelStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      type: BottomNavigationBarType.fixed,
-                      items: [
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.home),
-                          label: 'Home',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.message),
-                          label: 'Messages',
-                        ),
-                        BottomNavigationBarItem(
-                          icon: Icon(Icons.card_membership),
-                          label: 'Cards',
-                        ),
-                      ],
-                      selectedIconTheme: IconThemeData(
-                        size: 30,
-                      ),
-                      unselectedIconTheme: IconThemeData(
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ),
-                body: SafeArea(
-                  child: IndexedStack(
-                    index: _selectedIndex,
-                    children: [
-                      SingleChildScrollView(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.teal[100]!,
+              Colors.grey[200]!,
+            ],
+          ),
+        ),
+        child: Stack(
+          children: [
+            Scaffold(
+              backgroundColor: Colors.transparent,
+              body: SafeArea(
+                child: IndexedStack(
+                  index: _selectedIndex,
+                  children: [
+                    SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 60),
                         child: Column(
                           children: [
                             Padding(
@@ -402,10 +350,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                         label: 'Breathe',
                                         path: BreathingScreen()),
                                     CardItem(
-                                        icon: Icons.card_giftcard,
-                                        label: 'Cards',
-                                        path: FlashCard()),
-                                    CardItem(
                                         icon: Icons.book,
                                         label: 'CBT',
                                         path: Disclaimer()),
@@ -432,7 +376,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                     children: [
                                       ExerciseTile(
                                         icon: Icons.favorite,
-                                        exerciseName: 'Help me Meditate',
+                                        exerciseName: 'Blogs',
                                         numberOfExercise: 16,
                                         color: Colors.orange,
                                       ),
@@ -455,11 +399,80 @@ class _DashboardPageState extends State<DashboardPage> {
                             )
                           ],
                         ),
-                      )
-                    ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
                   ),
                 ),
-              ))),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                  ),
+                  child: CustomBottomNavBar(
+                    selectedIndex: _selectedIndex,
+                    onItemSelected: _onItemTapped,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      )),
+    );
+  }
+}
+
+class CustomBottomNavBar extends StatelessWidget {
+  final int selectedIndex;
+  final Function(int) onItemSelected;
+
+  const CustomBottomNavBar({
+    Key? key,
+    required this.selectedIndex,
+    required this.onItemSelected,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(40),
+      ),
+      height: 80,
+      margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildNavItem(Icons.home, 0),
+          _buildNavItem(Icons.chat_bubble_outline, 1),
+          _buildNavItem(Icons.bar_chart, 2),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, int index) {
+    return IconButton(
+      icon: Icon(
+        icon,
+        color: selectedIndex == index ? Colors.black : Colors.grey,
+      ),
+      onPressed: () => onItemSelected(index),
     );
   }
 }
