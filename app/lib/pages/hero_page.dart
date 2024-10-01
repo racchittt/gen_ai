@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gen_ai/components/lottie_widget.dart';
 import 'package:gen_ai/components/motivation_widget.dart';
 import 'package:gen_ai/pages/login.dart';
@@ -16,7 +17,6 @@ class _HeroPageState extends State<HeroPage>
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _scaleAnimation;
-
   @override
   void initState() {
     super.initState();
@@ -50,57 +50,74 @@ class _HeroPageState extends State<HeroPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.teal[50],
       appBar: AppBar(
-          title: Text(
-            'Vayu',
-            style: TextStyle(color: Mint),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.white),
-      body: SingleChildScrollView(
-        child: Center(
+        title: Text(
+          '',
+          style: TextStyle(color: Mint),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(224, 242, 241, 1),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FadeTransition(
-                opacity: _opacityAnimation,
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: const LottieWidget(
-                    path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+              SizedBox(height: 20),
+              Text(
+                "Welcome to Vayu",
+                style: TextStyle(fontSize: 30, color: Colors.teal),
+              ),
+              SizedBox(height: 20),
+              Text(
+                "Your mental health companion",
+                style: TextStyle(fontSize: 20, color: Colors.teal[900]),
+              ),
+              SizedBox(height: 20),
+              Flexible(
+                fit: FlexFit.tight,
+                child: FadeTransition(
+                  opacity: _opacityAnimation,
+                  child: ScaleTransition(
+                    scale: _scaleAnimation,
+                    child: SvgPicture.asset(
+                      'assets/svgs/welcome.svg',
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
-              FadeTransition(
-                opacity: _opacityAnimation,
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: const MotivationWidget(),
-                ),
-              ),
+              SizedBox(height: 20),
               FadeTransition(
                 opacity: _opacityAnimation,
                 child: ScaleTransition(
                   scale: _scaleAnimation,
                   child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white),
-                      child: Text(
-                        'Proceed',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      )),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
+                      backgroundColor: Colors.teal,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: Text(
+                      'Get Started',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
                 ),
               ),
+              SizedBox(height: 20),
             ],
           ),
         ),
