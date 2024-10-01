@@ -1,4 +1,4 @@
-const { getAuth } = require("firebase/auth");
+const admin = require('firebase-admin'); // Ensure Firebase Admin SDK is imported
 
 // Middleware to verify Firebase token
 async function authenticateToken(req, res, next) {
@@ -10,7 +10,7 @@ async function authenticateToken(req, res, next) {
         return res.status(403).send('No token provided');
     }
     try {
-        const decodedToken = await getAuth().verifyIdToken(token);
+        const decodedToken = await admin.auth().verifyIdToken(token);
         req.user = decodedToken; // Attach the decoded token to the request object
         next(); // Proceed to the next middleware or route handler
     } catch (error) {
@@ -19,4 +19,4 @@ async function authenticateToken(req, res, next) {
     }
 }
 
-module.exports = {authenticateToken}; // Export the middleware
+module.exports = authenticateToken; // Export the middleware
