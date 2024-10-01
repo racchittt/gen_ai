@@ -3,6 +3,7 @@ import 'package:gen_ai/components/my_button.dart';
 import 'package:gen_ai/components/my_textfield.dart';
 import 'package:gen_ai/components/square_tile.dart';
 import 'package:gen_ai/pages/type.dart';
+import 'package:gen_ai/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, this.onTap});
@@ -12,14 +13,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // text editing controllers
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
   // sign user in method
   void signUserIn() async {
-    // show a loading circle
     showDialog(
       context: context,
       builder: (context) {
@@ -168,9 +167,19 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Google button
-                    SquareTile(
-                      imagePath: 'assets/images/google.png',
-                      text: "Continue with Google",
+                    GestureDetector(
+                      onTap: () async {
+                        print('Button tapped');
+                        try {
+                          await AuthService().signInWithGoogle();
+                        } catch (e) {
+                          print("Google Sign In failed: $e");
+                        }
+                      },
+                      child: SquareTile(
+                        imagePath: 'assets/images/google.png',
+                        text: "Continue with Google",
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Text(
