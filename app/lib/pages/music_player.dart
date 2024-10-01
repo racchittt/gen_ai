@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/song_player.dart';
 import 'dart:math';
 
@@ -56,6 +57,16 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
         _opacityList[i] = 1.0; // Fade in effect
       });
     }
+  }
+
+  Future<bool> _onWillPop(BuildContext context) async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardPage(),
+      ),
+    );
+    return false;
   }
 
   @override

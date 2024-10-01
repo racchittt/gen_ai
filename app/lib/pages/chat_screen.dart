@@ -1,59 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/dashboard.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
   static String id = 'chat_screen';
+  Future<bool> _onWillPop(BuildContext context) async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardPage(),
+      ),
+    );
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Wrap with Scaffold
-      appBar: AppBar(
-        title: const Text('Chat'),
-        backgroundColor: Colors.teal[100],
-      ),
-      backgroundColor: Colors.teal[50],
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.teal[100]!,
-              Colors.grey[200]!,
-            ],
-          ),
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Chat'),
+          backgroundColor: Colors.teal[100],
         ),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              const MessageStream(),
-              Container(
-                decoration: kMessageContainerDecoration,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        style: const TextStyle(color: Colors.black),
-                        decoration: kMessageTextFieldDecoration,
+        backgroundColor: Colors.teal[50],
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.teal[100]!,
+                Colors.grey[200]!,
+              ],
+            ),
+          ),
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                const MessageStream(),
+                Container(
+                  decoration: kMessageContainerDecoration,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          style: const TextStyle(color: Colors.black),
+                          decoration: kMessageTextFieldDecoration,
+                        ),
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        // Placeholder for send functionality
-                      },
-                      child: const Text(
-                        'Send',
-                        style: kSendButtonTextStyle,
+                      TextButton(
+                        onPressed: () {
+                          // Placeholder for send functionality
+                        },
+                        child: const Text(
+                          'Send',
+                          style: kSendButtonTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
