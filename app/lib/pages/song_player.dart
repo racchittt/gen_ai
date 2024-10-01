@@ -47,7 +47,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
     if (isPlaying) {
       await _audioPlayer.pause();
     } else {
-      await _audioPlayer.play(AssetSource(widget.songPath));
+      await _audioPlayer.play(UrlSource(widget.songPath));
     }
     setState(() {
       isPlaying = !isPlaying;
@@ -84,7 +84,7 @@ class _SongPlayerPageState extends State<SongPlayerPage> {
             // Song Image or GIF
             Container(
               padding: const EdgeInsets.all(20.0),
-              child: Image.asset(
+              child: Image.network(
                 widget.catName,
                 width: 200,
                 height: 200,
