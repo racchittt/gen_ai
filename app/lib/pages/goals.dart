@@ -5,7 +5,7 @@ class GoalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var arrNames = ['hii', 'hello', 'yeap'];
+    // var arrNames = ['hii', 'hello', 'yeap'];
     return Scaffold(
       appBar: AppBar(
         title: const Text(
