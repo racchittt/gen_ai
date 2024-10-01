@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/cbt/cbt_result.dart';
 
 class CBTTestPage extends StatefulWidget {
   @override
@@ -9,87 +10,152 @@ class _CBTTestPageState extends State<CBTTestPage> {
   final _formKey = GlobalKey<FormState>();
 
   // Storing user answers
-  Map<String, double> _answers = {
-    'question1': 0,
-    'question2': 0,
-    'question3': 0,
-  };
+  Map<String, int> _phqAnswers = {};
+  Map<String, int> _gadAnswers = {};
+  Map<String, int> _phobiaAnswers = {};
+  Map<String, int> _workSocialAnswers = {};
+
+  final List<String> phqQuestions = [
+    "1. Little interest or pleasure in doing things?",
+    "2. Feeling down, depressed, or hopeless?",
+    "3. Trouble falling or staying asleep, or sleeping too much?",
+    "4. Feeling tired or having little energy?",
+    "5. Poor appetite or overeating?",
+    "6. Feeling bad about yourself or that you are a failure?",
+    "7. Trouble concentrating on things?",
+    "8. Moving or speaking slowly? Or restless?",
+    "9. Thoughts of being better off dead or hurting yourself?"
+  ];
+
+  final List<String> gadQuestions = [
+    "10. Feeling nervous, anxious or on edge?",
+    "11. Not being able to stop or control worrying?",
+    "12. Worrying too much about different things?",
+    "13. Trouble relaxing?",
+    "14. Being so restless that it is hard to sit still?",
+    "15. Becoming easily annoyed or irritable?",
+    "16. Feeling afraid as if something awful might happen?"
+  ];
+
+  final List<String> phobiaQuestions = [
+    "17. Social situations due to fear of being embarrassed?",
+    "18. Certain situations because of fear of having a panic attack?",
+    "19. Certain situations because of a fear of particular objects?"
+  ];
+
+  final List<String> workSocialQuestions = [
+    "20. WORK/STUDY - Ability to perform tasks at work or study?",
+    "21. HOME MANAGEMENT - Self-care and managing household?",
+    "22. SOCIAL LEISURE ACTIVITIES - Participation in social events?",
+    "23. PRIVATE LEISURE ACTIVITIES - Enjoyment of activities done alone?",
+    "24. FAMILY AND RELATIONSHIPS - Forming and maintaining relationships?"
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _phqAnswers =
+        Map.fromIterable(phqQuestions, key: (q) => q, value: (_) => 0);
+    _gadAnswers =
+        Map.fromIterable(gadQuestions, key: (q) => q, value: (_) => 0);
+    _phobiaAnswers =
+        Map.fromIterable(phobiaQuestions, key: (q) => q, value: (_) => 0);
+    _workSocialAnswers =
+        Map.fromIterable(workSocialQuestions, key: (q) => q, value: (_) => 0);
+  }
+
+  Widget _buildQuestion(
+      String question, Map<String, int> answerMap, String type, int maxScale) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          question,
+          style: TextStyle(fontSize: 18),
+        ),
+        Slider(
+          value: answerMap[question]!.toDouble(),
+          min: 0,
+          max: maxScale.toDouble(),
+          divisions: maxScale,
+          label: answerMap[question]!.toString(),
+          activeColor: Colors.teal,
+          onChanged: (value) {
+            setState(() {
+              answerMap[question] = value.toInt();
+            });
+          },
+        ),
+        Divider(),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('CBT Test'),
-        backgroundColor: Colors.teal, // AppBar teal color
+        backgroundColor: Colors.teal[300],
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: <Widget>[
-              _buildQuestion('How often do you feel anxious?', 'question1'),
-              _buildQuestion('How often do you feel sad?', 'question2'),
-              _buildQuestion('How often do you feel overwhelmed?', 'question3'),
+              ...phqQuestions
+                  .map((q) => _buildQuestion(q, _phqAnswers, 'PHQ', 3))
+                  .toList(),
+              ...gadQuestions
+                  .map((q) => _buildQuestion(q, _gadAnswers, 'GAD', 3))
+                  .toList(),
+              ...phobiaQuestions
+                  .map((q) => _buildQuestion(q, _phobiaAnswers, 'Phobia', 8))
+                  .toList(),
+              ...workSocialQuestions
+                  .map((q) =>
+                      _buildQuestion(q, _workSocialAnswers, 'WorkSocial', 8))
+                  .toList(),
               SizedBox(height: 20),
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal, // Button background color
-                    foregroundColor: Colors.white, // Button text color
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Process the answers
-                      _formKey.currentState!.save();
-                      print(_answers); // You can handle the answers here
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Test Submitted')),
-                      );
-                    }
-                  },
-                  child: Text('Submit', style: TextStyle(fontSize: 18)),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal[300],
+                  foregroundColor: Colors.white,
                 ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+
+                    // Calculate total scores
+                    int phqTotal = _phqAnswers.values.reduce((a, b) => a + b);
+                    int gadTotal = _gadAnswers.values.reduce((a, b) => a + b);
+                    List<int> phobiaScores = _phobiaAnswers.values.toList();
+                    int workSocialTotal =
+                        _workSocialAnswers.values.reduce((a, b) => a + b);
+
+                    // Navigate to the results page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CBTResultPage(
+                          phqTotal: phqTotal,
+                          gadTotal: gadTotal,
+                          phobiaScores: phobiaScores,
+                          workSocialTotal: workSocialTotal,
+                        ),
+                      ),
+                    );
+                  }
+                },
+                child: Text('Submit'),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildQuestion(String question, String key) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          question,
-          style:
-              TextStyle(fontSize: 18, color: Colors.teal.shade900), // Teal text
-        ),
-        Slider(
-          value: _answers[key]!,
-          min: 0,
-          max: 5,
-          divisions: 5,
-          activeColor: Colors.teal, // Active color for the slider
-          inactiveColor: Colors.teal.shade100, // Inactive slider color
-          label: _answers[key]!.round().toString(),
-          onChanged: (value) {
-            setState(() {
-              _answers[key] = value;
-            });
-          },
-        ),
-        Divider(
-          color: Colors.teal.shade100, // Divider color
-        ),
-      ],
     );
   }
 }

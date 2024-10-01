@@ -52,7 +52,7 @@ class _MotivationWidgetState extends State<MotivationWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 80,
+                        height: 100,
                         child: Text(
                           _quote!,
                           textAlign: TextAlign.center,
