@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/songs.dart';
+import 'package:gen_ai/pages/song_player.dart';
+import 'dart:math';
 
 class MusicPlayerPage extends StatefulWidget {
   @override
@@ -100,12 +101,18 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                           milliseconds: 500), // Duration of the fade-in effect
                       child: GestureDetector(
                         onTap: () {
+                          // Select a random song from the category
+                          String randomSong = (categories[index]['songs']
+                                  as List<String>)[
+                              Random()
+                                  .nextInt(categories[index]['songs'].length)];
+
+                          // Navigate directly to the song player page with the random song
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SongListPage(
-                                title: categories[index]['title'],
-                                songs: categories[index]['songs'],
+                              builder: (context) => SongPlayerPage(
+                                songPath: randomSong,
                               ),
                             ),
                           );
