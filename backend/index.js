@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-// const route = require("./index.route");
+const route = require("./server/index.route");
 const app = express();
 const PORT = process.env.PORT || 4000;
 const bodyParser = require("body-parser");
 // const authRouter=require('./server/routes/auth.route');
-const { connection } = require('./config/db');
+// const { connection } = require('./config/db');
 const {winstonLogger, errorLogger} = require('./config/winston');
 // const { handleError } = require("./server/helpers/errorHandler");
 
@@ -28,7 +28,7 @@ app.use(winstonLogger);
 app.use(errorLogger);
 
 // these are the routes
-// app.use("/api/v1", route)
+app.use("/api/v1", route)
 // app.use("/auth/v1", authRouter)
 
 // app.use((err, req, res, next) => {
