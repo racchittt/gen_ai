@@ -27,27 +27,6 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     );
-
-    //try sign in
-    // try {
-    //   await FirebaseAuth.instance.signInWithEmailAndPassword(
-    //       email: emailController.text, password: passwordController.text);
-    //   //pop the circle
-    //   // ignore: use_build_context_synchronously
-    //   Navigator.pop(context);
-    // } on FirebaseAuthException catch (e) {
-    //   //pop the circle
-    //   Navigator.pop(context);
-
-    //   // wrong email
-    //   if (e.code == 'user-not-found') {
-    //     wrongAuthMessage('Incorrect Email');
-    //   }
-    //   // wrong password
-    //   else if (e.code == 'wrong-password') {
-    //     wrongAuthMessage('Incorrect Password');
-    //   }
-    // }
   }
 
   void wrongAuthMessage(String msg) {
@@ -81,8 +60,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 const SizedBox(height: 50),
-
-                // welcome back, you've been missed!
                 Text(
                   'What should we call you?',
                   style: TextStyle(
@@ -132,7 +109,6 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 50),
 
-                // or continue with
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -162,7 +138,6 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 50),
 
-                // google + apple sign in buttons
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -172,6 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                         print('Button tapped');
                         try {
                           await AuthService().signInWithGoogle();
+                          await loginWithFirebase();
                         } catch (e) {
                           print("Google Sign In failed: $e");
                         }
