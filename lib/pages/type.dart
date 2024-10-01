@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/dashboard.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Type extends StatefulWidget {
@@ -127,7 +128,12 @@ class _TypeState extends State<Type> {
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DashboardPage()));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green[300],
                     padding: const EdgeInsets.symmetric(vertical: 16),

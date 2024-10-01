@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/components/lottie_widget.dart';
 import 'package:gen_ai/components/motivation_widget.dart';
-import 'package:gen_ai/pages/navigate.dart';
+import 'package:gen_ai/pages/login.dart';
 import 'package:gen_ai/themes/colors.dart';
 
 class HeroPage extends StatefulWidget {
@@ -57,34 +57,52 @@ class _HeroPageState extends State<HeroPage>
           ),
           centerTitle: true,
           backgroundColor: Colors.white),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FadeTransition(
-              opacity: _opacityAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: const LottieWidget(
-                  path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FadeTransition(
+                opacity: _opacityAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: const LottieWidget(
+                    path: 'assets/animations/43792-yoga-se-hi-hoga.json',
+                  ),
                 ),
               ),
-            ),
-            FadeTransition(
-              opacity: _opacityAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: const MotivationWidget(),
+              FadeTransition(
+                opacity: _opacityAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: const MotivationWidget(),
+                ),
               ),
-            ),
-            FadeTransition(
-              opacity: _opacityAnimation,
-              child: ScaleTransition(
-                scale: _scaleAnimation,
-                child: const Navigate(),
+              FadeTransition(
+                opacity: _opacityAnimation,
+                child: ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white),
+                      child: Text(
+                        'Proceed',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      )),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
