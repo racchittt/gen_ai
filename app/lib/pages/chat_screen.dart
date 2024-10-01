@@ -10,38 +10,51 @@ class ChatScreen extends StatelessWidget {
       // Wrap with Scaffold
       appBar: AppBar(
         title: const Text('Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.teal[100],
       ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const MessageStream(),
-            Container(
-              decoration: kMessageContainerDecoration,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      style: const TextStyle(color: Colors.black),
-                      decoration: kMessageTextFieldDecoration,
+      backgroundColor: Colors.teal[50],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.teal[100]!,
+              Colors.grey[200]!,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const MessageStream(),
+              Container(
+                decoration: kMessageContainerDecoration,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        style: const TextStyle(color: Colors.black),
+                        decoration: kMessageTextFieldDecoration,
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Placeholder for send functionality
-                    },
-                    child: const Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
+                    TextButton(
+                      onPressed: () {
+                        // Placeholder for send functionality
+                      },
+                      child: const Text(
+                        'Send',
+                        style: kSendButtonTextStyle,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -122,7 +135,7 @@ class MessageBubble extends StatelessWidget {
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0)),
             elevation: 5.0,
-            color: isMe ? Colors.yellow[400] : Colors.white,
+            color: isMe ? Colors.teal[200] : Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10.0,
@@ -146,19 +159,18 @@ class MessageBubble extends StatelessWidget {
 // Define the decoration constants
 const kMessageContainerDecoration = BoxDecoration(
   border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+    top: BorderSide(color: Color.fromRGBO(0, 78, 70, 1), width: 1.0),
   ),
 );
 
 const kMessageTextFieldDecoration = InputDecoration(
   hintText: 'Type your message here...',
   hintStyle: TextStyle(color: Colors.black54),
-  border: InputBorder.none,
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
 );
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.lightBlueAccent,
+  color: Colors.black,
   fontSize: 18.0,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
 );

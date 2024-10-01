@@ -63,15 +63,15 @@ class _MeditationScreenState extends State<MeditationScreen>
           'Meditate',
           style: TextStyle(color: Colors.teal),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.teal[50],
         centerTitle: true,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.white,
-              Colors.teal[50]!,
+              Colors.teal[100]!,
+              Colors.grey[200]!,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
