@@ -6,8 +6,8 @@ class Disclaimer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CBT Test Introduction'),
-        backgroundColor: Colors.teal, // Teal AppBar
+        title: Text('CBT Test Introduction', style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.teal[300], // Teal AppBar
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
