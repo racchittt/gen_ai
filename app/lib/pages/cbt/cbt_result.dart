@@ -47,12 +47,15 @@ class CBTResultPage extends StatelessWidget {
         return AlertDialog(
           title: Text(title),
           content: Text(content),
-          backgroundColor: Colors.teal[100],
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+          ),
           actions: [
             TextButton(
               child: Text(
                 'Close',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.teal[300]),
               ),
               onPressed: () => Navigator.of(context).pop(),
             ),
