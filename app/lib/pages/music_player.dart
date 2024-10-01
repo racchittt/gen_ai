@@ -59,8 +59,8 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.teal, // Darker shade
-              Color(0xFFB2E6B2), // Mint green (lighter shade)
+              Colors.teal[100]!,
+              Colors.grey[200]!,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -72,12 +72,12 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
                 margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                 child: Text(
                   'Listen to \ntherapy music ..',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.teal,
                     fontFamily: 'Poppins',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,

@@ -42,7 +42,7 @@ class FlashCard extends StatelessWidget {
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Colors.teal[100],
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
@@ -55,8 +55,17 @@ class FlashCard extends StatelessWidget {
             },
           ),
         ),
-        backgroundColor: Colors.grey[300],
-        body: Center(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.teal[100]!,
+                Colors.grey[200]!,
+              ],
+            ),
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -68,20 +77,22 @@ class FlashCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               )),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 24),
-                height: MediaQuery.of(context).size.height * 0.75,
-                child: CardSwiper(
-                  cardsCount: messages.length,
-                  numberOfCardsDisplayed: 3,
-                  scale: 0.9,
-                  padding: const EdgeInsets.all(12),
-                  isLoop: true,
-                  cardBuilder:
-                      (context, index, percentThresholdX, percentThresholdY) {
-                    return _buildCard(
-                        messages[index], images[index % images.length]);
-                  },
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: CardSwiper(
+                    cardsCount: messages.length,
+                    numberOfCardsDisplayed: 3,
+                    scale: 0.9,
+                    padding: const EdgeInsets.all(12),
+                    isLoop: true,
+                    cardBuilder:
+                        (context, index, percentThresholdX, percentThresholdY) {
+                      return _buildCard(
+                          messages[index], images[index % images.length]);
+                    },
+                  ),
                 ),
               ),
             ],

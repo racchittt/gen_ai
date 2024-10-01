@@ -13,36 +13,48 @@ class ChatScreen extends StatelessWidget {
         backgroundColor: Colors.teal[100],
       ),
       backgroundColor: Colors.teal[50],
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            const MessageStream(),
-            Container(
-              decoration: kMessageContainerDecoration,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      style: const TextStyle(color: Colors.black),
-                      decoration: kMessageTextFieldDecoration,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.teal[100]!,
+              Colors.grey[200]!,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const MessageStream(),
+              Container(
+                decoration: kMessageContainerDecoration,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        style: const TextStyle(color: Colors.black),
+                        decoration: kMessageTextFieldDecoration,
+                      ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Placeholder for send functionality
-                    },
-                    child: const Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
+                    TextButton(
+                      onPressed: () {
+                        // Placeholder for send functionality
+                      },
+                      child: const Text(
+                        'Send',
+                        style: kSendButtonTextStyle,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
