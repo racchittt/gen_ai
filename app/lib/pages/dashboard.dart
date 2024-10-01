@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/components/horizontal_cards.dart';
+import 'package:gen_ai/pages/blog.dart';
 import 'package:gen_ai/pages/breathe.dart';
 import 'package:gen_ai/pages/cards.dart';
 import 'package:gen_ai/pages/cbt/disclaimer.dart';
@@ -375,23 +376,29 @@ class _DashboardPageState extends State<DashboardPage> {
                                     shrinkWrap: true,
                                     children: [
                                       ExerciseTile(
-                                        icon: Icons.favorite,
-                                        exerciseName: 'Blogs',
-                                        numberOfExercise: 16,
-                                        color: Colors.orange,
-                                      ),
+                                          icon: Icons.favorite,
+                                          exerciseName: 'Blogs',
+                                          numberOfExercise: 16,
+                                          color: Colors.orange,
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BlogScreen()));
+                                          }),
                                       ExerciseTile(
-                                        icon: Icons.person,
-                                        exerciseName: 'Feel Good Music',
-                                        numberOfExercise: 8,
-                                        color: Colors.green,
-                                      ),
+                                          icon: Icons.person,
+                                          exerciseName: 'Feel Good Music',
+                                          numberOfExercise: 8,
+                                          color: Colors.green,
+                                          onTap: () {}),
                                       ExerciseTile(
-                                        icon: Icons.star,
-                                        exerciseName: 'Today\'s List',
-                                        numberOfExercise: 20,
-                                        color: Colors.pink,
-                                      ),
+                                          icon: Icons.star,
+                                          exerciseName: 'Today\'s List',
+                                          numberOfExercise: 20,
+                                          color: Colors.pink,
+                                          onTap: () {}),
                                     ],
                                   ),
                                 ],
