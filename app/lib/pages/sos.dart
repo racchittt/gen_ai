@@ -55,7 +55,7 @@ class SosScreen extends StatelessWidget {
                       () {};
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal[50],
+                      backgroundColor: Colors.white,
                       foregroundColor: Colors.white,
                       padding:
                           EdgeInsets.symmetric(vertical: 20, horizontal: 0),
