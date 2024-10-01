@@ -1,5 +1,6 @@
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:gen_ai/pages/dashboard.dart';
 
 class FlashCard extends StatelessWidget {
   final List<String> messages = [
@@ -24,40 +25,67 @@ class FlashCard extends StatelessWidget {
   FlashCard() {
     images.shuffle();
   }
+  Future<bool> _onWillPop(BuildContext context) async {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DashboardPage(), // Navigate to Dashboard
+      ),
+    );
+    return false; // Prevent the default back button behavior
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                child: Text(
-              'It\'s Okay! We got you.',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: () => _onWillPop(context),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.grey[300],
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        DashboardPage()), // Navigate to Dashboard
+              );
+            },
+          ),
+        ),
+        backgroundColor: Colors.grey[300],
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  child: Text(
+                'It\'s Okay! We got you.',
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                height: MediaQuery.of(context).size.height * 0.75,
+                child: CardSwiper(
+                  cardsCount: messages.length,
+                  numberOfCardsDisplayed: 3,
+                  scale: 0.9,
+                  padding: const EdgeInsets.all(12),
+                  isLoop: true,
+                  cardBuilder:
+                      (context, index, percentThresholdX, percentThresholdY) {
+                    return _buildCard(
+                        messages[index], images[index % images.length]);
+                  },
+                ),
               ),
-            )),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              height: MediaQuery.of(context).size.height * 0.75,
-              child: CardSwiper(
-                cardsCount: messages.length,
-                numberOfCardsDisplayed: 3,
-                scale: 0.9,
-                padding: const EdgeInsets.all(12),
-                isLoop: true,
-                cardBuilder:
-                    (context, index, percentThresholdX, percentThresholdY) {
-                  return _buildCard(
-                      messages[index], images[index % images.length]);
-                },
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

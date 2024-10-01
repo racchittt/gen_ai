@@ -8,15 +8,15 @@ class SosScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'SOS',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal[50],
         elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.teal[50],
         ),
         child: Center(
           child: Column(
