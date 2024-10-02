@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/dashboard.dart';
+import 'package:gen_ai/pages/post_details.dart';
 import 'package:intl/intl.dart';
 
 class CommunityPage extends StatefulWidget {
@@ -8,7 +9,20 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  final List<Map<String, dynamic>> _posts = [];
+  final List<Map<String, dynamic>> _posts = [
+    {
+      'content': 'Hello, everyone! How are you all doing today?',
+      'timestamp': DateTime.now().subtract(const Duration(hours: 2)),
+    },
+    {
+      'content': 'I am feeling great today! 😄',
+      'timestamp': DateTime.now().subtract(const Duration(minutes: 45)),
+    },
+    {
+      'content': 'I need some advice on how to deal with stress.',
+      'timestamp': DateTime.now().subtract(const Duration(minutes: 20)),
+    },
+  ];
   final _controller = TextEditingController();
 
   void _addPost() {
@@ -17,17 +31,10 @@ class _CommunityPageState extends State<CommunityPage> {
         _posts.add({
           'content': _controller.text,
           'timestamp': DateTime.now(),
-          'likes': 0,
         });
         _controller.clear();
       });
     }
-  }
-
-  void _likePost(int index) {
-    setState(() {
-      _posts[index]['likes'] += 1;
-    });
   }
 
   void _deletePost(int index) {
@@ -44,10 +51,10 @@ class _CommunityPageState extends State<CommunityPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => DashboardPage(), // Navigate to Dashboard
+        builder: (context) => DashboardPage(),
       ),
     );
-    return false; // Prevent the default back button behavior
+    return false;
   }
 
   @override
@@ -145,20 +152,6 @@ class _CommunityPageState extends State<CommunityPage> {
                                   children: [
                                     IconButton(
                                       icon: Icon(
-                                        Icons.thumb_up_off_alt_rounded,
-                                        color: themeColor,
-                                      ),
-                                      onPressed: () => _likePost(index),
-                                    ),
-                                    Text(
-                                      '${post['likes']}',
-                                      style: TextStyle(
-                                        color: themeColor,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
                                         Icons.delete,
                                         color: Colors.red.shade400,
                                       ),
@@ -166,6 +159,15 @@ class _CommunityPageState extends State<CommunityPage> {
                                     ),
                                   ],
                                 ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          PostDetailsPage(post: post),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           );

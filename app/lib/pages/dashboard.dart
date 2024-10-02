@@ -6,6 +6,7 @@ import 'package:gen_ai/pages/cards.dart';
 import 'package:gen_ai/pages/cbt/disclaimer.dart';
 import 'package:gen_ai/pages/chat_screen.dart';
 import 'package:gen_ai/pages/community.dart';
+import 'package:gen_ai/pages/contact_professionals.dart';
 import 'package:gen_ai/pages/journal.dart';
 import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
@@ -389,16 +390,16 @@ class _DashboardPageState extends State<DashboardPage> {
                                           }),
                                       ExerciseTile(
                                           icon: Icons.person,
-                                          exerciseName: 'Feel Good Music',
+                                          exerciseName: 'Contact Professionals',
                                           numberOfExercise: 8,
                                           color: Colors.green,
-                                          onTap: () {}),
-                                      ExerciseTile(
-                                          icon: Icons.star,
-                                          exerciseName: 'Today\'s List',
-                                          numberOfExercise: 20,
-                                          color: Colors.pink,
-                                          onTap: () {}),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ContactProfessionals()));
+                                          }),
                                     ],
                                   ),
                                 ],
