@@ -4,6 +4,7 @@ import 'package:gen_ai/pages/dashboard.dart';
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
   static String id = 'chat_screen';
+
   Future<bool> _onWillPop(BuildContext context) async {
     Navigator.pushReplacement(
       context,
@@ -21,7 +22,15 @@ class ChatScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Chat'),
-          backgroundColor: Colors.teal[100],
+          backgroundColor: Colors.teal[50],
+          actions: [
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {
+                // Placeholder for more options
+              },
+            ),
+          ],
         ),
         backgroundColor: Colors.teal[50],
         body: Container(
@@ -42,26 +51,39 @@ class ChatScreen extends StatelessWidget {
               children: <Widget>[
                 const MessageStream(),
                 Container(
-                  decoration: kMessageContainerDecoration,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: TextField(
-                          style: const TextStyle(color: Colors.black),
-                          decoration: kMessageTextFieldDecoration,
+                  decoration: BoxDecoration(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 165, 160, 160)),
+                            decoration: kMessageTextFieldDecoration,
+                          ),
                         ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          // Placeholder for send functionality
-                        },
-                        child: const Text(
-                          'Send',
-                          style: kSendButtonTextStyle,
+                        SizedBox(width: 8),
+                        ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal[300],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                              vertical: 10.0,
+                            ),
+                          ),
+                          child: const Text(
+                            'Send',
+                            style: kSendButtonTextStyle,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -81,7 +103,7 @@ class MessageStream extends StatelessWidget {
     // Dummy message data
     final messages = [
       {'text': 'Hello!', 'sender': 'Om'},
-      {'text': 'How are you?', 'sender': 'Nishant'},
+      {'text': 'How are you?', 'sender': 'AI'},
       {'text': 'I am fine, thank you!', 'sender': 'Om'},
     ];
 
@@ -147,6 +169,7 @@ class MessageBubble extends StatelessWidget {
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0)),
             elevation: 5.0,
+            shadowColor: Colors.black45,
             color: isMe ? Colors.teal[200] : Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(
@@ -168,21 +191,25 @@ class MessageBubble extends StatelessWidget {
   }
 }
 
-// Define the decoration constants
-const kMessageContainerDecoration = BoxDecoration(
-  border: Border(
-    top: BorderSide(color: Color.fromRGBO(0, 78, 70, 1), width: 1.0),
-  ),
-);
-
 const kMessageTextFieldDecoration = InputDecoration(
   hintText: 'Type your message here...',
   hintStyle: TextStyle(color: Colors.black54),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.teal, width: 1.0),
+    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.teal, width: 2.0),
+    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+  ),
 );
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.black,
+  color: Colors.white,
   fontSize: 18.0,
   fontWeight: FontWeight.w500,
 );

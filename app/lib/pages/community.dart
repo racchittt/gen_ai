@@ -68,7 +68,7 @@ class _CommunityPageState extends State<CommunityPage> {
         appBar: AppBar(
           title: const Text('Community'),
           centerTitle: true,
-          backgroundColor: Colors.teal[100],
+          backgroundColor: Colors.teal[50],
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
@@ -87,8 +87,8 @@ class _CommunityPageState extends State<CommunityPage> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.teal[100]!,
-                Colors.grey[200]!,
+                Colors.teal[50]!,
+                Colors.grey[100]!,
               ],
             ),
           ),
@@ -116,7 +116,7 @@ class _CommunityPageState extends State<CommunityPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            color: Colors.teal.shade50,
+                            color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.all(
                                   16.0), // Add padding here

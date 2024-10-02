@@ -1,23 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class PostDetailsPage extends StatelessWidget {
+class PostDetailsPage extends StatefulWidget {
   final Map<String, dynamic> post;
 
   PostDetailsPage({required this.post});
 
   @override
+  _PostDetailsPageState createState() => _PostDetailsPageState();
+}
+
+class _PostDetailsPageState extends State<PostDetailsPage> {
+  final TextEditingController _commentController = TextEditingController();
+  final List<Comment> comments = [
+    Comment(commenter: 'Anonymous', content: 'This is a comment.'),
+    Comment(commenter: 'Anonymous', content: 'This is another comment.'),
+    Comment(commenter: 'Anonymous', content: 'This is another comment.'),
+    Comment(commenter: 'Anonymous', content: 'This is another comment.'),
+  ];
+
+  @override
+  void dispose() {
+    _commentController.dispose();
+    super.dispose();
+  }
+
+  void _addComment() {
+    if (_commentController.text.isNotEmpty) {
+      setState(() {
+        comments.add(
+            Comment(commenter: 'Anonymous', content: _commentController.text));
+        _commentController.clear();
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final List<Comment> comments = [
-      Comment(commenter: 'Anonymous', content: 'This is a comment.'),
-      Comment(commenter: 'Anonymous', content: 'This is another comment.'),
-      Comment(commenter: 'Anonymous', content: 'This is another comment.'),
-      Comment(commenter: 'Anonymous', content: 'This is another comment.'),
-    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Post Details'),
-        backgroundColor: Colors.teal[100],
+        backgroundColor: Colors.teal[50],
       ),
       body: Padding(
         padding: const EdgeInsets.all(0),
@@ -26,11 +49,11 @@ class PostDetailsPage extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Colors.teal[100],
+                color: Colors.teal[50],
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.black,
-                    width: 2.0,
+                    color: Colors.teal[900]!,
+                    width: 0.5,
                   ),
                 ),
               ),
@@ -39,6 +62,7 @@ class PostDetailsPage extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      SizedBox(height: 10),
                       Text(
                         "Anonymous User",
                         style: const TextStyle(
@@ -48,15 +72,15 @@ class PostDetailsPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${_formatTimestamp(post['timestamp'])}',
+                        '${_formatTimestamp(widget.post['timestamp'])}',
                         style: const TextStyle(
                           color: Colors.black54,
                           fontSize: 14.0,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
                       Text(
-                        post['content'],
+                        widget.post['content'],
                         style: const TextStyle(
                           color: Colors.black87,
                           fontSize: 16.0,
@@ -65,20 +89,66 @@ class PostDetailsPage extends StatelessWidget {
                     ]),
               ),
             ),
-            Text(
-              'Comments',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal[900],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Comments',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal[900],
+                ),
               ),
             ),
             Expanded(
               child: ListView.builder(
                 itemCount: comments.length,
                 itemBuilder: (context, index) {
-                  return CommentWidget(comment: comments[index]);
+                  return Card(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        child: Text(comments[index].commenter[0]),
+                        backgroundColor: Colors.teal[100],
+                      ),
+                      title: Text(comments[index].commenter),
+                      subtitle: Text(comments[index].content),
+                    ),
+                  );
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _commentController,
+                      decoration: InputDecoration(
+                        hintText: 'Write a comment...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: _addComment,
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text('Post'),
+                  ),
+                ],
               ),
             ),
           ],
