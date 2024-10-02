@@ -17,21 +17,7 @@ const Navbar = () => {
         </div>
         {/* Menu Items */}
         <div className='hidden space-x-6 md:flex'>
-          <Link to='#' className='hover:text-darkGrayishBlue'>
-            Pricing
-          </Link>
-          <Link to='#' className='hover:text-darkGrayishBlue'>
-            Product
-          </Link>
-          <Link to='#' className='hover:text-darkGrayishBlue'>
-            About Us
-          </Link>
-          <Link to='#' className='hover:text-darkGrayishBlue'>
-            Careers
-          </Link>
-          <Link to='#' className='hover:text-darkGrayishBlue'>
-            Community
-          </Link>
+         <p>✨ For Google <span className='text-blue-800'> GenAI</span> Hackathon 2024 ✨</p>
         </div>
         {/* Button */}
         <Link
