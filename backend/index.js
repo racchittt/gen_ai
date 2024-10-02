@@ -9,8 +9,13 @@ const bodyParser = require("body-parser");
 // const { connection } = require('./config/db');
 const {winstonLogger, errorLogger} = require('./config/winston');
 // const { handleError } = require("./server/helpers/errorHandler");
-
-app.use(cors());
+const corsOptions = {
+  origin: 'https://vayu-one.vercel.app', // Allow requests from your frontend
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // If you're sending cookies or authentication tokens
+  allowedHeaders: 'Content-Type,Authorization', // Include any headers you're using
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
