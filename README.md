@@ -16,24 +16,14 @@
 
 
 <h2>Overview</h2>
-Food waste and hunger are major global issues. Around one-third of food produced for human consumption is wasted annually, while an estimated 690 million people suffer from hunger daily. These problems are interlinked and require a comprehensive approach.
+Vayu AI therapist is designed to provide comprehensive mental health support through an accessible and user-friendly platform. It helps individuals address issues like depression, stress, and anxiety by offering a variety of tools and resources. Users can easily navigate the app through a secure authentication system and engage in activities such as journaling, meditation, and breathing exercises. The app also features a community where users can anonymously interact, share experiences, and support one another. Our goal is to create a supportive space where mental well-being can be managed and improved in a personalized and convenient manner.
 
 <h2>What our project does for the same?</h2>
 
-Our project aims to address the issues of food waste and hunger by creating a platform that connects users with NGOs/Retreate centres that are dedicated to feeding the hungry and providing food to those in need. By facilitating these connections, we hope to contribute to the achievement of food security and minimize the problem of food wastage.
+Our project combines essential mental health resources into one cohesive platform. After users log in, they can select from a range of mental health issues they are dealing with, such as depression or stress, and the app provides personalized tools to address these concerns. Users have access to various features like mood tracking, meditation, journaling, and breathing exercises, which help in self-care and mental health management. 
 
-Our goals include providing reliable and sustainable food sources to those in need, reducing food waste by channeling it to those who can use it, and raising awareness and encouraging action on the issues of food waste and hunger.
+The app also offers a Cognitive Behavioral Therapy (CBT) test to assist users in assessing their mental health. Additionally, users can connect with mental health professionals and participate in an anonymous community forum, where they can share experiences and find encouragement from others.
 <br>
-
-
-
-<h2>Sustainable Development Goals</h2>
-
-To contribute to the Sustainable Development Goals, Hunger Halt aligns with "Zero Hunger" and "Good heatlh and well being". By reducing food waste and ensuring surplus food reaches those in need, our project addresses the global challenge of hunger and promotes sustainable practices in food consumption.
-
-![Image](Images/goals.png)
-
-
 
 <h2>Project Overview</h2>
 
@@ -49,20 +39,22 @@ To contribute to the Sustainable Development Goals, Hunger Halt aligns with "Zer
 ![Image](readmeImages/architecture.png)
 
 <br>
-Hunger Halt Video : https://youtu.be/EQqf-oyWLzk
+Vayu Video : 
 
 
 <h2>Key features</h2>
 
-1. A platform for NGOs/Retreate centres dedicated to feeding the hungry and reducing food waste to connect with users who are interested in supporting these causes.
+1. <b>Customizable Support:</b> Users can select specific issues like depression or stress to receive targeted mental health resources.
 
-2. A donation page for users to donate edible food or raw food to NGOs that they support.
+2. <b>Mood Chat with Pepo:</b> An interactive chat feature to help users track their moods and receive positive reinforcement.
 
-3. A volunteer section where users can upload their convenient time slot and select a day for volunteering,
+3. <b>CBT Test:</b> A Cognitive Behavioral Therapy test to help users assess their mental health and identify negative thought patterns.
 
-5. An easy-to-use interface that makes it easy for users to navigate the website.
+5. <b>Anonymous Community:</b> A supportive community forum where users can interact anonymously, providing a safe space for sharing and support.
 
-4. Use of google maps will enable NGO's to track the providers efficiently.
+4. <b>Motivational Cards:</b> Cards with motivational quotes and tips to uplift users during difficult times.
+
+5. <b>Mental Health Blog:</b> A blog with articles and tips on managing stress, depression, and other mental health challenges.
 
 <br>
 <h2>Technologies used</h2>
@@ -82,7 +74,7 @@ git clone <repository-url>
 
 Install dependencies using 
 ```
-cd frontend
+cd landing
 npm install
 ```
 Install dependencies using 
@@ -99,7 +91,7 @@ flutter pub get
 Start the Project
 ```
 backend -> nodemon server.js
-frontend -> npm start
+landing -> npm start
 app -> flutter run
 ```
 
