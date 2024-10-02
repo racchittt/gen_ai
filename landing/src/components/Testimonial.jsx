@@ -1,65 +1,69 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import avatarAnisha from '../assets/images/avatar-anisha.png';
-import avatarAli from '../assets/images/avatar-ali.png';
-import avatarRichard from '../assets/images/avatar-richard.png';
-
-const Testimonial = () => {
+const Tetimonial = () => {
   return (
-    <section id='testimonials'>
-      {/* Container to heading and testm blocks */}
+    <section id='app-screenshots'>
+      {/* Container for heading and screenshots */}
       <div className='max-w-6xl px-5 mx-auto mt-32 text-center'>
         {/* Heading */}
         <h2 className='text-4xl font-bold text-center'>
-          What's Different About Manage?
+          Take a Look at Our App
         </h2>
-        {/* Testimonials Container */}
+
+        {/* Screenshot Container */}
         <div className='flex flex-col mt-24 md:flex-row md:space-x-6'>
-          {/* Testimonial 1 */}
+          {/* Screenshot 1 */}
           <div className='flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3'>
-            <img src={avatarAnisha} className='w-16 -mt-14' alt='' />
-            <h5 className='text-lg font-bold'>Anisha Li</h5>
+            <img 
+              src='appSs1.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 1' 
+            />
+            <h5 className='text-lg font-bold'>Main Dashboard</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “Manage has supercharged our team's workflow. The ability to
-              maintain visibility on larger milestones at all times keeps
-              everyone motivated.”
+              Get an overview of your progress and access all features from the main dashboard.
             </p>
           </div>
 
-          {/* Testimonial 2 */}
+          {/* Screenshot 2 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
-            <img src={avatarAli} className='w-16 -mt-14' alt='' />
-            <h5 className='text-lg font-bold'>Ali Bravo</h5>
+            <img 
+              src='appSs2.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 2' 
+            />
+            <h5 className='text-lg font-bold'>Track Your Mood</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “We have been able to cancel so many other subscriptions since
-              using Manage. There is no more cross-channel confusion and
-              everyone is much more focused.”
+              Our app allows you to easily track your daily mood and get insights over time.
             </p>
           </div>
 
-          {/* Testimonial 3 */}
+          {/* Screenshot 3 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
-            <img src={avatarRichard} className='w-16 -mt-14' alt='' />
-            <h5 className='text-lg font-bold'>Richard Watts</h5>
+            <img 
+              src='appSs1.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 3' 
+            />
+            <h5 className='text-lg font-bold'>Therapist Chat</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “Manage has supercharged our team's workflow. The ability to
-              maintain visibility on larger milestones at all times keeps
-              everyone motivated.”
+              Chat with our therapy bot or connect with real therapists within the app.
             </p>
           </div>
         </div>
+
         {/* Button */}
         <div className='my-16'>
-          <Link
-            to='#'
-            className='p-3 px-6 pt-2 text-white  bg-[#0CADB5] rounded-full baseline hover:bg-brightRedLight'
+          <a
+            href='#'
+            className='p-3 px-6 pt-2 text-white bg-[#0CADB5] rounded-full baseline hover:bg-brightRedLight'
           >
-            Get Started
-          </Link>
+            Download Now
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-export default Testimonial;
+export default Tetimonial;

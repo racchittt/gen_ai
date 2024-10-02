@@ -73,8 +73,7 @@ const Chat = () => {
             { sender: "user", message: input },
             { sender: "bot", message: error.response.data.botResponse },
           ]);
-      }
-      if(error.response.data.error) {
+      } else if(error.response.data.error) {
        if(error.response.data.error.response.candidates) {
         setMessages([
             ...messages,
@@ -84,9 +83,10 @@ const Chat = () => {
        }
       }
       console.error("Error sending message:", error);
+    } finally {
+        setInput("");
+        setLoading(false); // Stop loading
     }
-    setInput("");
-    setLoading(false); // Stop loading
   };
 
   const closeModal = () => {
