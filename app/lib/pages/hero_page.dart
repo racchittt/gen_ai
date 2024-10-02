@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gen_ai/components/lottie_widget.dart';
-import 'package:gen_ai/components/motivation_widget.dart';
 import 'package:gen_ai/pages/login.dart';
 import 'package:gen_ai/themes/colors.dart';
 

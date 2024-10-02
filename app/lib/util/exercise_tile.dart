@@ -50,32 +50,17 @@ class ExerciseTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // title
                       Text(
                         exerciseName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 20,
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      // subtitle
-                      Text(
-                        numberOfExercise.toString() + ' Exercises',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.grey),
                       ),
                     ],
                   )
                 ],
               ),
-              Icon(
-                Icons.more_horiz,
-              )
             ],
           ),
         ),

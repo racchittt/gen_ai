@@ -1,7 +1,7 @@
 const { doc, updateDoc, setDoc, arrayUnion, getDoc } = require("firebase/firestore");
 const {Chats} = require('../../config/db'); // Firestore initialization
 
-async function addChat(userId, date, data) {
+async function addChat(userId, date, data, platform = null) {
     try {
         // Use the userId and date to form the document ID
         const chatDocId = `${userId}_${date}`;
@@ -12,11 +12,13 @@ async function addChat(userId, date, data) {
             messages: arrayUnion(data)
         }).catch(async (error) => {
             // If the document doesn't exist, create it
+            console.log(error);
             if (error.code === 'not-found') {
                 await setDoc(chatRef, {
                     messages: [data],
                     userId: userId,
-                    date: date
+                    date: date,
+                    platform:null
                 });
             } else {
                 throw error;
