@@ -15,7 +15,7 @@ const Tetimonial = () => {
           {/* Screenshot 1 */}
           <div className='flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3'>
             <img 
-              src='appSs1.jpeg' 
+              src='appSs1.jpeg'
               className='w-[80%] h-auto rounded-xl' 
               alt='App Screenshot 1' 
             />
