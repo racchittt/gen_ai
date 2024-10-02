@@ -50,7 +50,6 @@ class ExerciseTile extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // title
                       Text(
                         exerciseName,
                         style: TextStyle(
