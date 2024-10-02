@@ -53,7 +53,7 @@ async function sendMessages(req, res, next) {
         res.status(200).json({ message: 'Message sent', botResponse });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: 'Failed to send message' });
+        res.status(500).json({ message: 'Failed to send message' , error:error});
     }
 }
 
