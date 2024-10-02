@@ -12,6 +12,7 @@ async function addChat(userId, date, data) {
             messages: arrayUnion(data)
         }).catch(async (error) => {
             // If the document doesn't exist, create it
+            console.log(error);
             if (error.code === 'not-found') {
                 await setDoc(chatRef, {
                     messages: [data],

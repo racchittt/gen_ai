@@ -1,4 +1,6 @@
 const ChatHandler = require('./chat.handler');
+const { geminiResponse } = require('../../config/gemini')
+const formatChatHistoryForBot = require('./chat.utils')
 
 // Utility function to format the date as YYYY-MM-DD
 function getFormattedDate() {
@@ -25,8 +27,10 @@ async function sendMessages(req, res, next) {
         // Add user message to Firestore
         await ChatHandler.addChat(userId, date, userMessageData);
 
+        let prevMessages = await ChatHandler.getChat(userId, date);
+        const chatHistory = formatChatHistoryForBot(prevMessages);
         // Simulate bot response (replace this with actual Gemini API)
-        const botResponse = await getBotResponse(message);
+        const botResponse = await geminiResponse(chatHistory);
         const botMessageData = {
             userId,
             message: botResponse,
@@ -39,6 +43,7 @@ async function sendMessages(req, res, next) {
         
         res.status(200).json({ message: 'Message sent', botResponse });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Failed to send message' });
     }
 }
@@ -58,14 +63,6 @@ async function getMessages(req, res, next) {
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve messages' });
     }
-}
-
-// Function to simulate bot response (replace this with actual API)
-async function getBotResponse(userMessage) {
-    if (userMessage.includes('stress')) {
-        return "It sounds like you're feeling stressed. Can you tell me more?";
-    }
-    return "I'm here to listen. What's on your mind?";
 }
 
 module.exports = {
