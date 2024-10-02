@@ -12,23 +12,51 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
   final List<Map<String, dynamic>> categories = [
     {
       'title': 'Nature',
-      'image': 'assets/images/leaf.jpg',
-      'songs': ['songs/nature1.mp3', 'songs/nature2.mp3']
+      'image':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817934/leaf_a5zvcf.jpg',
+      'names': ['Nature Walk', 'Nature Calls'],
+      'songs': [
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818636/nature1_g9oi6l.mp3',
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818624/nature2_qptiix.mp3'
+      ],
+      'path':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817936/nature_bg_urkvoo.webp'
     },
     {
-      'title': 'White Noise',
-      'image': 'assets/images/white.webp',
-      'songs': ['songs/whitenoise1.mp3', 'songs/whitenoise2.mp3']
+      'title': 'Instrumental',
+      'image':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817934/instrument_fgk11y.jpg',
+      'names': ['Violins', 'Mix'],
+      'songs': [
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818623/instrument1_gcepby.mp3',
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818632/instrument2_gnmche.mp3'
+      ],
+      'path':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817934/instrument_fgk11y.jpg'
     },
     {
       'title': 'Binaural',
-      'image': 'assets/images/bin.png',
-      'songs': ['songs/binaural1.mp3', 'songs/binaural2.mp3']
+      'image':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817935/bin_eoeoie.png',
+      'names': ['3 Hz', '1 Hz'],
+      'songs': [
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818630/binaural1_pz5a7q.mp3',
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818623/binaural2_hwdnht.mp3'
+      ],
+      'path':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817935/binaural_bg_m0ia29.gif'
     },
     {
       'title': 'Artist',
-      'image': 'assets/images/art.jpg',
-      'songs': ['songs/artist1.mp3', 'songs/artist2.mp3']
+      'image':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817934/art_nhi71m.jpg',
+      'names': ['Nature Walk', 'Nature Calls'],
+      'songs': [
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818620/artist1_itgttb.mp3',
+        'https://res.cloudinary.com/duknzh3qe/video/upload/v1727818621/artist2_vrew89.mp3'
+      ],
+      'path':
+          'https://res.cloudinary.com/duknzh3qe/image/upload/v1727817934/art_nhi71m.jpg'
     },
   ];
 
@@ -113,17 +141,19 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                       child: GestureDetector(
                         onTap: () {
                           // Select a random song from the category
-                          String randomSong = (categories[index]['songs']
-                                  as List<String>)[
-                              Random()
-                                  .nextInt(categories[index]['songs'].length)];
+                          int randomIndex = Random()
+                              .nextInt(categories[index]['songs'].length);
 
                           // Navigate directly to the song player page with the random song
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => SongPlayerPage(
-                                songPath: randomSong,
+                                songPath: categories[index]['songs']
+                                    [randomIndex],
+                                songName: categories[index]['names']
+                                    [randomIndex],
+                                catName: categories[index]['path'],
                               ),
                             ),
                           );
@@ -137,7 +167,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Image.asset(
+                                child: Image.network(
                                   categories[index]['image'],
                                   fit: BoxFit.cover,
                                   width: double.infinity,

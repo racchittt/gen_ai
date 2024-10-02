@@ -12,6 +12,7 @@ import 'package:gen_ai/pages/meditation.dart';
 import 'package:gen_ai/pages/mood.dart';
 import 'package:gen_ai/pages/music_player.dart';
 import 'package:gen_ai/pages/sos.dart';
+import 'package:gen_ai/services/auth_service.dart';
 import '../util/exercise_tile.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -127,7 +128,13 @@ class _DashboardPageState extends State<DashboardPage> {
                                             color: Colors.white,
                                           ),
                                         ),
-                                      )
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.logout),
+                                        onPressed: () {
+                                          AuthService().logout(context);
+                                        },
+                                      ),
                                     ],
                                   ),
                                   SizedBox(
