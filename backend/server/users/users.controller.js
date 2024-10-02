@@ -27,7 +27,11 @@ async function simpleLogin(req, res) {
 async function firebaseLogin(req, res) {
     try {
         const { token } = req.body; // Firebase ID Token from Flutter
-        console.log(token);
+        if (!token) {
+            return res.status(400).json({ error: 'Token is required' });
+        }
+
+        console.log(`Received token: ${token}`);
         const decodedToken = await admin.auth().verifyIdToken(token);
         const firebaseUid = decodedToken.uid;
 
@@ -44,7 +48,7 @@ async function firebaseLogin(req, res) {
         await UsersHandler.createUser(firebaseUid, userData);
         res.status(200).json({ message: 'Firebase user logged in', userId: firebaseUid, username: userData.username });
     } catch (error) {
-        console.log(error)
+        console.error('Error logging in with Firebase:', error);
         res.status(500).json({ error: 'Failed to log in with Firebase' });
     }
 }

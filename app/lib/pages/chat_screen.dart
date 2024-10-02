@@ -39,6 +39,8 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
+  final String _userId = '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5';
+
   Future<bool> _onWillPop(BuildContext context) async {
     Navigator.pushReplacement(
       context,
@@ -85,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: <Widget>[
                 Expanded(
                   child: ListView.builder(
-                    reverse: false,
+                    reverse: true,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10.0,
                       vertical: 20.0,
@@ -96,8 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       return MessageBubble(
                         sender: message['sender'] ?? 'Unknown',
                         text: message['message'] ?? '',
-                        isMe: message['userId'] ==
-                            '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5',
+                        isMe: message['sender'] != 'bot',
                       );
                     },
                   ),
@@ -120,24 +121,34 @@ class _ChatScreenState extends State<ChatScreen> {
                         SizedBox(width: 8),
                         ElevatedButton(
                           onPressed: () async {
-                            // Send message
                             final message = _messageController.text;
-                            setState(() {
-                              _messages.insert(0, {
-                                'sender': 'user',
-                                'userId':
-                                    '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5',
-                                'message': message,
-                                'timestamp':
-                                    DateTime.now().millisecondsSinceEpoch,
+                            if (message.isNotEmpty) {
+                              setState(() {
+                                _messages.insert(0, {
+                                  'sender': 'User',
+                                  'userId': _userId,
+                                  'message': message,
+                                  'timestamp':
+                                      DateTime.now().millisecondsSinceEpoch,
+                                });
                               });
-                            });
-                            await _chatService.sendMessages(
-                                '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5',
-                                message);
-                            _messageController
-                                .clear(); // Clear the text field after sending the message
-                            _fetchMessages(); // Refresh the messages
+                              await _chatService.sendMessages(_userId, message);
+                              _messageController.clear();
+
+                              // Simulate AI response (replace with actual AI integration)
+                              Future.delayed(Duration(seconds: 1), () {
+                                setState(() {
+                                  _messages.insert(0, {
+                                    'sender': 'AI',
+                                    'userId': 'ai-user-id',
+                                    'message':
+                                        'This is a simulated AI response.',
+                                    'timestamp':
+                                        DateTime.now().millisecondsSinceEpoch,
+                                  });
+                                });
+                              });
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.teal[300],
@@ -207,11 +218,13 @@ class MessageStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  const MessageBubble(
-      {super.key,
-      required this.sender,
-      required this.text,
-      required this.isMe});
+  const MessageBubble({
+    super.key,
+    required this.sender,
+    required this.text,
+    required this.isMe,
+  });
+
   final String sender, text;
   final bool isMe;
 
@@ -235,11 +248,13 @@ class MessageBubble extends StatelessWidget {
                 ? const BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0))
+                    bottomRight: Radius.circular(30.0),
+                  )
                 : const BorderRadius.only(
                     topRight: Radius.circular(30.0),
                     bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0)),
+                    bottomRight: Radius.circular(30.0),
+                  ),
             elevation: 5.0,
             shadowColor: Colors.black45,
             color: isMe ? Colors.teal[200] : Colors.white,

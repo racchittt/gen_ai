@@ -17,19 +17,22 @@ class _JournalState extends State<Journal> {
 
   final List<Map<String, String>> data = [
     {
-      'timeStamp': '10/10',
-      'title': 'Card Title 1',
-      'content': 'This is the text inside the first card.'
+      'timeStamp': '2/8',
+      'title': 'Therapy Session',
+      'content':
+          'Discussed coping mechanisms for anxiety and stress management techniques.'
     },
     {
-      'timeStamp': '10/10',
-      'title': 'Card Title 2',
-      'content': 'This is the text inside the second card.'
+      'timeStamp': '11/07',
+      'title': 'Mindfulness Practice',
+      'content':
+          'Practiced mindfulness meditation for 30 minutes. Felt more relaxed and centered afterwards.'
     },
     {
-      'timeStamp': '10/10',
-      'title': 'Card Title 3',
-      'content': 'This is the text inside the third card.'
+      'timeStamp': '23/06',
+      'title': 'Support Group Meeting',
+      'content':
+          'Attended a support group meeting. Shared experiences and received encouragement from others.'
     }
   ];
 

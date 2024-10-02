@@ -4,27 +4,21 @@ class BlogScreen extends StatelessWidget {
   final Object data = ([
     {
       'articleTitle': 'The Importance of Sleep',
-      'articleImage': 'assets/images/nature.jpg',
+      'articleImage': 'assets/images/sleep.jpg',
       'articleDetails':
           'Sleep is essential for overall well-being, playing a critical role in physical and mental health. During sleep, the body repairs tissues, strengthens the immune system, and restores energy levels, which are vital for maintaining optimal physical performance and preventing illness. Sleep also supports cognitive functions, such as memory consolidation, learning, and emotional regulation, allowing the brain to process information and manage stress effectively. Consistent, quality sleep enhances problem-solving abilities, creativity, and decision-making, while reducing the risk of mental health issues like anxiety and depression. Lack of sleep impairs attention, reaction times, and judgment, increasing the likelihood of accidents and poor performance in daily tasks. Additionally, insufficient sleep is linked to chronic conditions such as obesity, diabetes, and heart disease, making it crucial for long-term health. Cultivating healthy sleep habits improves mood, productivity, and overall quality of life.',
     },
     {
-      'articleTitle': 'The Importance of depression',
-      'articleImage': 'assets/images/nature.jpg',
+      'articleTitle': 'Depression: Silent Killer',
+      'articleImage': 'assets/images/depression.jpg',
       'articleDetails':
           'Depression is a mood disorder that causes a persistent feeling of sadness and loss of interest. Also called major depressive disorder or clinical depression, it affects how you feel, think and behave and can lead to a variety of emotional and physical problems.',
     },
     {
-      'articleTitle': 'The Importance of anxiety',
-      'articleImage': 'assets/images/nature.jpg',
+      'articleTitle': 'Anxiety: The Fear Within',
+      'articleImage': 'assets/images/anxiety.webp',
       'articleDetails':
           'Anxiety is your body’s natural response to stress. It’s a feeling of fear or apprehension about what’s to come. The first day of school, going to a job interview, or giving a speech may cause most people to feel fearful and nervous.',
-    },
-    {
-      'articleTitle': 'The Importance of bpd',
-      'articleImage': 'assets/images/nature.jpg',
-      'articleDetails':
-          'Borderline personality disorder (BPD) is a serious mental disorder marked by a pattern of ongoing instability in moods, behavior, self-image, and functioning. These experiences often result in impulsive actions and unstable relationships.',
     },
   ]);
   @override
