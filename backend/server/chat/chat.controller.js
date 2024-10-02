@@ -15,8 +15,14 @@ async function sendMessages(req, res, next) {
             return res.status(500).json({message:"Invalid Request"})
         }
         const date = getFormattedDate(); // Get today's date (YYYY-MM-DD)
-
-        // User message data
+        let platform = null;
+        if(req.body.hasOwnProperty('platform')) {
+            let prevMessages = await ChatHandler.getChat(userId, date);
+            if(prevMessages.length > 20) {
+                return res.status(401).json({message:"exhausted",error:"limit", botResponse:"Please Download our app!"})
+            }
+            platform = req.body.platform;
+        }
         const userMessageData = {
             userId,
             message,
@@ -24,8 +30,11 @@ async function sendMessages(req, res, next) {
             timestamp: Date.now()
         };
         
-        // Add user message to Firestore
-        await ChatHandler.addChat(userId, date, userMessageData);
+        if(platform) {
+            await ChatHandler.addChat(userId, date, userMessageData, platform);
+        } else {
+            await ChatHandler.addChat(userId, date, userMessageData);
+        }
 
         let prevMessages = await ChatHandler.getChat(userId, date);
         const chatHistory = formatChatHistoryForBot(prevMessages);

@@ -1,7 +1,7 @@
 const { doc, updateDoc, setDoc, arrayUnion, getDoc } = require("firebase/firestore");
 const {Chats} = require('../../config/db'); // Firestore initialization
 
-async function addChat(userId, date, data) {
+async function addChat(userId, date, data, platform = null) {
     try {
         // Use the userId and date to form the document ID
         const chatDocId = `${userId}_${date}`;
@@ -17,7 +17,8 @@ async function addChat(userId, date, data) {
                 await setDoc(chatRef, {
                     messages: [data],
                     userId: userId,
-                    date: date
+                    date: date,
+                    platform:null
                 });
             } else {
                 throw error;
