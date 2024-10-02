@@ -369,7 +369,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                   Container(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'Exercises',
+                                      'Explore',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,

@@ -6,7 +6,7 @@ class BlogScreen extends StatelessWidget {
       'articleTitle': 'The Importance of Sleep',
       'articleImage': 'assets/images/nature.jpg',
       'articleDetails':
-          'Sleep is important for various aspects of brain function. This includes cognition, concentration, productivity, and performance. All of these are negatively affected by sleep deprivation.',
+          'Sleep is essential for overall well-being, playing a critical role in physical and mental health. During sleep, the body repairs tissues, strengthens the immune system, and restores energy levels, which are vital for maintaining optimal physical performance and preventing illness. Sleep also supports cognitive functions, such as memory consolidation, learning, and emotional regulation, allowing the brain to process information and manage stress effectively. Consistent, quality sleep enhances problem-solving abilities, creativity, and decision-making, while reducing the risk of mental health issues like anxiety and depression. Lack of sleep impairs attention, reaction times, and judgment, increasing the likelihood of accidents and poor performance in daily tasks. Additionally, insufficient sleep is linked to chronic conditions such as obesity, diabetes, and heart disease, making it crucial for long-term health. Cultivating healthy sleep habits improves mood, productivity, and overall quality of life.',
     },
     {
       'articleTitle': 'The Importance of depression',
@@ -115,27 +115,75 @@ class ArticleDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(articleTitle),
+        backgroundColor: Colors.teal,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 200, // Specify the height you want for the image
-              child: Image.asset(articleImage, fit: BoxFit.cover),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.teal.shade100, Colors.teal.shade50],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(articleImage, fit: BoxFit.cover),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          articleTitle,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.teal.shade900,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Divider(color: Colors.teal.shade200),
+                        SizedBox(height: 10),
+                        Text(
+                          articleDetails,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.teal.shade800,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 20),
-            Text(
-              articleTitle,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Text(
-              articleDetails,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -186,7 +234,7 @@ class ArticleCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 200, // Specify the height you want for the image
+              height: 200,
               child: Image.asset(articleImage, fit: BoxFit.cover),
             ),
             SizedBox(height: 10),

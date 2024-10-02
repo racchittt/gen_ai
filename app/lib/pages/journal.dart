@@ -15,10 +15,28 @@ class _JournalState extends State<Journal> {
   TextEditingController field3 = TextEditingController();
   FocusNode focusNode = FocusNode();
 
+  final List<Map<String, String>> data = [
+    {
+      'timeStamp': '10/10',
+      'title': 'Card Title 1',
+      'content': 'This is the text inside the first card.'
+    },
+    {
+      'timeStamp': '10/10',
+      'title': 'Card Title 2',
+      'content': 'This is the text inside the second card.'
+    },
+    {
+      'timeStamp': '10/10',
+      'title': 'Card Title 3',
+      'content': 'This is the text inside the third card.'
+    }
+  ];
+
   @override
   void initState() {
     super.initState();
-    field1.text = ""; // Initial value of text field
+    field1.text = "";
     field2.text = "";
     field3.text = "";
   }
@@ -41,81 +59,81 @@ class _JournalState extends State<Journal> {
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Gratitude Journal"),
+          title: const Text("Journal"),
           centerTitle: true,
           backgroundColor: Colors.teal.shade50,
           elevation: 5,
         ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'Write three points of gratitude!',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                  AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    curve: Curves.easeInOut,
-                    child: _buildTextField(
-                        field1, "I am grateful for", themeColor),
-                  ),
-                  const SizedBox(height: 20),
-                  AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    curve: Curves.easeInOut,
-                    child: _buildTextField(
-                        field1, "I am grateful for", themeColor),
-                  ),
-                  const SizedBox(height: 20),
-                  AnimatedContainer(
-                    duration: Duration(seconds: 1),
-                    curve: Curves.easeInOut,
-                    child: _buildTextField(
-                        field1, "I am grateful for", themeColor),
-                  ),
-                  const SizedBox(height: 30),
-                  Center(
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        // Share functionality
-                      },
-                      icon: const Icon(Icons.share,
-                          size: 24.0, color: Colors.white),
-                      label: const Text('Share',
-                          style: TextStyle(color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: themeColor,
-                        shape: RoundedRectangleBorder(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.teal[100]!,
+                Colors.grey[200]!,
+              ],
+            ),
+          ),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 20),
+                    TextField(
+                      controller: field1,
+                      decoration: InputDecoration(
+                        labelText: 'Write your journal here',
+                        labelStyle: TextStyle(color: themeColor),
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: themeColor, width: 2),
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 25),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                              color: themeColor.withOpacity(0.6), width: 1),
+                        ),
+                        filled: true,
+                        fillColor: Colors.teal.shade50,
+                      ),
+                      maxLines: 5,
+                    ),
+                    const SizedBox(height: 30),
+                    Center(
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        label: const Text('Submit',
+                            style: TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 25),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  const Center(
-                    child: Text(
-                      'Keep writing and expressing gratitude!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black54,
-                      ),
+                    const SizedBox(height: 20),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        return CardRow(
+                          index: index,
+                          time: data[index]['timeStamp']!,
+                          title: data[index]['title']!,
+                          content: data[index]['content']!,
+                        );
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  const LottieWidget(path: 'assets/animations/writing.json'),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -123,28 +141,109 @@ class _JournalState extends State<Journal> {
       ),
     );
   }
+}
 
-  Widget _buildTextField(
-      TextEditingController controller, String labelText, Color themeColor) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: TextStyle(color: themeColor),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: themeColor, width: 2),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: themeColor.withOpacity(0.6), width: 1),
-        ),
-        prefixIcon: Icon(Icons.favorite, color: themeColor),
-        filled: true,
-        fillColor: Colors.teal.shade50,
-      ),
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.done,
+class CardRow extends StatelessWidget {
+  final int index;
+  final String time;
+  final String title;
+  final String content;
+
+  const CardRow({
+    Key? key,
+    required this.index,
+    required this.time,
+    required this.title,
+    required this.content,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: index % 2 == 0
+          ? [
+              Flexible(
+                flex: 3,
+                child: Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Text(
+                      time,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 8,
+                child: Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          content,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ]
+          : [
+              Expanded(
+                flex: 8,
+                child: Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          content,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                flex: 3,
+                child: Card(
+                  margin: const EdgeInsets.all(10),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Text(
+                      time,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              ),
+            ],
     );
   }
 }

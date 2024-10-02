@@ -55,19 +55,8 @@ class ExerciseTile extends StatelessWidget {
                         exerciseName,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontSize: 20,
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      // subtitle
-                      Text(
-                        numberOfExercise.toString() + ' Exercises',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.grey),
                       ),
                     ],
                   )

@@ -51,27 +51,39 @@ class SosScreen extends StatelessWidget {
                     ],
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
-                      () {};
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 0),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    child: Text(
-                      'Call your buddy',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.teal[900],
+                      onPressed: () {
+                        () {};
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 0),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
                       ),
-                    ),
-                  ),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(Icons.call, color: Colors.teal, size: 25),
+                            SizedBox(
+                                width:
+                                    8), // Add some space between the icon and the text
+                            Text(
+                              'Call your buddy',
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.teal[900],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
                 ),
                 const SizedBox(height: 16),
                 Row(

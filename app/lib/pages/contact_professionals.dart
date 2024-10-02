@@ -142,7 +142,7 @@ class DoctorProfileCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color(0xFF2E2E2E).withOpacity(0.9),
+        color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.9),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -164,7 +164,7 @@ class DoctorProfileCard extends StatelessWidget {
                           Text(
                             'Dr. Phos Gray',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
@@ -180,7 +180,9 @@ class DoctorProfileCard extends StatelessWidget {
                           SizedBox(width: 4),
                           Text(
                             'Anxiety Expert',
-                            style: TextStyle(color: Colors.grey, fontSize: 14),
+                            style: TextStyle(
+                                color: const Color.fromARGB(255, 125, 125, 125),
+                                fontSize: 14),
                           ),
                           SizedBox(width: 8),
                           Icon(Icons.access_time, color: Colors.grey, size: 16),
@@ -207,7 +209,9 @@ class DoctorProfileCard extends StatelessWidget {
                   SizedBox(width: 4),
                   Text(
                     '4.5',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(
+                        color: const Color.fromARGB(255, 86, 86, 86),
+                        fontSize: 16),
                   ),
                   Text(
                     ' (1.2k)',
@@ -223,18 +227,11 @@ class DoctorProfileCard extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text(
-                      'Rating',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                    Icon(Icons.call, color: Colors.white, size: 16),
                     SizedBox(width: 4),
                     Text(
-                      '99.57%',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
+                      'Contact',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
                     ),
                   ],
                 ),
