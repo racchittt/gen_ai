@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/lottie_widget.dart';
 import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/detail_view.dart';
 

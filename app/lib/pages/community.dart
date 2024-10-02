@@ -1,50 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/post_details.dart';
+import 'package:gen_ai/services/community_service.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 import 'package:intl/intl.dart';
 
 class CommunityPage extends StatefulWidget {
+  const CommunityPage({super.key});
+  static String id = 'community_screen';
+
   @override
   _CommunityPageState createState() => _CommunityPageState();
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  final List<Map<String, dynamic>> _posts = [
-    {
-      'content': 'Hello, everyone! How are you all doing today?',
-      'timestamp': DateTime.now().subtract(const Duration(hours: 2)),
-    },
-    {
-      'content': 'I am feeling great today! 😄',
-      'timestamp': DateTime.now().subtract(const Duration(minutes: 45)),
-    },
-    {
-      'content': 'I need some advice on how to deal with stress.',
-      'timestamp': DateTime.now().subtract(const Duration(minutes: 20)),
-    },
-  ];
-  final _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
+  List<dynamic> _posts = [];
+  String? _errorMessage;
 
-  void _addPost() {
-    if (_controller.text.isNotEmpty) {
+  @override
+  void initState() {
+    super.initState();
+    _fetchCommunityMessages();
+  }
+
+  Future<void> _fetchCommunityMessages() async {
+    try {
+      final communityService = CommunityService();
+      final messages = await communityService.getCommunityMessages();
       setState(() {
-        _posts.add({
-          'content': _controller.text,
-          'timestamp': DateTime.now(),
-        });
-        _controller.clear();
+        _posts = messages;
+        _errorMessage = null;
+      });
+      // print(messages);
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Error fetching community messages: $e';
       });
     }
   }
 
-  void _deletePost(int index) {
-    setState(() {
-      _posts.removeAt(index);
-    });
+  String _formatTimestamp(int timestamp) {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    return DateFormat('yyyy/MM/dd HH:mm').format(dateTime);
   }
 
-  String _formatTimestamp(DateTime timestamp) {
-    return DateFormat('dd/MM/yyyy HH:mm').format(timestamp);
+  Future<void> _addPost() async {
+    final message = _controller.text;
+    if (message.isNotEmpty) {
+      try {
+        final communityService = CommunityService();
+        await communityService.createCommunityMessage(
+            '2afca97e-8c6c-4f08-acee-bc9af7489726', message);
+        setState(() {
+          _posts.add({
+            'userId': 'Anonymous User',
+            'timestamp': DateTime.now().millisecondsSinceEpoch,
+            'message': message,
+            'comments': [],
+          });
+          _controller.clear();
+        });
+      } catch (e) {
+        setState(() {
+          _errorMessage = 'Error sending message: $e';
+        });
+      }
+    }
   }
 
   Future<bool> _onWillPop(BuildContext context) async {
@@ -58,28 +82,19 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final themeColor = Colors.teal;
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-    // ignore: deprecated_member_use
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Community'),
-          centerTitle: true,
-          backgroundColor: Colors.teal[50],
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        DashboardPage()), // Navigate to Dashboard
-              );
-            },
-          ),
+          backgroundColor: Colors.teal[300],
         ),
         body: Container(
           decoration: BoxDecoration(
@@ -87,146 +102,114 @@ class _CommunityPageState extends State<CommunityPage> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Colors.teal[50]!,
-                Colors.grey[100]!,
+                Colors.teal[100]!,
+                Colors.grey[200]!,
               ],
             ),
           ),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: _posts.isEmpty
-                    ? const Center(
-                        child: Text(
-                          'No posts yet. Be the first to contribute!',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount: _posts.length,
-                        itemBuilder: (context, index) {
-                          final post = _posts[index];
-                          return Card(
-                            elevation: 4,
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 10.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+          child: SafeArea(
+            child: Column(
+              children: <Widget>[
+                if (_errorMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      _errorMessage!,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                Expanded(
+                  child: _posts.isEmpty
+                      ? const Center(
+                          child: Text(
+                            'No posts yet. Be the first to contribute!',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.grey,
                             ),
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.all(
-                                  16.0), // Add padding here
-                              child: ListTile(
-                                title: Text(
-                                  "Anonymous User",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
-                                      fontSize: 15.0),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '${_formatTimestamp(post['timestamp'])}',
-                                      style: const TextStyle(
-                                        color: Colors.black54,
-                                        fontSize: 12.0,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      post['content'],
-                                      style: const TextStyle(
-                                        color: Colors.black87,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        color: Colors.red.shade400,
-                                      ),
-                                      onPressed: () => _deletePost(index),
-                                    ),
-                                  ],
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          PostDetailsPage(post: post),
-                                    ),
-                                  );
-                                },
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: _posts.length,
+                          itemBuilder: (context, index) {
+                            final post = _posts[index];
+                            return Card(
+                              elevation: 4,
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        decoration: InputDecoration(
-                          labelText: 'Enter your post',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: themeColor, width: 2),
-                          ),
-                          prefixIcon: Icon(Icons.edit, color: themeColor),
-                          filled: true,
-                          fillColor: Colors.teal.shade50,
-                          labelStyle: TextStyle(color: themeColor),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: themeColor, width: 2),
-                          ),
+                              color: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: ListTile(
+                                  title: Text('Anonymous User'),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        _formatTimestamp(post['timestamp']),
+                                        style: const TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 12.0,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        post['message'],
+                                        style: const TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PostDetailsPage(post: post),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: _addPost,
-                      child: const Text(
-                        'Post',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: themeColor,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 25.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          controller: _controller,
+                          decoration: const InputDecoration(
+                            hintText: 'Write a post...',
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30.0)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.send),
+                        onPressed: _addPost,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

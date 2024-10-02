@@ -1,9 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/dashboard.dart';
+import 'package:gen_ai/services/chat_service.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
   static String id = 'chat_screen';
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _messageController = TextEditingController();
+  final ChatService _chatService = ChatService();
+  List<dynamic> _messages = [];
+  @override
+  void initState() {
+    super.initState();
+    _fetchMessages();
+  }
+
+  Future<void> _fetchMessages() async {
+    try {
+      final messages = await _chatService.getMessages(
+          '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5', '2024-10-02');
+      setState(() {
+        _messages = messages;
+      });
+      print(messages);
+    } catch (e) {
+      print('Error fetching messages: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
 
   Future<bool> _onWillPop(BuildContext context) async {
     Navigator.pushReplacement(
@@ -22,7 +56,7 @@ class ChatScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Chat'),
-          backgroundColor: Colors.teal[50],
+          backgroundColor: Colors.teal[300],
           actions: [
             IconButton(
               icon: Icon(Icons.more_vert),
@@ -49,7 +83,25 @@ class ChatScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                const MessageStream(),
+                Expanded(
+                  child: ListView.builder(
+                    reverse: false,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 20.0,
+                    ),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      final message = _messages[index];
+                      return MessageBubble(
+                        sender: message['sender'] ?? 'Unknown',
+                        text: message['message'] ?? '',
+                        isMe: message['userId'] ==
+                            '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5',
+                      );
+                    },
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(),
                   child: Padding(
@@ -59,6 +111,7 @@ class ChatScreen extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: TextField(
+                            controller: _messageController,
                             style: const TextStyle(
                                 color: Color.fromARGB(255, 165, 160, 160)),
                             decoration: kMessageTextFieldDecoration,
@@ -66,7 +119,26 @@ class ChatScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            // Send message
+                            final message = _messageController.text;
+                            setState(() {
+                              _messages.insert(0, {
+                                'sender': 'user',
+                                'userId':
+                                    '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5',
+                                'message': message,
+                                'timestamp':
+                                    DateTime.now().millisecondsSinceEpoch,
+                              });
+                            });
+                            await _chatService.sendMessages(
+                                '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5',
+                                message);
+                            _messageController
+                                .clear(); // Clear the text field after sending the message
+                            _fetchMessages(); // Refresh the messages
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.teal[300],
                             shape: RoundedRectangleBorder(

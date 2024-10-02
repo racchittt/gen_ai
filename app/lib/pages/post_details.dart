@@ -12,12 +12,6 @@ class PostDetailsPage extends StatefulWidget {
 
 class _PostDetailsPageState extends State<PostDetailsPage> {
   final TextEditingController _commentController = TextEditingController();
-  final List<Comment> comments = [
-    Comment(commenter: 'Anonymous', content: 'This is a comment.'),
-    Comment(commenter: 'Anonymous', content: 'This is another comment.'),
-    Comment(commenter: 'Anonymous', content: 'This is another comment.'),
-    Comment(commenter: 'Anonymous', content: 'This is another comment.'),
-  ];
 
   @override
   void dispose() {
@@ -28,11 +22,19 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
   void _addComment() {
     if (_commentController.text.isNotEmpty) {
       setState(() {
-        comments.add(
-            Comment(commenter: 'Anonymous', content: _commentController.text));
+        widget.post['comments'].add({
+          'userId': 'Anonymous', // Replace with actual user ID if available
+          'timestamp': DateTime.now().millisecondsSinceEpoch,
+          'comment': _commentController.text,
+        });
         _commentController.clear();
       });
     }
+  }
+
+  String _formatTimestamp(int timestamp) {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    return DateFormat('dd/MM/yyyy HH:mm').format(dateTime);
   }
 
   @override
@@ -60,33 +62,34 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 20.0),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(height: 10),
-                      Text(
-                        "Anonymous User",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                          fontSize: 20.0,
-                        ),
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 10),
+                    Text(
+                      "Anonymous User",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                        fontSize: 20.0,
                       ),
-                      Text(
-                        '${_formatTimestamp(widget.post['timestamp'])}',
-                        style: const TextStyle(
-                          color: Colors.black54,
-                          fontSize: 14.0,
-                        ),
+                    ),
+                    Text(
+                      '${_formatTimestamp(widget.post['timestamp'])}',
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 14.0,
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        widget.post['content'],
-                        style: const TextStyle(
-                          color: Colors.black87,
-                          fontSize: 16.0,
-                        ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      widget.post['message'] ?? 'No Content',
+                      style: const TextStyle(
+                        color: Colors.black87,
+                        fontSize: 16.0,
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -102,18 +105,33 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: comments.length,
+                itemCount: widget.post['comments'].length,
                 itemBuilder: (context, index) {
+                  final comment = widget.post['comments'][index];
                   return Card(
                     margin:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     child: ListTile(
                       leading: CircleAvatar(
-                        child: Text(comments[index].commenter[0]),
+                        child: Text("A"),
                         backgroundColor: Colors.teal[100],
                       ),
-                      title: Text(comments[index].commenter),
-                      subtitle: Text(comments[index].content),
+                      title: Text("Anonymous User",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            _formatTimestamp(comment['timestamp']),
+                            style: const TextStyle(
+                              color: Colors.black54,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                          Text(comment['comment']),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -156,10 +174,6 @@ class _PostDetailsPageState extends State<PostDetailsPage> {
       ),
     );
   }
-
-  String _formatTimestamp(DateTime timestamp) {
-    return DateFormat('dd/MM/yyyy HH:mm').format(timestamp);
-  }
 }
 
 class Comment {
@@ -167,41 +181,4 @@ class Comment {
   final String content;
 
   Comment({required this.commenter, required this.content});
-}
-
-class CommentWidget extends StatelessWidget {
-  final Comment comment;
-
-  CommentWidget({required this.comment});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.teal[50],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            comment.commenter,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-              fontSize: 14.0,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            comment.content,
-            style: const TextStyle(
-              color: Colors.black87,
-              fontSize: 12.0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

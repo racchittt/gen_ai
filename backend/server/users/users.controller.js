@@ -1,9 +1,10 @@
-const {admin} = require('../../config/firebase');
-const { v4: uuidv4 } = require('uuid'); 
+const { admin } = require('../../config/firebase');
+const { v4: uuidv4 } = require('uuid');
 const UsersHandler = require('./users.handler');
 
 // POST request to log in with a simple username
 async function simpleLogin(req, res) {
+    console.log("hello");
     try {
         const { username } = req.body;
         // Generate a UUID for the user (for direct login users)
