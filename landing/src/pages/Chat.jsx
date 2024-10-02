@@ -8,10 +8,11 @@ const Chat = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [modalOpen, setModalOpen] = useState(false); // Modal state
   const [userId, setuserId] = useState(""); // Modal state
-//   const userId = "134982huwbcjiabsc";
+  //   const userId = "134982huwbcjiabsc";
 
-function createRandomString(length) {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  function createRandomString(length) {
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
     for (let i = 0; i < length; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -21,20 +22,21 @@ function createRandomString(length) {
 
   useEffect(() => {
     function createUserId() {
-        const id = localStorage.getItem('userId');
-        if(id !== "") {
-            setuserId(id);
-            console.log("present",id)
-        } else {
-            const str = createRandomString(18);
-            setuserId(str);
-            localStorage.setItem('userId',userId);
-            console.log("creating")
-        }
+      const id = localStorage.getItem("userId");
+      console.log(id);
+
+      if (id && id!=='null') {
+        setuserId(id);
+        console.log("User ID already present");
+      } else {
+        const str = createRandomString(18);
+        setuserId(str);
+        localStorage.setItem("userId", str); // Save the generated userId directly
+      }
     }
     createUserId();
-  }, [])
-  
+  }, []);
+
   const navigate = useNavigate();
 
   const sendMessage = async () => {
@@ -66,12 +68,21 @@ function createRandomString(length) {
     } catch (error) {
       if (error.response && error.response.data.message === "exhausted") {
         setModalOpen(true);
+        setMessages([
+            ...messages,
+            { sender: "user", message: input },
+            { sender: "bot", message: error.response.data.botResponse },
+          ]);
       }
-      setMessages([
-        ...messages,
-        { sender: "user", message: input },
-        { sender: "bot", message: error.response.data.botResponse },
-      ]);
+      if(error.response.data.error) {
+       if(error.response.data.error.response.candidates) {
+        setMessages([
+            ...messages,
+            { sender: "user", message: input },
+            { sender: "bot", message: "I can't respond due to inappropriate talks. Please be respectful and breathe. 😮‍💨" },
+          ]);
+       }
+      }
       console.error("Error sending message:", error);
     }
     setInput("");
@@ -146,11 +157,11 @@ function createRandomString(length) {
                           </div>
                         )}
                         <div
-                          className={`relative ml-3 text-sm ${
+                          className={` max-w-[80%] h-full relative ml-3 text-sm ${
                             msg.sender === "user" ? "bg-indigo-100" : "bg-white"
                           } py-2 px-4 shadow rounded-xl`}
                         >
-                          <div>{msg.message}</div>
+                          <div className="">{msg.message}</div>
                         </div>
                       </div>
                     </div>
@@ -213,7 +224,7 @@ function createRandomString(length) {
       </div>
 
       {/* Modal for Download Prompt */}
-      { modalOpen &&
+      {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-8 max-w-sm mx-auto text-center">
             <h2 className="text-2xl font-semibold mb-4">Download Our App</h2>
@@ -222,22 +233,22 @@ function createRandomString(length) {
               experience.
             </p>
             <div className="flex gap-5 items-center justify-center">
-            <a
-              href="/download" // Update with your app download link
-              className="inline-block bg-[#0CADB5] text-white px-6 py-2 rounded-full hover:bg-[#0CADB5]"
-            >
-              Download Now
-            </a>
-            <button
-              onClick={closeModal}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              Cancel
-            </button>
+              <a
+                href="/download" // Update with your app download link
+                className="inline-block bg-[#0CADB5] text-white px-6 py-2 rounded-full hover:bg-[#0CADB5]"
+              >
+                Download Now
+              </a>
+              <button
+                onClick={closeModal}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };
