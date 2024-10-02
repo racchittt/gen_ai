@@ -24,7 +24,7 @@ const Hero = () => {
               to='#'
               className='p-3 px-6 text-[#0CADB5] border-[#0CADB5] border-2  rounded-full baseline hover:bg-green-100'
             >
-              Get Started
+              Download now
             </Link>
           </div>
         </div>

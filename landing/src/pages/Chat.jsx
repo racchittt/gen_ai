@@ -102,7 +102,7 @@ const Chat = () => {
             className="text-md font-semibold mb-2 p-2 hover:cursor-pointer"
             onClick={() => navigate("/")}
           >
-            {"<"} Go back
+            {"←"} Go back
           </h2>
           <hr className="py-2" />
           <h2 className="text-xl font-semibold mb-4">Chat History</h2>
