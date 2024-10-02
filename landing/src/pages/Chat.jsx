@@ -74,7 +74,7 @@ const Chat = () => {
             { sender: "bot", message: error.response.data.botResponse },
           ]);
       } else if(error.response.data.error) {
-       if(error.response.data.error.response.candidates) {
+       if(error.response.data.error.response) {
         setMessages([
             ...messages,
             { sender: "user", message: input },
