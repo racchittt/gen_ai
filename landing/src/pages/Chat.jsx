@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -49,9 +51,10 @@ const Chat = () => {
     setLoading(true); // Start loading
 
     try {
+      console.log(BASE_URL);
       // Send the message to the backend API
       const response = await axios.post(
-        "http://localhost:4000/api/v1/chat/add",
+        BASE_URL,
         {
           userId,
           message: input,
@@ -73,7 +76,7 @@ const Chat = () => {
             { sender: "user", message: input },
             { sender: "bot", message: error.response.data.botResponse },
           ]);
-      } else if(error.response.data.error) {
+      } else if(error.response?.data?.error) {
        if(error.response.data.error.response) {
         setMessages([
             ...messages,
