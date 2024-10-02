@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* Button */}
         <Link
           to='#'
-          className='hidden p-3 px-6 pt-2 text-white  bg-[#0CADB5] rounded-full baseline hover:bg-brightRedLight md:block'
+          className='hidden p-3 px-6 pt-2 text-white  bg-[#0CADB5] rounded-full baseline hover:bg-[#16797e] md:block'
         >
           Get Started
         </Link>

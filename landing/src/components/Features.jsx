@@ -11,7 +11,7 @@ const Features = () => {
             What Makes Our Platform Unique?
           </h2>
           <p className='max-w-sm text-center text-darkGrayishBlue md:text-left'>
-            Our platform is designed to provide personalized mental health support. 
+            Our platform is designed to provide personalized mental health support to generation-z. 
             It's built to connect users with resources, tools, and professionals seamlessly, 
             catering to their emotional and psychological well-being.
           </p>
@@ -63,7 +63,7 @@ const Features = () => {
                 Real-Time Chat Support
               </h3>
               <p className='text-darkGrayishBlue'>
-                Users can chat with our AI-powered mental health assistant or connect with therapists 
+                Users can chat with our AI-powered mental health assistant Pepo :) or connect with therapists 
                 for immediate support. Our chat service is available 24/7 to provide timely help.
               </p>
             </div>
@@ -78,18 +78,17 @@ const Features = () => {
                   03
                 </div>
                 <h3 className='text-base font-bold md:mb-4 md:hidden'>
-                  Mood Tracking & Insights
+                  Meditation and Breathing Practices
                 </h3>
               </div>
             </div>
 
             <div>
               <h3 className='hidden mb-4 text-lg font-bold md:block'>
-                Mood Tracking & Insights
+                Meditation and Breathing Practices
               </h3>
               <p className='text-darkGrayishBlue'>
-                Our mood tracking feature allows users to log their emotions and 
-                receive insights on their mental health trends. This helps users better understand their emotional patterns.
+                With our meditation and breathing features, you can now have someone participating in your mental health journey!
               </p>
             </div>
           </div>
