@@ -1,65 +1,111 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import avatarAnisha from '../assets/images/avatar-anisha.png';
-import avatarAli from '../assets/images/avatar-ali.png';
-import avatarRichard from '../assets/images/avatar-richard.png';
-
-const Testimonial = () => {
+const Tetimonial = () => {
   return (
-    <section id='testimonials'>
-      {/* Container to heading and testm blocks */}
+    <section id='app-screenshots'>
+      {/* Container for heading and screenshots */}
       <div className='max-w-6xl px-5 mx-auto mt-32 text-center'>
         {/* Heading */}
         <h2 className='text-4xl font-bold text-center'>
-          What's Different About Manage?
+          How do we deal with it? in GenZ style 😎
         </h2>
-        {/* Testimonials Container */}
+
+        {/* Screenshot Container */}
         <div className='flex flex-col mt-24 md:flex-row md:space-x-6'>
-          {/* Testimonial 1 */}
+          {/* Screenshot 1 */}
           <div className='flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3'>
-            <img src={avatarAnisha} className='w-16 -mt-14' alt='' />
-            <h5 className='text-lg font-bold'>Anisha Li</h5>
+            <img 
+              src='appSs1.jpeg'
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 1' 
+            />
+            <h5 className='text-lg font-bold'>Kickstart with Calm Vibes ✨</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “Manage has supercharged our team's workflow. The ability to
-              maintain visibility on larger milestones at all times keeps
-              everyone motivated.”
+              When things get too much, we got you covered! Start your journey with our welcoming dashboard and track your daily feels.
             </p>
           </div>
 
-          {/* Testimonial 2 */}
+          {/* Screenshot 2 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
-            <img src={avatarAli} className='w-16 -mt-14' alt='' />
-            <h5 className='text-lg font-bold'>Ali Bravo</h5>
+            <img 
+              src='appSs2.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 2' 
+            />
+            <h5 className='text-lg font-bold'>Mood-o-Meter: Check Yourself 🧠</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “We have been able to cancel so many other subscriptions since
-              using Manage. There is no more cross-channel confusion and
-              everyone is much more focused.”
+              Our mood tracker is on point! It's like journaling but faster. Track your ups and downs, see what sparks joy.
             </p>
           </div>
 
-          {/* Testimonial 3 */}
+          {/* Screenshot 3 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
-            <img src={avatarRichard} className='w-16 -mt-14' alt='' />
-            <h5 className='text-lg font-bold'>Richard Watts</h5>
+            <img 
+              src='appSs3.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 3' 
+            />
+            <h5 className='text-lg font-bold'>Meditate Like a Pro 🧘‍♀️</h5>
             <p className='text-sm text-darkGrayishBlue'>
-              “Manage has supercharged our team's workflow. The ability to
-              maintain visibility on larger milestones at all times keeps
-              everyone motivated.”
+              Need a break? Get into the zone with guided meditations. Whether it’s 2 minutes or 20, we’ve got your mental health routine covered.
             </p>
           </div>
         </div>
+
+        <div className='flex flex-col mt-24 md:flex-row md:space-x-6'>
+          {/* Screenshot 4 */}
+          <div className='flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3'>
+            <img 
+              src='appSs4.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 4' 
+            />
+            <h5 className='text-lg font-bold'>Get Pro Help Anytime 🧑‍⚕️</h5>
+            <p className='text-sm text-darkGrayishBlue'>
+              Talk to real therapists or our therapy bot whenever you're feeling low. It's like texting, but better.
+            </p>
+          </div>
+
+          {/* Screenshot 5 */}
+          <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
+            <img 
+              src='appSs5.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 5' 
+            />
+            <h5 className='text-lg font-bold'>Crush CBT Tests Like a Boss 💪</h5>
+            <p className='text-sm text-darkGrayishBlue'>
+              Mental health is a journey. Take custom Cognitive Behavioral Therapy tests and get insights on how you can improve daily.
+            </p>
+          </div>
+
+          {/* Screenshot 6 */}
+          <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
+            <img 
+              src='appSs6.jpeg' 
+              className='w-[80%] h-auto rounded-xl' 
+              alt='App Screenshot 6' 
+            />
+            <h5 className='text-lg font-bold'>Daily Vibes: Help Cards 💌</h5>
+            <p className='text-sm text-darkGrayishBlue'>
+              Sometimes, all you need is a little boost. Get random help cards tailored to your mood – because we all need reminders to chill.
+            </p>
+          </div>
+        </div>
+
         {/* Button */}
         <div className='my-16'>
-          <Link
-            to='#'
-            className='p-3 px-6 pt-2 text-white  bg-[#0CADB5] rounded-full baseline hover:bg-brightRedLight'
+          <p className='mb-4'>And that’s just the start! Get SOS alerts, journaling tools, communities, and more 🤩</p>
+          <a
+            href='#'
+            className='p-3 px-6 pt-2 text-white bg-[#0CADB5] rounded-full baseline hover:bg-brightRedLight'
           >
-            Get Started
-          </Link>
+            Download Now
+          </a>
         </div>
       </div>
     </section>
   );
 };
 
-export default Testimonial;
+export default Tetimonial;

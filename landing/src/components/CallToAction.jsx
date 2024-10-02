@@ -12,7 +12,7 @@ const CallToAction = () => {
         {/* Button */}
         <div>
           <Link
-            to='/get-started' // Assuming a route like this exists in your app
+            to='/chat' // Assuming a route like this exists in your app
             className='p-3 px-6 pt-2 text-[#0CADB5] bg-white rounded-full shadow-2xl baseline hover:bg-gray-900 hover:text-white'
           >
             Start Your Journey

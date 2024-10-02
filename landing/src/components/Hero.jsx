@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import illustrationIntro from '../assets/images/illustration-intro.svg';
-
 const Hero = () => {
   return (
     <section id='hero'>
@@ -17,7 +15,7 @@ const Hero = () => {
           </p>
           <div className='flex gap-2 justify-center md:justify-start'>
             <Link
-              to='#'
+              to='/chat'
               className='p-3 px-6 text-white bg-[#0CADB5] rounded-full baseline hover:bg-[#00949c]'
             >
               Chat with Pepo !
@@ -26,7 +24,7 @@ const Hero = () => {
               to='#'
               className='p-3 px-6 text-[#0CADB5] border-[#0CADB5] border-2  rounded-full baseline hover:bg-green-100'
             >
-              Get Started
+              Download now
             </Link>
           </div>
         </div>
