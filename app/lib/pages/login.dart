@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gen_ai/components/my_button.dart';
 import 'package:gen_ai/components/my_textfield.dart';
 import 'package:gen_ai/components/square_tile.dart';
+import 'package:gen_ai/pages/dashboard.dart';
 import 'package:gen_ai/pages/type.dart';
 import 'package:gen_ai/services/auth_service.dart';
 
@@ -26,6 +27,13 @@ class _LoginPageState extends State<LoginPage> {
           child: CircularProgressIndicator(),
         );
       },
+    );
+
+    await Future.delayed(const Duration(seconds: 2));
+    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const DashboardPage()),
     );
   }
 
@@ -147,7 +155,14 @@ class _LoginPageState extends State<LoginPage> {
                         print('Button tapped');
                         try {
                           await AuthService().signInWithGoogle();
-                          await loginWithFirebase();
+                          await AuthService().loginWithFirebase();
+                          if (await AuthService().readToken() != null) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const DashboardPage()),
+                            );
+                          }
                         } catch (e) {
                           print("Google Sign In failed: $e");
                         }
