@@ -11,7 +11,7 @@ async function geminiPepo(body) {
                     "Content-Type": "application/json",
                     "Authorization": env.AUTHORIZATION,
                     "x-goog-user-project": env.X_GOOG_USER_PROJECT
-                }
+                },
             }
         );
         
