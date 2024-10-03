@@ -106,6 +106,8 @@ app -> flutter run
 
 ### Team Members 
 
+Final Year Students of Btech Computer Engineering - 
+
 1. Nishant Dixit
 2. Rachit Tandale
 3. Om Bothre
