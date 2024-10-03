@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:genai/pages/dashboard.dart';
 import 'package:genai/services/chat_service.dart';
+import 'package:intl/intl.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -23,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> _fetchMessages() async {
     try {
       final messages = await _chatService.getMessages(
-          '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5', '2024-10-02');
+          '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5', getFormattedDate());
       setState(() {
         _messages = messages;
       });
@@ -31,6 +32,12 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       print('Error fetching messages: $e');
     }
+  }
+
+  String getFormattedDate() {
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(now);
   }
 
   @override
@@ -95,6 +102,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: _messages.length,
                     itemBuilder: (context, index) {
                       final message = _messages[index];
+                      print('THis is messae');
+                      print(message);
                       return MessageBubble(
                         sender: message['sender'] ?? 'Unknown',
                         text: message['message'] ?? '',
@@ -113,8 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         Expanded(
                           child: TextField(
                             controller: _messageController,
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 165, 160, 160)),
+                            style: const TextStyle(color: Colors.black),
                             decoration: kMessageTextFieldDecoration,
                           ),
                         ),
@@ -132,22 +140,17 @@ class _ChatScreenState extends State<ChatScreen> {
                                       DateTime.now().millisecondsSinceEpoch,
                                 });
                               });
-                              await _chatService.sendMessages(_userId, message);
-                              _messageController.clear();
-
-                              // Simulate AI response (replace with actual AI integration)
-                              Future.delayed(Duration(seconds: 1), () {
-                                setState(() {
-                                  _messages.insert(0, {
-                                    'sender': 'AI',
-                                    'userId': 'ai-user-id',
-                                    'message':
-                                        'This is a simulated AI response.',
-                                    'timestamp':
-                                        DateTime.now().millisecondsSinceEpoch,
-                                  });
+                              final response = await _chatService.sendMessages(
+                                  _userId, message);
+                              setState(() {
+                                _messages.insert(0, {
+                                  'sender': 'bot',
+                                  'message': response,
+                                  'timestamp':
+                                      DateTime.now().millisecondsSinceEpoch,
                                 });
                               });
+                              _messageController.clear();
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -173,45 +176,6 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class MessageStream extends StatelessWidget {
-  const MessageStream({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // Dummy message data
-    final messages = [
-      {'text': 'Hello!', 'sender': 'Om'},
-      {'text': 'How are you?', 'sender': 'AI'},
-      {'text': 'I am fine, thank you!', 'sender': 'Om'},
-    ];
-
-    List<MessageBubble> messageWidgets = [];
-    for (var message in messages) {
-      final messageText = message['text'];
-      final messageSender = message['sender'];
-      // Hardcoding currentUser for demonstration
-      final currentUser = 'Om';
-      final messageBubble = MessageBubble(
-        sender: messageSender ?? "Om",
-        text: messageText ?? "Hiii",
-        isMe: currentUser == messageSender,
-      );
-      messageWidgets.add(messageBubble);
-    }
-
-    return Expanded(
-      child: ListView(
-        reverse: true,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10.0,
-          vertical: 20.0,
-        ),
-        children: messageWidgets,
       ),
     );
   }

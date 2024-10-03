@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ChatService {
-  Future<void> sendMessages(String userId, String message) async {
+  Future<String> sendMessages(String userId, String message) async {
     try {
       final url = Uri.parse('http://10.0.2.2:4000/api/v1/chat/add');
       final headers = {'Content-Type': 'application/json'};
@@ -13,11 +13,15 @@ class ChatService {
       final response = await http.post(url, headers: headers, body: body);
       if (response.statusCode == 200) {
         print('Message sent');
+        final responseBody = jsonDecode(response.body);
+        return responseBody['botResponse'];
       } else {
         print('Failed to send message');
+        return "";
       }
     } catch (e) {
       print("Error sending messages: $e");
+      return "";
     }
   }
 
