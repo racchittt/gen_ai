@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -25,7 +26,7 @@ const Chat = () => {
       const id = localStorage.getItem("userId");
       console.log(id);
 
-      if (id && id!=='null') {
+      if (id && id !== "null") {
         setuserId(id);
         console.log("User ID already present");
       } else {
@@ -49,15 +50,13 @@ const Chat = () => {
     setLoading(true); // Start loading
 
     try {
+      console.log(BASE_URL);
       // Send the message to the backend API
-      const response = await axios.post(
-        "http://localhost:4000/api/v1/chat/add",
-        {
-          userId,
-          message: input,
-          platform: "site",
-        }
-      );
+      const response = await axios.post(BASE_URL, {
+        userId,
+        message: input,
+        platform: "site",
+      });
 
       // Add the chatbot's response to the chat
       setMessages([
@@ -69,23 +68,27 @@ const Chat = () => {
       if (error.response && error.response.data.message === "exhausted") {
         setModalOpen(true);
         setMessages([
+          ...messages,
+          { sender: "user", message: input },
+          { sender: "bot", message: error.response.data.botResponse },
+        ]);
+      } else if (error.response?.data?.error) {
+        if (error.response.data.error.response) {
+          setMessages([
             ...messages,
             { sender: "user", message: input },
-            { sender: "bot", message: error.response.data.botResponse },
+            {
+              sender: "bot",
+              message:
+                "I can't respond due to inappropriate talks. Please be respectful and breathe. 😮‍💨",
+            },
           ]);
-      } else if(error.response.data.error) {
-       if(error.response.data.error.response) {
-        setMessages([
-            ...messages,
-            { sender: "user", message: input },
-            { sender: "bot", message: "I can't respond due to inappropriate talks. Please be respectful and breathe. 😮‍💨" },
-          ]);
-       }
+        }
       }
       console.error("Error sending message:", error);
     } finally {
-        setInput("");
-        setLoading(false); // Stop loading
+      setInput("");
+      setLoading(false); // Stop loading
     }
   };
 
@@ -111,7 +114,8 @@ const Chat = () => {
           </ul>
         </div>
         <div className="text-xl text-center bg-[#07848b] p-4 rounded-xl">
-          Get our App!
+          <a href="https://github.com/racchittt/gen_ai">Get our App!</a>
+          
         </div>
       </div>
 
@@ -180,13 +184,23 @@ const Chat = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
-              <div className="flex-grow ml-4">
+            <div className="flex flex-row items-center rounded-xl bg-white">
+              <div className="flex-grow">
                 <div className="relative w-full">
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        if (e.ctrlKey) {
+                          setInput((prev) => prev + "\n");
+                        } else {
+                          e.preventDefault(); 
+                          sendMessage();
+                        }
+                      }
+                    }}
                     className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                     placeholder="Type your message..."
                     disabled={loading}
@@ -227,7 +241,7 @@ const Chat = () => {
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white rounded-lg p-8 max-w-sm mx-auto text-center">
-            <h2 className="text-2xl font-semibold mb-4">Download Our App</h2>
+            <a href="https://github.com/racchittt/gen_ai"><h2 className="text-2xl font-semibold mb-4">Download Our App</h2></a>
             <p className="mb-6">
               To continue chatting, please download our app for the best
               experience.

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/breathe.dart';
-import 'package:gen_ai/pages/community.dart';
-import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/journal.dart';
-import 'package:gen_ai/pages/meditation.dart';
-import 'package:gen_ai/pages/mood.dart';
-import 'package:gen_ai/pages/type.dart';
+import 'package:genai/pages/breathe.dart';
+import 'package:genai/pages/community.dart';
+import 'package:genai/pages/dashboard.dart';
+import 'package:genai/pages/journal.dart';
+import 'package:genai/pages/meditation.dart';
+import 'package:genai/pages/mood.dart';
+import 'package:genai/pages/type.dart';
 
 class StackedCardsPage extends StatefulWidget {
   @override

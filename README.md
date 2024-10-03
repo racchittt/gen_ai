@@ -18,6 +18,12 @@
 <h2>Overview</h2>
 Vayu AI therapist is designed to provide comprehensive mental health support through an accessible and user-friendly platform. It helps individuals address issues like depression, stress, and anxiety by offering a variety of tools and resources. Users can easily navigate the app through a secure authentication system and engage in activities such as journaling, meditation, and breathing exercises. The app also features a community where users can anonymously interact, share experiences, and support one another. Our goal is to create a supportive space where mental well-being can be managed and improved in a personalized and convenient manner.
 
+<h2>Fine Tuned Gemini Model</h2>
+
+![Image](readmeImages/genAi.jpeg)
+
+<br>
+<br>
 <h2>What our project does for the same?</h2>
 
 Our project combines essential mental health resources into one cohesive platform. After users log in, they can select from a range of mental health issues they are dealing with, such as depression or stress, and the app provides personalized tools to address these concerns. Users have access to various features like mood tracking, meditation, journaling, and breathing exercises, which help in self-care and mental health management. 
@@ -99,6 +105,8 @@ app -> flutter run
 <h2>About us</h2>
 
 ### Team Members 
+
+Final Year Students of Btech Computer Engineering - 
 
 1. Nishant Dixit
 2. Rachit Tandale

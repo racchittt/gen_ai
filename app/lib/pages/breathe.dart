@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/lottie_widget.dart';
+import 'package:genai/components/lottie_widget.dart';
 import 'dart:async';
 
-import 'package:gen_ai/pages/dashboard.dart';
+import 'package:genai/pages/dashboard.dart';
 
 class BreathingScreen extends StatefulWidget {
   const BreathingScreen({super.key});

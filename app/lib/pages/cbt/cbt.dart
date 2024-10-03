@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/cbt/cbt_result.dart';
+import 'package:genai/pages/cbt/cbt_result.dart';
 
 class CBTTestPage extends StatefulWidget {
   @override

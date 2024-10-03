@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gen_ai/pages/dashboard.dart';
+import 'package:genai/pages/dashboard.dart';
 
 class MoodScreen extends StatefulWidget {
   @override

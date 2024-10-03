@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/my_button.dart';
-import 'package:gen_ai/components/my_textfield.dart';
-import 'package:gen_ai/components/square_tile.dart';
-import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/type.dart';
-import 'package:gen_ai/services/auth_service.dart';
+import 'package:genai/components/my_button.dart';
+import 'package:genai/components/my_textfield.dart';
+import 'package:genai/components/square_tile.dart';
+import 'package:genai/pages/dashboard.dart';
+import 'package:genai/pages/type.dart';
+import 'package:genai/services/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, this.onTap});
