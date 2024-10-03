@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/bento_grid_widget.dart'; // Adjust the import path accordingly
+import 'package:genai/components/bento_grid_widget.dart'; // Adjust the import path accordingly
 
 class BentoGridPage extends StatelessWidget {
   const BentoGridPage({super.key});

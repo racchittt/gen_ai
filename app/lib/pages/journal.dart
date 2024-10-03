@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/detail_view.dart';
+import 'package:genai/pages/dashboard.dart';
+import 'package:genai/pages/detail_view.dart';
 
 class Journal extends StatefulWidget {
   const Journal({super.key});

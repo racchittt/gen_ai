@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/services/chat_service.dart';
+import 'package:genai/pages/dashboard.dart';
+import 'package:genai/services/chat_service.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});

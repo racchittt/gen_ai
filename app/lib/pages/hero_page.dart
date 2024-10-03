@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gen_ai/pages/login.dart';
-import 'package:gen_ai/themes/colors.dart';
+import 'package:genai/pages/login.dart';
+import 'package:genai/themes/colors.dart';
 
 class HeroPage extends StatefulWidget {
   const HeroPage({super.key});

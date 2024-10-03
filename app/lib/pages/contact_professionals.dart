@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/dashboard.dart';
+import 'package:genai/pages/dashboard.dart';
 
 class ContactProfessionals extends StatelessWidget {
   final Object data = ([

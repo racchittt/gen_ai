@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/horizontal_cards.dart';
-import 'package:gen_ai/pages/blog.dart';
-import 'package:gen_ai/pages/breathe.dart';
-import 'package:gen_ai/pages/cards.dart';
-import 'package:gen_ai/pages/cbt/disclaimer.dart';
-import 'package:gen_ai/pages/chat_screen.dart';
-import 'package:gen_ai/pages/community.dart';
-import 'package:gen_ai/pages/contact_professionals.dart';
-import 'package:gen_ai/pages/journal.dart';
-import 'package:gen_ai/pages/meditation.dart';
-import 'package:gen_ai/pages/mood.dart';
-import 'package:gen_ai/pages/music_player.dart';
-import 'package:gen_ai/pages/sos.dart';
-import 'package:gen_ai/services/auth_service.dart';
+import 'package:genai/components/horizontal_cards.dart';
+import 'package:genai/pages/blog.dart';
+import 'package:genai/pages/breathe.dart';
+import 'package:genai/pages/cards.dart';
+import 'package:genai/pages/cbt/disclaimer.dart';
+import 'package:genai/pages/chat_screen.dart';
+import 'package:genai/pages/community.dart';
+import 'package:genai/pages/contact_professionals.dart';
+import 'package:genai/pages/journal.dart';
+import 'package:genai/pages/meditation.dart';
+import 'package:genai/pages/mood.dart';
+import 'package:genai/pages/music_player.dart';
+import 'package:genai/pages/sos.dart';
+import 'package:genai/services/auth_service.dart';
 import '../util/exercise_tile.dart';
 
 class DashboardPage extends StatefulWidget {

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/cbt/cbt.dart';
+import 'package:genai/pages/cbt/cbt.dart';
 
 class Disclaimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CBT Test Introduction', style: TextStyle(color: Colors.white),),
+        title: Text(
+          'CBT Test Introduction',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.teal[300], // Teal AppBar
       ),
       body: Padding(

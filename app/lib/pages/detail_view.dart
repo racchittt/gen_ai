@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/journal.dart';
+import 'package:genai/pages/journal.dart';
 
 class DetailView extends StatelessWidget {
   final String title;
