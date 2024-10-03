@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
 
 const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -49,9 +51,10 @@ const Chat = () => {
     setLoading(true); // Start loading
 
     try {
+      console.log(BASE_URL);
       // Send the message to the backend API
       const response = await axios.post(
-        "http://localhost:4000/api/v1/chat/add",
+        BASE_URL,
         {
           userId,
           message: input,
@@ -73,8 +76,8 @@ const Chat = () => {
             { sender: "user", message: input },
             { sender: "bot", message: error.response.data.botResponse },
           ]);
-      } else if(error.response.data.error) {
-       if(error.response.data.error.response.candidates) {
+      } else if(error.response?.data?.error) {
+       if(error.response.data.error.response) {
         setMessages([
             ...messages,
             { sender: "user", message: input },
@@ -102,7 +105,7 @@ const Chat = () => {
             className="text-md font-semibold mb-2 p-2 hover:cursor-pointer"
             onClick={() => navigate("/")}
           >
-            {"<"} Go back
+            {"←"} Go back
           </h2>
           <hr className="py-2" />
           <h2 className="text-xl font-semibold mb-4">Chat History</h2>

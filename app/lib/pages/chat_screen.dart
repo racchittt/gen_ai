@@ -1,9 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:gen_ai/pages/dashboard.dart';
+import 'package:gen_ai/services/chat_service.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
   static String id = 'chat_screen';
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final TextEditingController _messageController = TextEditingController();
+  final ChatService _chatService = ChatService();
+  List<dynamic> _messages = [];
+  @override
+  void initState() {
+    super.initState();
+    _fetchMessages();
+  }
+
+  Future<void> _fetchMessages() async {
+    try {
+      final messages = await _chatService.getMessages(
+          '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5', '2024-10-02');
+      setState(() {
+        _messages = messages;
+      });
+      print(messages);
+    } catch (e) {
+      print('Error fetching messages: $e');
+    }
+  }
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
+
+  final String _userId = '901bf4b9-caa5-4376-a0ec-d0d450cfe1e5';
 
   Future<bool> _onWillPop(BuildContext context) async {
     Navigator.pushReplacement(
@@ -22,7 +58,7 @@ class ChatScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Chat'),
-          backgroundColor: Colors.teal[50],
+          backgroundColor: Colors.teal[300],
           actions: [
             IconButton(
               icon: Icon(Icons.more_vert),
@@ -49,7 +85,24 @@ class ChatScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                const MessageStream(),
+                Expanded(
+                  child: ListView.builder(
+                    reverse: true,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 20.0,
+                    ),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      final message = _messages[index];
+                      return MessageBubble(
+                        sender: message['sender'] ?? 'Unknown',
+                        text: message['message'] ?? '',
+                        isMe: message['sender'] != 'bot',
+                      );
+                    },
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(),
                   child: Padding(
@@ -59,6 +112,7 @@ class ChatScreen extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: TextField(
+                            controller: _messageController,
                             style: const TextStyle(
                                 color: Color.fromARGB(255, 165, 160, 160)),
                             decoration: kMessageTextFieldDecoration,
@@ -66,7 +120,36 @@ class ChatScreen extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final message = _messageController.text;
+                            if (message.isNotEmpty) {
+                              setState(() {
+                                _messages.insert(0, {
+                                  'sender': 'User',
+                                  'userId': _userId,
+                                  'message': message,
+                                  'timestamp':
+                                      DateTime.now().millisecondsSinceEpoch,
+                                });
+                              });
+                              await _chatService.sendMessages(_userId, message);
+                              _messageController.clear();
+
+                              // Simulate AI response (replace with actual AI integration)
+                              Future.delayed(Duration(seconds: 1), () {
+                                setState(() {
+                                  _messages.insert(0, {
+                                    'sender': 'AI',
+                                    'userId': 'ai-user-id',
+                                    'message':
+                                        'This is a simulated AI response.',
+                                    'timestamp':
+                                        DateTime.now().millisecondsSinceEpoch,
+                                  });
+                                });
+                              });
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.teal[300],
                             shape: RoundedRectangleBorder(
@@ -135,11 +218,13 @@ class MessageStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  const MessageBubble(
-      {super.key,
-      required this.sender,
-      required this.text,
-      required this.isMe});
+  const MessageBubble({
+    super.key,
+    required this.sender,
+    required this.text,
+    required this.isMe,
+  });
+
   final String sender, text;
   final bool isMe;
 
@@ -163,11 +248,13 @@ class MessageBubble extends StatelessWidget {
                 ? const BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0))
+                    bottomRight: Radius.circular(30.0),
+                  )
                 : const BorderRadius.only(
                     topRight: Radius.circular(30.0),
                     bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0)),
+                    bottomRight: Radius.circular(30.0),
+                  ),
             elevation: 5.0,
             shadowColor: Colors.black45,
             color: isMe ? Colors.teal[200] : Colors.white,
