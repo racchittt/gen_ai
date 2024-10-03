@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "1061760502961",
+    "project_id": "genai-beab8",
+    "storage_bucket": "genai-beab8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061760502961:android:af1d99a8e378d55caea690",
+        "android_client_info": {
+          "package_name": "com.example.genai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061760502961-jp93ugk3k10nhvetucpu6kfih1j25h52.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.genai",
+            "certificate_hash": "d0d81895b4b827df77e3c975548471a0bd36497f"
+          }
+        },
+        {
+          "client_id": "1061760502961-nfdpjqi9rvgekme04a2g7vcq4stden7p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.genai",
+            "certificate_hash": "2645500a2a69d408206b2ebb605e1dc24413e451"
+          }
+        },
+        {
+          "client_id": "1061760502961-1dtkako02d2v6j3b53iookdk9336nsca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXGHPTeEgVHZZtkrs4ALQATfXvClWC8dE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061760502961-1dtkako02d2v6j3b53iookdk9336nsca.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1061760502961-l0lnqo2jbdi9vnq6jopq8dcv2f0jbrll.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.genAi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

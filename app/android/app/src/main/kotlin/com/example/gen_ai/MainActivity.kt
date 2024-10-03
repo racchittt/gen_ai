@@ -1,4 +1,4 @@
-package com.example.gen_ai
+package com.example.genai
 
 import io.flutter.embedding.android.FlutterActivity
 
