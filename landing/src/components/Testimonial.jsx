@@ -10,9 +10,7 @@ const Tetimonial = () => {
           How do we deal with it? in GenZ style 😎
         </h2>
 
-        {/* Screenshot Container */}
         <div className='flex flex-col mt-24 md:flex-row md:space-x-6'>
-          {/* Screenshot 1 */}
           <div className='flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3'>
             <img 
               src='appSs1.jpeg'
@@ -25,7 +23,6 @@ const Tetimonial = () => {
             </p>
           </div>
 
-          {/* Screenshot 2 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
             <img 
               src='appSs2.jpeg' 
@@ -41,7 +38,7 @@ const Tetimonial = () => {
           {/* Screenshot 3 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
             <img 
-              src='appSs3.jpeg' 
+              src='appsS3.jpeg' 
               className='w-[80%] h-auto rounded-xl' 
               alt='App Screenshot 3' 
             />
@@ -56,7 +53,7 @@ const Tetimonial = () => {
           {/* Screenshot 4 */}
           <div className='flex flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:w-1/3'>
             <img 
-              src='appSs4.jpeg' 
+              src='appsS4.jpeg' 
               className='w-[80%] h-auto rounded-xl' 
               alt='App Screenshot 4' 
             />
@@ -69,7 +66,7 @@ const Tetimonial = () => {
           {/* Screenshot 5 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
             <img 
-              src='appSs5.jpeg' 
+              src='appsS5.jpeg' 
               className='w-[80%] h-auto rounded-xl' 
               alt='App Screenshot 5' 
             />
@@ -82,7 +79,7 @@ const Tetimonial = () => {
           {/* Screenshot 6 */}
           <div className='hidden flex-col items-center p-6 space-y-6 rounded-lg bg-veryLightGray md:flex md:w-1/3'>
             <img 
-              src='appSs6.jpeg' 
+              src='appsS6.jpeg' 
               className='w-[80%] h-auto rounded-xl' 
               alt='App Screenshot 6' 
             />

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/pages/dashboard.dart';
-import 'package:gen_ai/pages/song_player.dart';
+import 'package:genai/pages/dashboard.dart';
+import 'package:genai/pages/song_player.dart';
 import 'dart:math';
 
 class MusicPlayerPage extends StatefulWidget {

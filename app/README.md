@@ -1,4 +1,4 @@
-# gen_ai
+# genai
 
 A new Flutter project.
 

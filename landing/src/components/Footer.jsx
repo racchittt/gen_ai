@@ -13,7 +13,7 @@ const Footer = () => {
           {/* Logo */}
           <div>
             <img src='otter.gif' className='h-8' alt='Company Logo' />
-            <p className='text-xl font-bold'>Vayu <span className='text-[#16a1a8]'>2024</span></p>
+            <p className='text-xl font-bold'>Vayu </p>
           </div>
           {/* Social Links Container */}
         </div>
@@ -52,7 +52,7 @@ const Footer = () => {
             <div className='flex space-x-3'>
               <input
                 type='email' // Change input type to email for better user experience
-                className='flex-1 px-4 rounded-full focus:outline-none'
+                className='flex-1 px-4 rounded-full focus:outline-none w-full'
                 placeholder='Subscribe for updates in your inbox'
               />
               <button className='px-6 py-2 text-white rounded-full bg-[#16a1a8] hover:bg-[#11757b] focus:outline-none'>

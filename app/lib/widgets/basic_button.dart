@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/themes/colors.dart';
+import 'package:genai/themes/colors.dart';
 
 class BasicButton extends StatelessWidget {
   const BasicButton(this.text, this.onPressed, {super.key});

@@ -22,7 +22,7 @@ if (!admin.apps.length) {
           "universe_domain": "googleapis.com"
         }
         ),
-        databaseURL: 'https://<your-project-id>.firebaseio.com' // Replace with your database URL
+        databaseURL: 'https://genai-beab8.firebaseio.com'
     });
 }
 

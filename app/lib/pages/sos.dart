@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gen_ai/components/custom_sos_container.dart';
-import 'package:gen_ai/pages/dashboard.dart';
+import 'package:genai/components/custom_sos_container.dart';
+import 'package:genai/pages/dashboard.dart';
 
 class SosScreen extends StatelessWidget {
   Future<bool> _onWillPop(BuildContext context) async {

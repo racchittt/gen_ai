@@ -21,7 +21,7 @@ const Hero = () => {
               Chat with Pepo !
             </Link>
             <Link
-              to='#'
+              to='https://github.com/racchittt/gen_ai'
               className='p-3 px-6 text-[#0CADB5] border-[#0CADB5] border-2  rounded-full baseline hover:bg-green-100'
             >
               Download now

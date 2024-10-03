@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:gen_ai/components/lottie_widget.dart';
+import 'package:genai/components/lottie_widget.dart';
 import 'package:flutter/animation.dart';
-import 'package:gen_ai/pages/dashboard.dart';
+import 'package:genai/pages/dashboard.dart';
 
 class MeditationScreen extends StatefulWidget {
   const MeditationScreen({super.key});
