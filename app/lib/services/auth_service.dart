@@ -51,7 +51,7 @@ class AuthService {
     String? token = await getToken();
     var response = await http.post(
       Uri.parse(
-          'http://https://gen-ai-g6tt.onrender.com:4000/api/v1/users/firebaseUser'),
+          'http://https://gen-ai-g6tt.onrender.com/api/v1/users/firebaseUser'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'token': token,
