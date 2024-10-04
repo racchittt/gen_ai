@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 class ChatService {
   Future<String> sendMessages(String userId, String message) async {
     try {
-      final url = Uri.parse('http://10.0.2.2:4000/api/v1/chat/add');
+      final url = Uri.parse(
+          'http://https://gen-ai-g6tt.onrender.com:4000/api/v1/chat/add');
       final headers = {'Content-Type': 'application/json'};
       final body = jsonEncode({
         'userId': userId,
@@ -27,8 +28,8 @@ class ChatService {
 
   Future<List<dynamic>> getMessages(String userId, String date) async {
     try {
-      final url =
-          Uri.parse('http://10.0.2.2:4000/api/v1/chat/get/$userId/$date');
+      final url = Uri.parse(
+          'http://https://gen-ai-g6tt.onrender.com:4000/api/v1/chat/get/$userId/$date');
       final response = await http.get(url);
       if (response.statusCode == 200) {
         final messages = jsonDecode(response.body);
