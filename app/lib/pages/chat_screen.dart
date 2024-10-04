@@ -107,7 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       return MessageBubble(
                         sender: message['sender'] ?? 'Unknown',
                         text: message['message'] ?? '',
-                        isMe: message['sender'] != 'bot',
+                        isMe: message['sender'] != 'Pepo',
                       );
                     },
                   ),
@@ -144,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   _userId, message);
                               setState(() {
                                 _messages.insert(0, {
-                                  'sender': 'bot',
+                                  'sender': 'Pepo',
                                   'message': response,
                                   'timestamp':
                                       DateTime.now().millisecondsSinceEpoch,
