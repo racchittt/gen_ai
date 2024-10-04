@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 class CommunityService {
   Future<void> createCommunityMessage(String userId, String message) async {
     try {
-      final url = Uri.parse(
-          'http://https://gen-ai-g6tt.onrender.com/api/v1/community/create');
+      final url =
+          Uri.parse('https://gen-ai-g6tt.onrender.com/api/v1/community/create');
       final headers = {'Content-Type': 'application/json'};
       final body = jsonEncode({
         'userId': userId,
@@ -25,7 +25,7 @@ class CommunityService {
   Future<void> addComment(String userId, String comment) async {
     try {
       final url = Uri.parse(
-          'http://https://gen-ai-g6tt.onrender.com/api/v1/community/addComment/$userId');
+          'https://gen-ai-g6tt.onrender.com/api/v1/community/addComment/$userId');
       final headers = {'Content-Type': 'application/json'};
       final body = jsonEncode({
         'userId': userId,
@@ -44,8 +44,8 @@ class CommunityService {
 
   Future<List<dynamic>> getCommunityMessages() async {
     try {
-      final url = Uri.parse(
-          'http://https://gen-ai-g6tt.onrender.com/api/v1/community/get');
+      final url =
+          Uri.parse('https://gen-ai-g6tt.onrender.com/api/v1/community/get');
       final headers = {'Content-Type': 'application/json'};
       final response = await http.get(url, headers: headers);
       final messages = jsonDecode(response.body);
@@ -65,7 +65,7 @@ class CommunityService {
   Future<List<dynamic>> getCommunityMessagesById(String userId) async {
     try {
       final url = Uri.parse(
-          'http://https://gen-ai-g6tt.onrender.com/api/v1/community/get/$userId');
+          'https://gen-ai-g6tt.onrender.com/api/v1/community/get/$userId');
       final headers = {'Content-Type': 'application/json'};
       final response = await http.get(url, headers: headers);
       final messages = jsonDecode(response.body);
