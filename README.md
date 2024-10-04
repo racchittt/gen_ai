@@ -45,8 +45,12 @@ The app also offers a Cognitive Behavioral Therapy (CBT) test to assist users in
 ![Image](readmeImages/architecture.png)
 
 <br>
-Vayu Video : 
-
+<h2>Pepo in your Pocket 🦦</h2> 
+<br/>
+<video autoplay loop muted>
+  <source src="readmeImages/Pepoo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 <h2>Key features</h2>
 
