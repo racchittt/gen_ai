@@ -8,9 +8,9 @@ class Disclaimer extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'CBT Test Introduction',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.teal[900]),
         ),
-        backgroundColor: Colors.teal[300], // Teal AppBar
+        backgroundColor: Colors.teal[100], // Teal AppBar
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -45,29 +45,50 @@ class Disclaimer extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40),
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal, // Teal background for button
-                  foregroundColor: Colors.white, // White text color
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(12), // Modern rounded corners
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Colors.teal[50], // Teal background for button
+                      foregroundColor: Colors.white, // White text color
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(15), // Modern rounded corners
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CBTTestPage()),
+                      );
+                    },
+                    child: Text(
+                      'Start Test',
+                      style: TextStyle(
+                          color: Colors.teal[900],
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CBTTestPage()),
-                  );
-                },
-                child: Text(
-                  'Start Test',
-                  style: TextStyle(fontSize: 18),
-                ),
               ),
-            ),
+            )
           ],
         ),
       ),
