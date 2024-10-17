@@ -7,7 +7,7 @@ async function geminiResponse(body) {
             {
                 "parts": [
                     {
-                        "text": body
+                        "text": body + env.GEMINI_PROMPT
                     }
                 ]
             }
@@ -33,13 +33,22 @@ async function geminiResponse(body) {
 
     try {
         const response = await axios.request(config);
-        let text = response.data.candidates[0].content.parts[0].text
-        if (text.startsWith("bot:")) {
-            text = text.substring(4);
-        }
-        console.log(JSON.stringify(response.data));
+        const candidates = response.data?.candidates;
 
-        return text;
+        if (candidates && candidates.length > 0) {
+            const content = candidates[0]?.content;
+            const parts = content?.parts;
+
+            if (parts && parts.length > 0) {
+                let text = parts[0]?.text;
+                if (text.startsWith("bot:")) {
+                    text = text.substring(4);
+                }
+                return text;
+            }
+        }
+
+        throw new Error("Invalid response format");
     } catch (error) {
         console.log(error);
         throw error;
