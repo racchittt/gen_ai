@@ -151,7 +151,7 @@ class CBTResultPage extends StatelessWidget {
             SizedBox(height: 20),
             Text(
               "Important Note: These results are for informational purposes only and are not a diagnostic tool. Please consult a healthcare professional for a proper diagnosis.",
-              style: TextStyle(fontSize: 14, color: Colors.red[400]),
+              style: TextStyle(fontSize: 14, color: Colors.red[800]),
             ),
           ],
         ),

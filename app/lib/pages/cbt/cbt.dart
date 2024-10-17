@@ -74,18 +74,37 @@ class _CBTTestPageState extends State<CBTTestPage> {
           question,
           style: TextStyle(fontSize: 18),
         ),
-        Slider(
-          value: answerMap[question]!.toDouble(),
-          min: 0,
-          max: maxScale.toDouble(),
-          divisions: maxScale,
-          label: answerMap[question]!.toString(),
-          activeColor: Colors.teal,
-          onChanged: (value) {
-            setState(() {
-              answerMap[question] = value.toInt();
-            });
-          },
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+          child: SliderTheme(
+            data: SliderThemeData(
+              activeTrackColor: Colors.orange,
+              inactiveTrackColor: Colors.grey[300],
+              trackHeight: 15.0,
+              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+              thumbColor: Colors.teal[900],
+              overlayColor: Colors.white,
+              overlayShape: RoundSliderOverlayShape(overlayRadius: 5.0),
+              valueIndicatorColor: Colors.white,
+              trackShape: RoundedRectSliderTrackShape(),
+              activeTickMarkColor: Colors.white,
+              inactiveTickMarkColor: Colors.grey[300],
+              tickMarkShape: RoundSliderTickMarkShape(),
+            ),
+            child: Slider(
+              value: answerMap[question]!.toDouble(),
+              min: 0,
+              max: maxScale.toDouble(),
+              divisions: maxScale,
+              label: answerMap[question]!.toString(),
+              activeColor: Colors.teal,
+              onChanged: (value) {
+                setState(() {
+                  answerMap[question] = value.toInt();
+                });
+              },
+            ),
+          ),
         ),
         Divider(),
       ],
@@ -97,62 +116,69 @@ class _CBTTestPageState extends State<CBTTestPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CBT Test'),
-        backgroundColor: Colors.teal[300],
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.teal[100],
+        foregroundColor: Colors.teal[900],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: <Widget>[
-              ...phqQuestions
-                  .map((q) => _buildQuestion(q, _phqAnswers, 'PHQ', 3))
-                  .toList(),
-              ...gadQuestions
-                  .map((q) => _buildQuestion(q, _gadAnswers, 'GAD', 3))
-                  .toList(),
-              ...phobiaQuestions
-                  .map((q) => _buildQuestion(q, _phobiaAnswers, 'Phobia', 8))
-                  .toList(),
-              ...workSocialQuestions
-                  .map((q) =>
-                      _buildQuestion(q, _workSocialAnswers, 'WorkSocial', 8))
-                  .toList(),
-              SizedBox(height: 20),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal[300],
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: <Widget>[
+                ...phqQuestions
+                    .map((q) => _buildQuestion(q, _phqAnswers, 'PHQ', 3))
+                    .toList(),
+                ...gadQuestions
+                    .map((q) => _buildQuestion(q, _gadAnswers, 'GAD', 3))
+                    .toList(),
+                ...phobiaQuestions
+                    .map((q) => _buildQuestion(q, _phobiaAnswers, 'Phobia', 8))
+                    .toList(),
+                ...workSocialQuestions
+                    .map((q) =>
+                        _buildQuestion(q, _workSocialAnswers, 'WorkSocial', 8))
+                    .toList(),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal[200],
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
 
-                    // Calculate total scores
-                    int phqTotal = _phqAnswers.values.reduce((a, b) => a + b);
-                    int gadTotal = _gadAnswers.values.reduce((a, b) => a + b);
-                    List<int> phobiaScores = _phobiaAnswers.values.toList();
-                    int workSocialTotal =
-                        _workSocialAnswers.values.reduce((a, b) => a + b);
+                      // Calculate total scores
+                      int phqTotal = _phqAnswers.values.reduce((a, b) => a + b);
+                      int gadTotal = _gadAnswers.values.reduce((a, b) => a + b);
+                      List<int> phobiaScores = _phobiaAnswers.values.toList();
+                      int workSocialTotal =
+                          _workSocialAnswers.values.reduce((a, b) => a + b);
 
-                    // Navigate to the results page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CBTResultPage(
-                          phqTotal: phqTotal,
-                          gadTotal: gadTotal,
-                          phobiaScores: phobiaScores,
-                          workSocialTotal: workSocialTotal,
+                      // Navigate to the results page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CBTResultPage(
+                            phqTotal: phqTotal,
+                            gadTotal: gadTotal,
+                            phobiaScores: phobiaScores,
+                            workSocialTotal: workSocialTotal,
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                },
-                child: Text('Submit'),
-              ),
-            ],
+                      );
+                    }
+                  },
+                  child: Text('Submit',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
       ),
