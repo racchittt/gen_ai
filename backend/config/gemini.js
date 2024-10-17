@@ -3,6 +3,11 @@ const axios = require('axios');
 
 async function geminiResponse(body) {
     let data = JSON.stringify({
+        "safetySettings": [
+            { "category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_NONE" },
+            { "category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_NONE" },
+            { "category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_NONE" }
+        ],
         "contents": [
             {
                 "parts": [
