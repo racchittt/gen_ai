@@ -50,7 +50,7 @@ class AuthService {
   Future<void> loginWithFirebase() async {
     String? token = await getToken();
     var response = await http.post(
-      Uri.parse('http://10.0.2.2:4000/api/v1/users/firebaseUser'),
+      Uri.parse('https://gen-ai-g6tt.onrender.com/api/v1/users/firebaseUser'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'token': token,
