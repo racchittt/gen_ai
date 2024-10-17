@@ -1,6 +1,8 @@
 const axios = require("axios");
 const env = process.env;
 
+// DEPRECATED
+
 async function geminiPepo(body) {
     try {
         const response = await axios.post(

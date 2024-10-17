@@ -1,14 +1,14 @@
 const ChatHandler = require('./chat.handler');
 const { geminiResponse } = require('../../config/gemini')
 const formatChatHistoryForBot = require('./chat.utils')
-const { geminiPepo } = require('../../config/geminiPepo');
 
 // Utility function to format the date as YYYY-MM-DD
 function getFormattedDate() {
     return new Date().toISOString().split('T')[0];
 }
 
-// POST request to send a message (User -> Bot)
+// POST request to send a message (User -> Bot) 
+// This is for the website
 async function sendMessages(req, res, next) {
     try {
         const { userId, message } = req.body;
@@ -75,6 +75,7 @@ async function getMessages(req, res, next) {
     }
 }
 
+// This is for the app
 async function sendMessagesToPepo(req, res, next) {
     try {
         const { userId, message } = req.body;
@@ -121,7 +122,7 @@ async function sendMessagesToPepo(req, res, next) {
         
 
         // Call geminiPepo to get the bot response
-        const botResponse = await geminiPepo(body);
+        const botResponse = await geminiResponse(body);
 
         const botMessageData = {
             userId,
