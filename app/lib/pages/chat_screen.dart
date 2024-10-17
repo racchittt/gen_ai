@@ -35,7 +35,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   String getFormattedDate() {
-    final DateTime now = DateTime.now();
+    final DateTime now = DateTime.now()
+        .subtract(Duration(hours: 10, minutes: 30)); // nam5(Oklahoma) time
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(now);
   }
@@ -66,14 +67,6 @@ class _ChatScreenState extends State<ChatScreen> {
         appBar: AppBar(
           title: const Text('Chat'),
           backgroundColor: Colors.teal[300],
-          actions: [
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: () {
-                // Placeholder for more options
-              },
-            ),
-          ],
         ),
         backgroundColor: Colors.teal[50],
         body: Container(
@@ -94,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
               children: <Widget>[
                 Expanded(
                   child: ListView.builder(
-                    reverse: true,
+                    reverse: false,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10.0,
                       vertical: 20.0,
@@ -130,9 +123,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         ElevatedButton(
                           onPressed: () async {
                             final message = _messageController.text;
+                            _messageController.clear();
                             if (message.isNotEmpty) {
                               setState(() {
-                                _messages.insert(0, {
+                                _messages.insert(_messages.length, {
                                   'sender': 'User',
                                   'userId': _userId,
                                   'message': message,
@@ -143,14 +137,13 @@ class _ChatScreenState extends State<ChatScreen> {
                               final response = await _chatService.sendMessages(
                                   _userId, message);
                               setState(() {
-                                _messages.insert(0, {
+                                _messages.insert(_messages.length, {
                                   'sender': 'Pepo',
                                   'message': response,
                                   'timestamp':
                                       DateTime.now().millisecondsSinceEpoch,
                                 });
                               });
-                              _messageController.clear();
                             }
                           },
                           style: ElevatedButton.styleFrom(
