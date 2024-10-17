@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:genai/components/lottie_widget.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 import 'dart:async';
 
 import 'package:genai/pages/dashboard.dart';
@@ -16,6 +18,22 @@ class _BreathingScreenState extends State<BreathingScreen> {
   Timer? _timer;
   double _sliderValue = 0.0;
   final double _maxSliderValue = 1500.0;
+  late AudioPlayer _audioPlayer;
+  final String _audioPath =
+      'https://res.cloudinary.com/dksnirztn/video/upload/v1729189988/mixkit-morning-birds-2472_1_ondanv.wav';
+
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer = AudioPlayer();
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    _timer?.cancel();
+    super.dispose();
+  }
 
   void _startTimer() {
     if (isStarted) return;
@@ -24,13 +42,15 @@ class _BreathingScreenState extends State<BreathingScreen> {
       isStarted = true;
     });
 
+    _audioPlayer.setReleaseMode(ReleaseMode.loop); // Loop the audio
+    _audioPlayer.play(UrlSource(_audioPath)); // Play the audio
+
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         if (_sliderValue < _maxSliderValue) {
           _sliderValue += 1.0;
         } else {
-          _timer?.cancel();
-          isStarted = false;
+          _stopTimer();
         }
       });
     });
@@ -38,6 +58,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
 
   void _stopTimer() {
     _timer?.cancel();
+    _audioPlayer.stop(); // Stop the audio
     setState(() {
       isStarted = false;
     });

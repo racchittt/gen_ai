@@ -96,7 +96,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            'Hello Bablu!',
+                                            'Hello Rachit!',
                                             style: TextStyle(
                                               color: Colors.teal[600],
                                               fontSize: 24,
